@@ -1,15 +1,15 @@
 module.exports = {
   pathPrefix: "/TIL",
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `Today I Learned`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `오현교`,
+      summary: `오늘 배운것.`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
+    description: ``,
     siteUrl: `https://ohyunkyo.github.io/TIL/`,
     social: {
-      twitter: `kylemathews`,
+      twitter: ``,
     },
   },
   plugins: [
