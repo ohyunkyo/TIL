@@ -1,5 +1,5 @@
 {
     "componentChunkName": "component---src-pages-index-js",
     "path": "/",
-    "result": {"data":{"site":{"siteMetadata":{"title":"Today I Learned"}},"allMarkdownRemark":{"nodes":[{"excerpt":"0. 서론 월별 재고 확인을 위해 각 상품의 재고를 가져와 월별로 출력하는 기능이 필요했다. 이 월별 재고를 다른곳에서도 확인 가능할 수 있도록 drf 를 사용해 RESTful API 로 데이터를 제공하기로 결정했다. 1. REST API…","fields":{"slug":"/django/request-to-internal-drf-api/"},"frontmatter":{"date":"March 14, 2022","title":"프로젝트 내부의 API를 호출하면 안되는 이유","description":null}}]}},"pageContext":{}},
+    "result": {"data":{"site":{"siteMetadata":{"title":"Today I Learned"}},"allMarkdownRemark":{"nodes":[{"excerpt":"0. 서론 월별 재고 확인을 위해 각 상품의 재고를 가져와 월별로 출력하는 기능이 필요했다. 이 월별 재고를 다른곳에서도 확인 가능할 수 있도록 drf 를 사용해 RESTful API 로 데이터를 제공하기로 결정했다. 1. REST API…","fields":{"slug":"/django/request-to-internal-drf-api/"},"frontmatter":{"date":"March 14, 2022","title":"프로젝트 내부의 API를 호출하면 안되는 이유","description":null}},{"excerpt":"0. 서론 장고를 공부하면서도 파이썬에 대해 너무 모르는게 많았다. 객체지향의 개념중 대충 감으로만 알고 넘기던 것들의 정의에 대해서 정리해봤다. 클래스(Class…","fields":{"slug":"/OOP/OOP-essential/"},"frontmatter":{"date":"March 14, 2022","title":"객체지향 개념 기초","description":null}}]}},"pageContext":{}},
     "staticQueryHashes": ["2841359383","3257411868"]}
