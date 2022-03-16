@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-blog-post-js",
+    "path": "/django-rest-framework/serializer/",
+    "result": {"data":{"site":{"siteMetadata":{"title":"Today I Learned"}},"markdownRemark":{"id":"51457869-f7cf-5525-aeff-056358def0f5","excerpt":"역할 DRF 에서 데이터를 JSON 형태로 직렬화(Serialize) 한다. 데이터를 JSON 으로 바꿔준다고 생각하면 된다. 특징 Django 의 Form 과 같은 역할을 한다. Form 은 데이터를 HTML 형태로 변환 하지만 Serialize 는 JSON 문자열로 변환 해준다.","html":"<h2>역할</h2>\n<p>DRF 에서 데이터를 JSON 형태로 직렬화(Serialize) 한다.<br>\n데이터를 JSON 으로 바꿔준다고 생각하면 된다.</p>\n<h2>특징</h2>\n<p>Django 의 Form 과 같은 역할을 한다.<br>\nForm 은 데이터를 HTML 형태로 변환 하지만 Serialize 는 JSON 문자열로 변환 해준다.</p>","frontmatter":{"title":"Serializer 에 대하여","date":"March 16, 2022","description":null}},"previous":{"fields":{"slug":"/django-rest-framework/django-to-drf/"},"frontmatter":{"title":"장고에서 drf 로 마이그레이션 시도"}},"next":null},"pageContext":{"id":"51457869-f7cf-5525-aeff-056358def0f5","previousPostId":"3f7095cb-470c-5499-90f7-3fa025e3949e","nextPostId":null}},
+    "staticQueryHashes": ["2841359383","3257411868"]}
