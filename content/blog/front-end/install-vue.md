@@ -14,8 +14,9 @@ vue create project_name
 ```
 
 ## 2. 실행
-서버를 실행시킨다.
+서버를 실행시킨다. 실행 전 의존성 모듈들을 설치한다.
 ```shell
+npm install
 npm run serve
 ```
 > 내부망 IP 로도 접근 가능하도록 설정된다. django 에서 `runserver` 를 실행했을땐 안되던것이다.
