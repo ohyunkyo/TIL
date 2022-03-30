@@ -38,13 +38,20 @@ class ProductHistorySerializer(serializers.ModelSerializer):
 [출처1](https://www.django-rest-framework.org/api-guide/fields/#serializermethodfield)
 [출처2](https://ssungkang.tistory.com/entry/Django-Serializer-Custom-Field-SerializerMethodField)
 
-## serializer 사용하여 가공된 데이터 저장하기
+## 가공된 데이터를 포함하는 DB Row 생성
 form 에서 받은 데이터 그대로 저장하는것이 아닌 추가적인 데이터 가공이 필요한 경우 해당 데이터를 serializer 에 담아 같이 저장하도록 할 수 있다.
 ```
 # views.py
 
-class ViewSet(ModelViewSet):
-    def update(self, request, *args, **kwargs):
+class MyViewSet(ModelViewSet):
+    queryset = ProductHistory.objects.all().order_by('-created_at')
+    serializer_class = ProductHistorySerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ProductHistoryFilter
+    
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+    
         if serializer.is_valid():
             ...
             데이터 가공
@@ -64,3 +71,15 @@ class ViewSet(ModelViewSet):
 ```
 
 [출처](https://show-me-the-money.tistory.com/entry/Django-Rest-Framework-Serializer%EC%97%90-Model-Instance%EB%A5%BC-%EC%9D%B8%EC%9E%90%EA%B0%92%EC%9C%BC%EB%A1%9C-%EB%B3%B4%EB%82%B4%EA%B8%B0)
+
+## DB 업데이트 하기
+기존 `create()` 에서 사용하던 소스에 serializer 를 생성할 때 모델 인스턴스를 추가 하기만 하면 된다
+
+```python
+        ...
+        model_instance = self.queryset.get(pk=kwargs.get('pk'))
+        serializer = self.get_serializer(model_instance, data=request.data)
+        ...
+```
+
+[출처](https://stackoverflow.com/questions/37021954/django-update-viewset)
