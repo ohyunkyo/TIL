@@ -15,7 +15,7 @@ Form 은 데이터를 HTML 형태로 변환 하지만 Serialize 는 JSON 문자�
 ## serializer custom field
 drf 를 사용한 API 서버에서 데이터를 조회할 때 기본적으로는 model 에 포함된 데이터만 조회가 가능하다.  
 그런데 조회시에 model 에 포함되지 않은 커스텀 데이터를 보고싶다면 어떻게 해야할까??  
-Serializer fields 중 SerializerMethodField 를 사용하면 된다.  
+Serializer fields 중 `SerializerMethodField` 를 사용하면 된다.  
 
 다음예제 처럼 사용하면 되는데, `fields` 옵션이 `'__all__'` 일 경우 자동으로 포함된다.
 ```python
@@ -56,9 +56,11 @@ class ViewSet(ModelViewSet):
                 'expiry_at': new_expiry,
                 'admin': admin
             }
-            serializer.save(ProductHistorySerializer, **instance_data)
+            serializer.save(**instance_data)
             
             return Response(serializer.data, HttpStatus.HTTP_200_OK)
         else:
             return Response('fail')
 ```
+
+[출처](https://show-me-the-money.tistory.com/entry/Django-Rest-Framework-Serializer%EC%97%90-Model-Instance%EB%A5%BC-%EC%9D%B8%EC%9E%90%EA%B0%92%EC%9C%BC%EB%A1%9C-%EB%B3%B4%EB%82%B4%EA%B8%B0)
