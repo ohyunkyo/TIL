@@ -1,4 +1,582 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Gatsby Starter Blog RSS Feed]]></title><description><![CDATA[Gatsby Starter Blog RSS Feed]]></description><link>https://ohyunkyo.github.io/TIL</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 18 Mar 2022 09:21:43 GMT</lastBuildDate><item><title><![CDATA[내가 사용하는 pycharm]]></title><description><![CDATA[Run Django Server pycharm 에서 run configurations 을 통해 테스트 서버를 실행하는 방법 정리 프로젝트 파이썬 인터프리터 설정 PyCharm - Preferences - Project: {project_name…]]></description><link>https://ohyunkyo.github.io/TIL/IDE/the-pycharm-i-know/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/IDE/the-pycharm-i-know/</guid><pubDate>Fri, 18 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Run Django Server&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Gatsby Starter Blog RSS Feed]]></title><description><![CDATA[Gatsby Starter Blog RSS Feed]]></description><link>https://ohyunkyo.github.io/TIL</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 01 Apr 2022 03:34:02 GMT</lastBuildDate><item><title><![CDATA[모달에 데이터 전달하기]]></title><description><![CDATA[0. 서론 frontend 와 backend 를 분리하기 이전, django…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/pass-data-to-modal/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/pass-data-to-modal/</guid><pubDate>Thu, 31 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;frontend 와 backend 를 분리하기 이전, django 템플릿으로 리스트 페이지를 만들고 각각의 객체에 수정과 삭제 버튼을 추가한 모델이 있었다.&lt;br&gt;
+수정 버튼은 수정페이지로 이동하고 삭제 버튼은 안내메시지를 포함한 모달을 띄운다.&lt;br&gt;
+이때 각 안내메시지가 해당 객체에 대한 내용을 포함하도록 하고 싶었기 때문에 객체마다 개별적인 모달을 가지고 있었고
+매우 비효율적이라는 생각이 들어 나중에 분리할 방법을 찾아 수정할 예정이였다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;html&quot;&gt;&lt;pre class=&quot;language-html&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;# inventory_process_list.html
+
+{% if inventory_process_list %}
+    {% for inventory_process in inventory_process_list %}
+        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;tr&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+            &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;td&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;{{ inventory_process.name }}&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;td&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+            &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;td&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;{% effect_check inventory_process.effect %}&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;td&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+            &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;td&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;center&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;a&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;{% url &lt;span class=&quot;token punctuation&quot;&gt;&apos;&lt;/span&gt;inventory:inventory_process_update&lt;span class=&quot;token punctuation&quot;&gt;&apos;&lt;/span&gt; inventory_process.id %}&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;btn btn-update&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;수정&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;a&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;td&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+            &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;td&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;center&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;a&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;#modal-inventory-process-delete-{{ inventory_process.id }}&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;btn btn-delete modal-trigger&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;삭제&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;a&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;td&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;tr&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;&amp;lt;!-- Modal Structure --&gt;&lt;/span&gt;
+        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;modal-inventory-process-delete-{{ inventory_process.id }}&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;modal&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+            &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;form&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;delete-form-{{ inventory_process.id }}&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;post&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;action&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;{% url &lt;span class=&quot;token punctuation&quot;&gt;&apos;&lt;/span&gt;inventory:inventory_process_delete&lt;span class=&quot;token punctuation&quot;&gt;&apos;&lt;/span&gt; inventory_process.id %}&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                {% csrf_token %}
+                &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;modal-content&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;h4&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;red-text accent-4&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;재고처리 방법을 삭제합니다&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;h4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&quot;예&quot; 를 누르면 다음 항목이 삭제됩니다.&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;br&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                        재고처리명 : &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;span&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;black-text font-size-22 bold&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;{{ inventory_process.name }}&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;span&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;br&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                        재고수량처리방법 : &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;span&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;black-text font-size-22 bold&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;{% effect_check inventory_process.effect %}&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;span&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;br&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                        정말로 삭제하시겠습니까?&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;modal-footer&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;a&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;#&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;modal-close waves-effect waves-green btn-flat red-text accent-3&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;아니오&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;a&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;button&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;submit&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;modal-close waves-effect waves-green btn-flat&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;예&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;button&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+            &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;form&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+    {% endfor %}
+{% endif %}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이후 vue.js / drf 로 분리하면서 모달 하나에 삭제할 객체의 정보를 전달하여 출력하는 식으로 변경하고자 방법을 찾아보게 되었다.&lt;/p&gt;
+&lt;h2&gt;1. 데이터를 전달하는 방법&lt;/h2&gt;
+&lt;p&gt;데이터를 전달하는 방법은 아주 간단하다. 반복문 내부에 모달을 배치하는것보다 훨씬 쉽고 편리하다.&lt;br&gt;
+모달 내부에 변수를 출력하도록 하고 모달을 띄우는 버튼을 클릭할 때마다 해당 변수에 값을 넣어주면 되는것이다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;html&quot;&gt;&lt;pre class=&quot;language-html&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;# 예제 - html 
+
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;app&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;ul&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;li&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;v-for&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;item in items&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+      {{ item.first_name }}
+      &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;b-button&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;sm&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;v-b-modal&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&apos;&lt;/span&gt;myModal&lt;span class=&quot;token punctuation&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&apos;&lt;/span&gt;item&lt;span class=&quot;token punctuation&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;sendInfo(item)&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+        Saluta {{item.first_name}}
+      &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;b-button&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;li&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;ul&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+
+  &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;b-modal&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;myModal&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+    Hello {{selectedUser.first_name}} {{selectedUser.last_name}} !
+  &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;b-modal&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# 예제 &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; javascript
+
+&lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Vue&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token literal-property property&quot;&gt;el&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;#app&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token literal-property property&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token literal-property property&quot;&gt;items&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token literal-property property&quot;&gt;first_name&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Dickerson&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token literal-property property&quot;&gt;last_name&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Macdonald&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token literal-property property&quot;&gt;first_name&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Larsen&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token literal-property property&quot;&gt;last_name&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Shaw&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token literal-property property&quot;&gt;first_name&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Geneva&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token literal-property property&quot;&gt;last_name&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Wilson&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token literal-property property&quot;&gt;first_name&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Jami&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token literal-property property&quot;&gt;last_name&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Carney&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token literal-property property&quot;&gt;selectedUser&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; 
+  &lt;span class=&quot;token literal-property property&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;sendInfo&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;selectedUser &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; item&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/51271337/bootstrap-vue-how-to-pass-data-to-modal&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;2. 모달 분리하기&lt;/h2&gt;
+&lt;p&gt;for loop 내부에 있던 모달을 반복문 밖으로 빼내고 안내메시지를 변수화 했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vue&quot;&gt;&lt;pre class=&quot;language-vue&quot;&gt;&lt;code class=&quot;language-vue&quot;&gt;&amp;lt;!-- Vertically Centered Block Modal --&amp;gt;
+&amp;lt;b-modal id=&amp;quot;delete-inventory-process-modal&amp;quot; body-class=&amp;quot;p-0&amp;quot; centered hide-footer hide-header&amp;gt;
+  &amp;lt;div class=&amp;quot;block block-rounded block-themed block-transparent mb-0&amp;quot;&amp;gt;
+    &amp;lt;div class=&amp;quot;block-header bg-primary-dark&amp;quot;&amp;gt;
+      &amp;lt;h3 class=&amp;quot;block-title&amp;quot;&amp;gt;{{ delete_object.modal_title }}&amp;lt;/h3&amp;gt;
+      &amp;lt;div class=&amp;quot;block-options&amp;quot;&amp;gt;
+        &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn-block-option&amp;quot; @click=&amp;quot;$bvModal.hide(&amp;#39;delete-inventory-process-modal&amp;#39;)&amp;quot;&amp;gt;
+          &amp;lt;i class=&amp;quot;fa fa-fw fa-times&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;
+        &amp;lt;/button&amp;gt;
+      &amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;div class=&amp;quot;block-content font-size-sm&amp;quot;&amp;gt;
+      &amp;lt;p&amp;gt;
+        &amp;quot;예&amp;quot; 를 누르면 &amp;lt;span class=&amp;quot;lead font-w700 bg-warning text-gray-lighter&amp;quot;&amp;gt;&amp;amp;nbsp;{{ delete_object.object.name }}&amp;amp;nbsp;&amp;lt;/span&amp;gt; {{ delete_object.modal_message }}
+      &amp;lt;/p&amp;gt;
+      &amp;lt;p&amp;gt;
+        정말로 삭제 하시겠습니까?
+      &amp;lt;/p&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;div class=&amp;quot;block-content block-content-full text-right border-top&amp;quot;&amp;gt;
+      &amp;lt;b-button variant=&amp;quot;alt-primary&amp;quot; class=&amp;quot;mr-1&amp;quot; @click=&amp;quot;$bvModal.hide(&amp;#39;delete-inventory-process-modal&amp;#39;)&amp;quot;&amp;gt;아니오&amp;lt;/b-button&amp;gt;
+      &amp;lt;b-button variant=&amp;quot;alt-danger&amp;quot; @click=&amp;quot;delete_inventory_process(delete_object.model, delete_object.object.id)&amp;quot;&amp;gt;예&amp;lt;/b-button&amp;gt;
+    &amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/b-modal&amp;gt;
+&amp;lt;!-- END Vertically Centered Block Modal --&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;2. 변수에 데이터 전달하기&lt;/h2&gt;
+&lt;p&gt;클릭시 데이터를 전달하기 위한 메서드가 실행되도록 버튼을 수정했다&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vue&quot;&gt;&lt;pre class=&quot;language-vue&quot;&gt;&lt;code class=&quot;language-vue&quot;&gt;...
+&amp;lt;b-button variant=&amp;quot;danger&amp;quot; v-b-modal.delete-inventory-process-modal @click=&amp;quot;setModalData(&amp;#39;inventory_process&amp;#39;, inventory_process)&amp;quot;&amp;gt;삭제&amp;lt;/b-button&amp;gt;
+...&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;안내메시지 설정을 위한 model 이름, 삭제 요청을 위한 id(pk), 삭제 확인을 위한 name 을 modal 에 전달한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;token literal-property property&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;setModalData&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;model&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; object&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;model &lt;span class=&quot;token operator&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;inventory_process&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;delete_object&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;modal_title &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;재고 처리 방법을 삭제합니다.&apos;&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;delete_object&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;modal_message &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;재고 처리 방법이 삭제됩니다.&apos;&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;delete_object&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;model &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; model
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;delete_object&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;object &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; object
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[다대다 관계 모델 직렬화(serialize) 하기]]></title><description><![CDATA[0. 서론 기본적으로  를 가진 모델(Package)을 직렬화할 경우 연관된 모델(Product)의 pk 만을 가지고 오게 된다. 기본 serializer 가 반환하는 데이터 before-customize 나는 Package…]]></description><link>https://ohyunkyo.github.io/TIL/django/serialize-many-to-many-relationships/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django/serialize-many-to-many-relationships/</guid><pubDate>Thu, 31 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;기본적으로 &lt;code class=&quot;language-text&quot;&gt;manytomanyfield&lt;/code&gt; 를 가진 모델(Package)을 직렬화할 경우 연관된 모델(Product)의 pk 만을 가지고 오게 된다.&lt;/p&gt;
+&lt;p&gt;기본 serializer 가 반환하는 데이터&lt;br&gt;
+&lt;img src=&quot;/images/serialize-many-to-many-relationships/before-customize.png&quot; alt=&quot;before-customize&quot;&gt;&lt;/p&gt;
+&lt;p&gt;나는 Package 를 직렬화 할때 Product 의 pk 이외에 다른 컬럼을 가져와야 했다.&lt;br&gt;
+그리고 package_product 테이블에 생성한 custom field 인 quantity 도 가져와야 했기 때문에 &lt;code class=&quot;language-text&quot;&gt;serializer&lt;/code&gt; 를 커스터마이징 할 필요가 있었다.&lt;/p&gt;
+&lt;p&gt;내가 원하는 데이터
+&lt;img src=&quot;/images/serialize-many-to-many-relationships/after-customize.png&quot; alt=&quot;after-customize&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;1. 새로운 serializer 생성하기&lt;/h2&gt;
+&lt;p&gt;기존에 사용하던 serializer 는 &lt;code class=&quot;language-text&quot;&gt;create()&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;list()&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;update()&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;delete()&lt;/code&gt; 에서 계속 사용하고 &lt;code class=&quot;language-text&quot;&gt;package detail&lt;/code&gt; 을 위해 하나 더 만들기로 했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;# serializer.py
+
+class PackageDetailSerializer(serializers.ModelSerializer):
+    is_split = serializers.SerializerMethodField()
+    business_id = serializers.ReadOnlyField(source=&apos;business.id&apos;)
+    business_name = serializers.ReadOnlyField(source=&apos;business.name&apos;)
+    package_product_list = PackageProductSerializer(source=&apos;packageproduct_set&apos;, many=True)
+    package_supplement_list = PackageSupplementSerializer(source=&apos;packagesupplement_set&apos;, many=True)
+    
+    class Meta:
+        model = Package
+        fields = [&apos;id&apos;, &apos;name&apos;, &apos;description&apos;, &apos;serial_code&apos;, &apos;product_code&apos;, &apos;memo&apos;, &apos;is_split&apos;, &apos;business_id&apos;, &apos;business_name&apos;, &apos;package_product_list&apos;, &apos;package_supplement_list&apos;]
+    
+    def get_is_split(self, obj):
+        if obj.is_split:
+            return &apos;분할함&apos;
+        else:
+            return &apos;분할하지 않음&apos;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;serializer 의 field 를 생성할 때 다른 serializer 를 사용했다.&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;PackageProductSerializer&lt;/code&gt; 를 내가 원하는 데이터를 리턴하도록 만들었기 때문에 &lt;code class=&quot;language-text&quot;&gt;PackageDetailSerializer&lt;/code&gt; 에서도 동일하게 원하는 데이터를 확인할 수 있게 되었다.&lt;br&gt;
+&lt;a href=&quot;https://hyun-am-coding.tistory.com/entry/9-1-Serializers&quot;&gt;출처1&lt;/a&gt;
+&lt;a href=&quot;https://www.django-rest-framework.org/api-guide/serializers/#dealing-with-nested-objects&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;source&lt;/code&gt; 인수는 필드를 채우는데 사용할 속성의 이름이라고 한다. 이 인수를 사용하지 않으면 필드이름과 동일한 데이터를 찾게된다.&lt;br&gt;
+예를들어 business_name 필드를 만들때 &lt;code class=&quot;language-text&quot;&gt;source=&apos;business.name&apos;&lt;/code&gt; 이라고 지정해주지 않았다면 Package 모델에서 business_name 이라는 필드를 찾게 된다는 말이다.
+&lt;a href=&quot;https://www.django-rest-framework.org/api-guide/fields/#source&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;_set&lt;/code&gt; 은 Package 모델에서 자신을 foreign key 로 가지고 있는 모델인 PackageProduct 에 접근하기 위한 방법이다.
+&lt;a href=&quot;https://freeprog.tistory.com/55&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;many=True&lt;/code&gt; 플래그는 단순한 데이터가 아닌 리스트를 반환해야 할 경우 사용한다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/41976819/django-serialize-a-model-with-a-many-to-many-relationship-with-a-through-argume/41996831#41996831&quot;&gt;처음본 곳&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;2. ViewSet 에서 serializer 분리하기&lt;/h2&gt;
+&lt;p&gt;위에서 생성한 serializer 를 &lt;code class=&quot;language-text&quot;&gt;detail()&lt;/code&gt; 메서드에서만 사용해야 했기때문에 메서드 별로 다른 serializer 를 사용하는 방법을 찾아봤다.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;ModelViewSet&lt;/code&gt; 을 상속받는 ViewSet 의 경우 &lt;code class=&quot;language-text&quot;&gt;serializer_class&lt;/code&gt; 속성으로 직렬화에 사용할 클래스를 지정할 수 있다.&lt;br&gt;
+만약 하나의 ViewSet 에서 메서드마다 사용할 직렬화 클래스를 다르게 설정하고 싶다면 다음과 같이 하면 된다&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# views.py&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;PackageModelViewSet&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ModelViewSet&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    queryset &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Package&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    filter_backends &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;DjangoFilterBackend&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    filterset_class &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; PackageFilter
+    
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;get_serializer_class&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;action &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;retrieve&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; PackageDetailSerializer
+    
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; PackageSerializer&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;serializer_class&lt;/code&gt; 속성을 그대로 사용하고 싶었지만 &lt;code class=&quot;language-text&quot;&gt;get_serializer_class&lt;/code&gt; 메서드를 오버라이딩 하면 적용되지 않는듯 했다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/22616973/django-rest-framework-use-different-serializers-in-the-same-modelviewset&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;99. 끝나고 나서&lt;/h2&gt;
+&lt;p&gt;package_product_list 와 package_supplement_list 의 데이터중 &lt;code class=&quot;language-text&quot;&gt;package detail&lt;/code&gt; 컴포넌트에서 사용하지 않는 데이터가 많다.&lt;br&gt;
+성능 이슈가 발생할 가능성이 있기때문에 이중에서 필요한 데이터만 가져오는 방법을 찾아야할것같다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[django model 의 다대다 관계에서 필드 추가하기]]></title><description><![CDATA[0. 서론 기본적으로 다대다 관계에서는 새로운 테이블이 생성된다. 그리고 column 으로는 관계를 맺게 되는 row 들의 pk 를 저장하게 된다. 아래의 표는 내가 프로젝트를 진행하며 생성된 다대다 관계 테이블이다. id package_id…]]></description><link>https://ohyunkyo.github.io/TIL/django/many-to-many-relationships-custom-field/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django/many-to-many-relationships-custom-field/</guid><pubDate>Wed, 30 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;기본적으로 다대다 관계에서는 새로운 테이블이 생성된다.&lt;br&gt;
+그리고 column 으로는 관계를 맺게 되는 row 들의 pk 를 저장하게 된다.&lt;/p&gt;
+&lt;p&gt;아래의 표는 내가 프로젝트를 진행하며 생성된 다대다 관계 테이블이다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;id&lt;/th&gt;
+&lt;th&gt;package_id&lt;/th&gt;
+&lt;th&gt;product_id&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;이 상황에서 나는 다대다 관계 별 수량을 같이 저장해야 할 필요성을 느꼈다.&lt;/p&gt;
+&lt;h2&gt;1. 사용방법&lt;/h2&gt;
+&lt;p&gt;나의 경우에는 package/product, package/supplement 이렇게 두개의 다대다 관계를 생성했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 패키지 모델&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Package&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Model&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;CharField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;max_length&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; unique&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    description &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;TextField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;null&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; blank&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    serial_code &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;CharField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;max_length&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; unique&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; null&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; blank&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    product_code &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;CharField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;max_length&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; null&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; blank&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    is_split &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;BooleanField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;default&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    memo &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;TextField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;null&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; blank&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    business &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ForeignKey&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Business&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; on_delete&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;PROTECT&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    product &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ManyToManyField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Product&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    supplement &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ManyToManyField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Supplement&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    
+    &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Meta&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        verbose_name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;패키지&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;마이그레이션이 완료되어 테이블이 생성된 상황에서 다음과 같이 변경했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;# 패키지 모델 변경사항
+    ...
+    product = models.ManyToManyField(Product, through=&apos;PackageProduct&apos;)
+    supplement = models.ManyToManyField(Supplement, through=&apos;PackageSupplement&apos;)
+    ...
+
+# 패키지_상품
+class PackageProduct(models.Model):
+    package = models.ForeignKey(Package, on_delete=models.PROTECT)
+    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    quantity = models.SmallIntegerField()
+    
+    class Meta:
+        db_table = &apos;inventory_package_product&apos;
+
+
+# 패키지_부자재
+class PackageSupplement(models.Model):
+    package = models.ForeignKey(Package, on_delete=models.PROTECT)
+    supplement = models.ForeignKey(Supplement, on_delete=models.PROTECT)
+    quantity = models.SmallIntegerField()
+    
+    class Meta:
+        db_table = &apos;inventory_package_supplement&apos;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://docs.djangoproject.com/en/4.0/ref/models/fields/#django.db.models.ManyToManyField.through&quot;&gt;출처1&lt;/a&gt;
+&lt;a href=&quot;https://lee-seul.github.io/django/2019/02/21/django-extend-manytomanyfield.html&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Serializer 에 대하여]]></title><description><![CDATA[역할 DRF 에서 데이터를 JSON 형태로 직렬화(Serialize) 한다. queryset 이나 모델 인스턴스 같은 데이터를 JSON 으로 바꿔준다고 생각하면 된다. 특징 Django 의 ModelForm…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/the-serializer-i-know/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/the-serializer-i-know/</guid><pubDate>Tue, 29 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;역할&lt;/h2&gt;
+&lt;p&gt;DRF 에서 데이터를 JSON 형태로 직렬화(Serialize) 한다.&lt;br&gt;
+queryset 이나 모델 인스턴스 같은 데이터를 JSON 으로 바꿔준다고 생각하면 된다.&lt;/p&gt;
+&lt;h2&gt;특징&lt;/h2&gt;
+&lt;p&gt;Django 의 ModelForm 과 유사하다&lt;br&gt;
+전달 받은 데이터의 유효성을 검사하고 형변환 할수 있다.&lt;br&gt;
+Form 은 데이터를 HTML 형태로 변환 하지만 Serialize 는 JSON 문자열로 변환 해준다.&lt;/p&gt;
+&lt;h2&gt;serializer custom field&lt;/h2&gt;
+&lt;p&gt;drf 를 사용한 API 서버에서 데이터를 조회할 때 기본적으로는 model 에 포함된 데이터만 조회가 가능하다.&lt;br&gt;
+그런데 조회시에 model 에 포함되지 않은 커스텀 데이터를 보고싶다면 어떻게 해야할까??&lt;br&gt;
+Serializer fields 중 &lt;code class=&quot;language-text&quot;&gt;SerializerMethodField&lt;/code&gt; 를 사용하면 된다.&lt;/p&gt;
+&lt;p&gt;다음예제 처럼 사용하면 되는데, &lt;code class=&quot;language-text&quot;&gt;fields&lt;/code&gt; 옵션이 &lt;code class=&quot;language-text&quot;&gt;&apos;__all__&apos;&lt;/code&gt; 일 경우 자동으로 포함된다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ProductHistorySerializer&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;serializers&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ModelSerializer&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    business_name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; serializers&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;SerializerMethodField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    quantity_abs &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; serializers&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;SerializerMethodField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    
+    &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Meta&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        model &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ProductHistory
+        fields &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;__all__&apos;&lt;/span&gt;
+    
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;get_business_name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; obj&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; obj&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;business&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;name
+    
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;get_quantity_abs&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; obj&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;obj&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;quantity&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;나처럼 foreignKey 필드를 조회할 때 해당 모델의 id 가 아닌 다른 필드 값을 같이 조회하고 싶다면 아주 좋은 옵션인것 같다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.django-rest-framework.org/api-guide/fields/#serializermethodfield&quot;&gt;출처1&lt;/a&gt;
+&lt;a href=&quot;https://ssungkang.tistory.com/entry/Django-Serializer-Custom-Field-SerializerMethodField&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;가공된 데이터를 포함하는 DB Row 생성&lt;/h2&gt;
+&lt;p&gt;form 에서 받은 데이터 그대로 저장하는것이 아닌 추가적인 데이터 가공이 필요한 경우 해당 데이터를 serializer 에 담아 같이 저장하도록 할 수 있다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;# views.py
+
+class MyViewSet(ModelViewSet):
+    queryset = ProductHistory.objects.all().order_by(&apos;-created_at&apos;)
+    serializer_class = ProductHistorySerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ProductHistoryFilter
+    
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+    
+        if serializer.is_valid():
+            ...
+            데이터 가공
+            ...
+            
+            instance_data = {
+                &apos;business&apos;: business,
+                &apos;quantity&apos;: new_quantity,
+                &apos;expiry_at&apos;: new_expiry,
+                &apos;admin&apos;: admin
+            }
+            serializer.save(**instance_data)
+            
+            return Response(serializer.data, HttpStatus.HTTP_200_OK)
+        else:
+            return Response(&apos;fail&apos;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://show-me-the-money.tistory.com/entry/Django-Rest-Framework-Serializer%EC%97%90-Model-Instance%EB%A5%BC-%EC%9D%B8%EC%9E%90%EA%B0%92%EC%9C%BC%EB%A1%9C-%EB%B3%B4%EB%82%B4%EA%B8%B0&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;DB 업데이트 하기&lt;/h2&gt;
+&lt;p&gt;기존 &lt;code class=&quot;language-text&quot;&gt;create()&lt;/code&gt; 에서 사용하던 소스에 serializer 를 생성할 때 모델 인스턴스를 추가 하기만 하면 된다&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;        &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+        model_instance &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;queryset&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;pk&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;kwargs&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;pk&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        serializer &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get_serializer&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;model_instance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; data&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;request&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/37021954/django-update-viewset&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[v-b-modal 변수와 함께 사용하기]]></title><description><![CDATA[0. 서론 리스트 페이지에서 각 항목마다 버튼을 배치하고, 클릭시 항목별로 다른 모달이 팝업되도록 하고싶었다. 1. 적용 방법 처음 사용하던 소스는 다음과 같다.  안에서 같은 의 모달을 여러번 사용했다. 검색 후 다음과 같이 변경했다. 출처 9…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/dynamic-v-b-modal/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/dynamic-v-b-modal/</guid><pubDate>Thu, 24 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;리스트 페이지에서 각 항목마다 버튼을 배치하고, 클릭시 항목별로 다른 모달이 팝업되도록 하고싶었다.&lt;/p&gt;
+&lt;h2&gt;1. 적용 방법&lt;/h2&gt;
+&lt;p&gt;처음 사용하던 소스는 다음과 같다. &lt;code class=&quot;language-text&quot;&gt;for loop&lt;/code&gt; 안에서 같은 &lt;code class=&quot;language-text&quot;&gt;id&lt;/code&gt;의 모달을 여러번 사용했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vue&quot;&gt;&lt;pre class=&quot;language-vue&quot;&gt;&lt;code class=&quot;language-vue&quot;&gt;&amp;lt;b-tr v-for=&amp;quot;inventory_process in inventory_process_list&amp;quot; :key=&amp;quot;inventory_process.id&amp;quot;&amp;gt;
+...
+&amp;lt;b-td class=&amp;quot;text-center&amp;quot;&amp;gt;
+  &amp;lt;b-button variant=&amp;quot;danger&amp;quot; v-b-modal.modal-block-vcenter&amp;gt;삭제&amp;lt;/b-button&amp;gt;
+&amp;lt;/b-td&amp;gt;
+&amp;lt;!-- Vertically Centered Block Modal --&amp;gt;
+&amp;lt;b-modal id=&amp;quot;modal-block-vcenter&amp;quot; body-class=&amp;quot;p-0&amp;quot; centered hide-footer hide-header&amp;gt;
+  &amp;lt;div class=&amp;quot;block block-rounded block-themed block-transparent mb-0&amp;quot;&amp;gt;
+    &amp;lt;div class=&amp;quot;block-header bg-primary-dark&amp;quot;&amp;gt;
+...
+&amp;lt;/b-tr&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;검색 후 다음과 같이 변경했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vue&quot;&gt;&lt;pre class=&quot;language-vue&quot;&gt;&lt;code class=&quot;language-vue&quot;&gt;기존 : &amp;lt;b-button variant=&amp;quot;danger&amp;quot; v-b-modal.modal-block-vcenter&amp;gt;삭제&amp;lt;/b-button&amp;gt;
+
+변경 : &amp;lt;b-button variant=&amp;quot;danger&amp;quot; v-b-modal=&amp;quot;&amp;#39;modal-block-vcenter-&amp;#39; + inventory_process.id&amp;quot;&amp;gt;삭제&amp;lt;/b-button&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vue&quot;&gt;&lt;pre class=&quot;language-vue&quot;&gt;&lt;code class=&quot;language-vue&quot;&gt;기존 : &amp;lt;b-modal id=&amp;quot;modal-block-vcenter&amp;quot; body-class=&amp;quot;p-0&amp;quot; centered hide-footer hide-header&amp;gt;
+
+변경 : &amp;lt;b-modal :id=&amp;quot;`modal-block-vcenter-`+inventory_process.id&amp;quot; body-class=&amp;quot;p-0&amp;quot; centered hide-footer hide-header&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/47281857/bind-modal-to-corresponding-button-after-a-v-for&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;99. 끝나고 나서&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;for loop&lt;/code&gt; 내부에 모달을 만들지 말고 하나의 모달에 버튼을 누를때마다 데이터를 전달하는 방식으로 하는것이 더 좋았을것같다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Vue Router 를 사용하여 페이지 새로고침 하기]]></title><description><![CDATA[0. 서론 모달에서  요청이 완료되면  라우트로 이동하도록 하고싶었다. 그런데 이동하고자 하는 라우트와 현재 라우트가 동일했기 때문에 에러가 발생했다.…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/vue-router-refresh/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/vue-router-refresh/</guid><pubDate>Thu, 24 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;모달에서 &lt;code class=&quot;language-text&quot;&gt;DELETE&lt;/code&gt; 요청이 완료되면 &lt;code class=&quot;language-text&quot;&gt;inventory process list&lt;/code&gt; 라우트로 이동하도록 하고싶었다.&lt;br&gt;
+그런데 이동하고자 하는 라우트와 현재 라우트가 동일했기 때문에 에러가 발생했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vue&quot;&gt;&lt;pre class=&quot;language-vue&quot;&gt;&lt;code class=&quot;language-vue&quot;&gt;# 기존 소스
+
+this.$router.push({name: &amp;#39;inventory process list&amp;#39;})&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;1. 해결 방법&lt;/h2&gt;
+&lt;p&gt;동일한 라우트로 이동하는것이 문제라면 페이지를 새로고침 하면 되겠다고 생각했다.&lt;br&gt;
+그러나 Vue Router 에는 &lt;code class=&quot;language-text&quot;&gt;reload()&lt;/code&gt; 메소드가 없다는것 같아서 다른 방법을 찾아봤다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vue&quot;&gt;&lt;pre class=&quot;language-vue&quot;&gt;&lt;code class=&quot;language-vue&quot;&gt;# 변경한 소스
+
+this.$router.go(this.$router.currentRoute);&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;go()&lt;/code&gt; 메소드를 사용하여 현재 라우트로 이동하도록 변경했더니 해결되었다.&lt;/p&gt;
+&lt;h2&gt;2. Vue Router 의 메소드&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;push()&lt;/code&gt; 와 &lt;code class=&quot;language-text&quot;&gt;go()&lt;/code&gt; 메소드에는 어떤 차이가 있길래 같은 라우트를 인자로 전달했음에도 다른 결과를 보여주는걸까?&lt;/p&gt;
+&lt;p&gt;처음 아래의 블로그를 봤을땐 &lt;code class=&quot;language-text&quot;&gt;this.$router.currentRoute&lt;/code&gt; 가 정수를 리턴할것이라고 생각했지만 실제로 콘솔창에 출력해본 결과, 현재 라우트에 대한 객체가 출력되었다.&lt;/p&gt;
+&lt;p&gt;내 생각과 좀 다른걸로 봐선 Vue Router 의 메소드가 작동하는 원리는 Vue Router 에 대해서 따로 공부하면서 알아봐야 할것같다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://sunny921.github.io/posts/vuejs-router-03/&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[사용자 가이드 만들기]]></title><description><![CDATA[…]]></description><link>https://ohyunkyo.github.io/TIL/software-documentation/user-guide/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/software-documentation/user-guide/</guid><pubDate>Thu, 24 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;회사에서 현재 제작중인 웹 페이지 사용법에 대해 교육 해달라는 요청을 받았다.&lt;/p&gt;
+&lt;p&gt;교육을 하려면 정리하고 준비를 해야 한다.&lt;br&gt;
+그래서 프로젝트 시작때 만들지 못한 기획서와 산출물 함께 만들면 좋겠다는 생각을 했다.&lt;br&gt;
+일단 기획서와 산출물의 틀을 만들고 그것을 기반으로 사용자 가이드 문서를 만들 예정이다.&lt;/p&gt;
+&lt;h2&gt;1. 기획 시작하기&lt;/h2&gt;
+&lt;p&gt;소프트웨어 개발 기획이라는것이 개발자가 해야 할 일을 정의한것이라고 생각하고 있다.&lt;br&gt;
+기획 문서가 없다면 무슨 일을 해야 할지 명확히 알 수 없을것이다.&lt;/p&gt;
+&lt;p&gt;그렇다면 어떻게 작성해야 잘 만든 기획서가 될 수 있을까?&lt;br&gt;
+일단 앞으로 해야할 일을 정의하기 위한 단계를 크게 두가지로 나눠봤다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;사용자가 무엇을 원하는지 파악하기&lt;/li&gt;
+&lt;li&gt;어떻게 만들어야 할지 정하기&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;두가지가 애매하게 중첩되는 부분이 있는것같다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;먼저 첫번째 단계를 해결하기 위해 소프트웨어의 목적을 기준으로 사용자의 요구사항을 정의 했다.&lt;/p&gt;
+&lt;h2&gt;2. 목적&lt;/h2&gt;
+&lt;p&gt;사용자의 설명을 참고하여 내가 생각한 재고관리 웹 사이트의 목적이다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;물류센터 양식으로 된 발주서 생성 자동화&lt;/li&gt;
+&lt;li&gt;발송된 재고 처리 자동화&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;그리고 이 두가지 목적을 이루기 위한 요구사항을 다음과 같은 문서로 만들기로 했다.&lt;/p&gt;
+&lt;h2&gt;3. 요구사항 정의서&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;사용자 요구사항 정의서&lt;/li&gt;
+&lt;li&gt;기능 요구사항 정의서(페이지 요구사항 포함)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;사용자 요구사항은 목적을 기반으로 한 사용자 중심의 요구사항을 담기로 했고,&lt;br&gt;
+기능 요구사항은 사용자 요구사항을 해결할 수 있는 기능을 적기로 했다.&lt;/p&gt;
+&lt;h2&gt;4. 구조설계&lt;/h2&gt;
+&lt;p&gt;구조는 모델과 페이지 설계 한것을 바탕으로 트리 형태의 구조(IA)를 만들 예정이다.&lt;/p&gt;
+&lt;h2&gt;5. 사용자 가이드 제작&lt;/h2&gt;
+&lt;p&gt;여기까지 정리한 문서 제작 틀을 기반으로 웹 사이트 사용자 가이드를 제작했다.&lt;/p&gt;
+&lt;h2&gt;6. flowchart&lt;/h2&gt;
+&lt;h2&gt;7. 화면 설계&lt;/h2&gt;
+&lt;h2&gt;8. 리뷰&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://6987.tistory.com/entry/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EA%B0%9C%EB%B0%9C-%ED%9A%8C%EC%82%AC%EC%97%90%EC%84%9C-%EA%B8%B0%ED%9A%8D%EC%9D%B4%EB%9E%80&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[맥북 단축키]]></title><description><![CDATA[⌘ + H = 어플리케이션 가리기. 화면에서 안보이는 상태가 된다. ⌘ + ⌃ + V = 서식 없이 데이터만 복사하기.]]></description><link>https://ohyunkyo.github.io/TIL/MacOS/shortcuts/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/MacOS/shortcuts/</guid><pubDate>Wed, 23 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;⌘ + H = 어플리케이션 가리기. 화면에서 안보이는 상태가 된다.&lt;/p&gt;
+&lt;p&gt;⌘ + ⌃ + V = 서식 없이 데이터만 복사하기.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[django-filter 라이브러리 사용법]]></title><description><![CDATA[0. 서론 API 엔드포인트에 쿼리스트링을 추가하여 필터링 된 데이터를 가져오고 싶어서 찾아보게 되었다. django-rest-framework 공식 사이트 를 참고했다…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/django-filter/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/django-filter/</guid><pubDate>Wed, 23 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;API 엔드포인트에 쿼리스트링을 추가하여 필터링 된 데이터를 가져오고 싶어서 찾아보게 되었다.&lt;br&gt;
+&lt;a href=&quot;https://www.django-rest-framework.org/api-guide/filtering/#api-guide&quot;&gt;django-rest-framework 공식 사이트&lt;/a&gt; 를 참고했다&lt;/p&gt;
+&lt;h2&gt;1. 설치 후 설정하기&lt;/h2&gt;
+&lt;p&gt;가장먼저 해당 라이브러리를 설치해야 한다&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;pip &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; django-filter&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;그 다음 django 에 사용할 수 있도록 설정한다. &lt;code class=&quot;language-text&quot;&gt;settings.py&lt;/code&gt; 파일의 적절한 위치에 아래 설정들을 추가한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;INSTALLED_APPS &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token string&quot;&gt;&apos;django_filters&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;REST_FRAMEWORK &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;token string&quot;&gt;&apos;DEFAULT_FILTER_BACKENDS&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;django_filters.rest_framework.DjangoFilterBackend&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;2. 적용하기&lt;/h2&gt;
+&lt;p&gt;설치와 설정이 끝났다면 ViewSet 클래스에 &lt;code class=&quot;language-text&quot;&gt;filter_backends&lt;/code&gt; 와 &lt;code class=&quot;language-text&quot;&gt;filterset_fields&lt;/code&gt; 를 추가하여 아주 쉽게 적용할 수 있다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# views.py&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; django_filters&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;rest_framework &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; DjangoFilterBackend
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; rest_framework&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;viewsets &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; ModelViewSet
+
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;models &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; Product
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;serializers &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; ProductSerializer
+
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ProductModelViewSet&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ModelViewSet&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    queryset &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Product&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    serializer_class &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ProductSerializer
+    filter_backends &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;DjangoFilterBackend&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    filterset_fields &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;business&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;name&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;사용할 때에는 &lt;code class=&quot;language-text&quot;&gt;filterset_fields&lt;/code&gt; 에 포함된 컬럼을 쿼리스트링으로 사용하여 다음과 같이 요청하면 된다.&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;http://localhost:8000/api/product/?business=1&amp;amp;name=샘플&lt;/code&gt;&lt;/p&gt;
+&lt;h2&gt;3. 키워드를 포함하는 값 검색하기&lt;/h2&gt;
+&lt;p&gt;하지만 위와 같이 사용하면 키워드와 정확히 일치하는 데이터만을 반환한다.&lt;br&gt;
+django ORM 의 &lt;code class=&quot;language-text&quot;&gt;model.objects.filter=name__icontains=&apos;샘플&apos;&lt;/code&gt; 과 같은 결과를 받고싶다면 다음과 같이 하면 된다.&lt;/p&gt;
+&lt;p&gt;먼저 커스텀 필터를 추가해야 한다.&lt;br&gt;
+따로 파일을 추가하는것이 관리하기 편할것 같아서 프로젝트 파일 안에 &lt;code class=&quot;language-text&quot;&gt;filter.py&lt;/code&gt; 파일을 추가하고 필터를 생성했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# filters.py&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; django_filters
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; django_filters &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; FilterSet
+
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;models &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; Product
+
+
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ProductFilter&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;FilterSet&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; django_filters&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;CharFilter&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;lookup_expr&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;icontains&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Meta&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        model &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Product
+        fields &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;business&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;name&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;Meta&lt;/code&gt; 클래스의 &lt;code class=&quot;language-text&quot;&gt;fields&lt;/code&gt; 에는 정의했지만 &lt;code class=&quot;language-text&quot;&gt;ProductFilter&lt;/code&gt; 클래스에선 정의하지 않은 컬럼(business)의 경우 기존과 동일하게 정확히 일치하는 데이터를 가져온다.&lt;/p&gt;
+&lt;p&gt;이제 &lt;code class=&quot;language-text&quot;&gt;filterset_fields&lt;/code&gt; 를 &lt;code class=&quot;language-text&quot;&gt;filterset_class&lt;/code&gt; 로 변경 후 생성한 필터 클래스를 참조하도록 한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# views.py&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; django_filters&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;rest_framework &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; DjangoFilterBackend
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; rest_framework&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;viewsets &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; ModelViewSet
+
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;filters &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; ProductFilter
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;models &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; Product
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;serializers &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; ProductSerializer
+
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ProductModelViewSet&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ModelViewSet&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    queryset &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Product&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    serializer_class &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ProductSerializer
+    filter_backends &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;DjangoFilterBackend&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    filterset_class &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ProductFilter&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/65158059/django-filters-icontains-type-of-lookup-expression-doesnt-work-properly&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;99. 끝나고 나서&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;serializer&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;filter_backends&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;filterset_class&lt;/code&gt; 등 &lt;code class=&quot;language-text&quot;&gt;ModelViewSet&lt;/code&gt; 의 파라미터들이 어떻게 작동하는지 정확히 알지 못하고 사용중이다.&lt;br&gt;
+일단 front/back 분리가 완료되면 부족했던점에 대해 알아봐야 할것같다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[레드햇 오픈시프트]]></title><description><![CDATA[0. 서론 레드햇 개발자포럼 웨비나에서 알게된 레드햇 오픈시프트에 대해 간단하게 정리해봤다. 웨비나에서는 오픈시프트의 각 기능을 사용하는 방법에 대해 강의했는데, 나는 CI/CD…]]></description><link>https://ohyunkyo.github.io/TIL/DevOps/redhat-openshift/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/DevOps/redhat-openshift/</guid><pubDate>Tue, 22 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;레드햇 개발자포럼 웨비나에서 알게된 레드햇 오픈시프트에 대해 간단하게 정리해봤다.&lt;br&gt;
+웨비나에서는 오픈시프트의 각 기능을 사용하는 방법에 대해 강의했는데,&lt;br&gt;
+나는 CI/CD 에 대해 잘 알지 못해서 사용 방법 보다는 어떤 역할을 하는지에 대해서만 웨비나 내용을 기반으로 따로 알아보고 정리했다.&lt;/p&gt;
+&lt;h2&gt;1. 레드햇은 실습 가능한 환경을 제공한다.&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://developers.redhat.com/&quot;&gt;레드햇 개발자 페이지&lt;/a&gt; 에서 간단하게 테스트 가능한 환경을 제공해준다.&lt;br&gt;
+단순히 교육을 듣고 이해하는것을 넘어, 복잡한 환경 구축 없이도 바로 실습 가능한것이 장점이라고 느꼈다.&lt;br&gt;
+오픈시프트가 아닌 다른 항목도 실습 가능한 부분이 있다.&lt;/p&gt;
+&lt;h2&gt;2. 오픈시프트란 무엇인가&lt;/h2&gt;
+&lt;p&gt;오픈시프트는 쿠버네티스 환경을 실행할 수 있도록 쿠버네티스에 추가된 소프트웨어 컬렉션이라고 한다.&lt;br&gt;
+쿠버네티스에서 하던 작업을 더 쉽게 수행 가능하도록 도와준다는 것이다.&lt;/p&gt;
+&lt;p&gt;개발자는 어플리케이션 수정사항을 깃허브에 푸쉬 하기만 하면 자동으로 어플리케이션이 배포된다.&lt;br&gt;
+만약 다른 수정사항을 반영하여 다시 푸쉬 한다면 중단없이 수정된 버전이 다시 배포된다.&lt;/p&gt;
+&lt;p&gt;운영 엔지니어는 웹 콘솔을 통해 더욱 편리하게 어플리케이션과 인프라를 관리한다.&lt;br&gt;
+또한 호스트를 확장하고 클러스터에 추가하는 과정을 자동화할 수 있다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://youtu.be/xEofcsd6HGg&quot;&gt;출처1&lt;/a&gt;,
+&lt;a href=&quot;https://youtu.be/KTN_QBuDplo&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;3. 어플리케이션 모니터링 하기&lt;/h2&gt;
+&lt;p&gt;쿠버네티스에서 컨테이너가 잘 작동하는지 확인해야 자동화 관리를 할 수 있다고 한다.&lt;/p&gt;
+&lt;p&gt;오픈시프트는 컨테이너의 상태를 확인할 수 있도록 API 엔드포인트를 제공한다.&lt;br&gt;
+굉장히 많은 종류의 상태를 확인할 수 있는데, 쿠버네티스에서는 전체 상태를 확인하기 힘들었다고 한다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://developers.redhat.com/courses/spring-boot/monitoring-applications&quot;&gt;실습 URL&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;4. 오픈시프트 파이프라인&lt;/h2&gt;
+&lt;p&gt;오픈시프트 파이프라인은 쿠버네티스 기반의 클라우드 네이티브 CI/CD 솔루션이다.&lt;br&gt;
+Tekton 을 사용하여 여러 플랫폼에서 배포를 자동화 한다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://access.redhat.com/documentation/ko-kr/openshift_container_platform/4.6/html/pipelines/understanding-openshift-pipelines&quot;&gt;출처&lt;/a&gt;,
+&lt;a href=&quot;https://developers.redhat.com/courses/gitops/getting-started-openshift-pipelines&quot;&gt;실습 URL&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;5. 오픈시프트 깃옵스&lt;/h2&gt;
+&lt;p&gt;ArgoCD 를 기반으로 제작된 오픈시프트 깃옵스는 깃에 저장된 설정을 쿠버네티스 환경에 배포하고 환경을 유지하도록 지원한다.&lt;/p&gt;
+&lt;p&gt;한마디로 쿠버네티스의 리소스를 코드를 통해 원하는 상태로 유지한다는것이다.&lt;br&gt;
+설정이 담긴 코드를 수정 후 깃에 푸쉬 하면 자동으로 해당 설정이 변화한것을 감지하고 환경을 다시 설정한다고 한다.&lt;/p&gt;
+&lt;h2&gt;6. 휴먼에러&lt;/h2&gt;
+&lt;p&gt;실행 방법이 코드로 정의되면 휴먼에러를 줄일 수 있다.&lt;/p&gt;
+&lt;h2&gt;99. 끝나고 나서&lt;/h2&gt;
+&lt;p&gt;CI/CD 에 대한 개념이 잘 잡혀있지 않다보니 웨비나에 참여하면서 각 기능의 특장점에 집중하지 못했고 기본적인 수행 기능만 알게 되는것으로 끝났다.&lt;br&gt;
+그리고 각 기능에 대한 이해가 없다보니 설명도 많이 부족하다.&lt;/p&gt;
+&lt;p&gt;재고관리 웹 front/back 분리가 완료되고 나면 CI/CD 에 대해서 공부할 예정인데, 그 이후에 다시 이 문서를 더 보완 할 수 있으면 좋을것 같다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[vue.js 기초 사용법]]></title><description><![CDATA[개요 백엔드 개발자로서 구매한 템플릿을 변경하는데 필요한 부분만 간단히 정리. 라우팅 특정 URL 에 특정 컴포넌트를 라우팅 시킨다. URL 의 경로와 이름을 지정한다. 백엔드와 통신하기 HTTP 통신 라이브러리인 axios…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/base-of-vue/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/base-of-vue/</guid><pubDate>Mon, 21 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;개요&lt;/h2&gt;
+&lt;p&gt;백엔드 개발자로서 구매한 템플릿을 변경하는데 필요한 부분만 간단히 정리.&lt;/p&gt;
+&lt;h2&gt;라우팅&lt;/h2&gt;
+&lt;p&gt;특정 URL 에 특정 컴포넌트를 라우팅 시킨다.&lt;br&gt;
+URL 의 경로와 이름을 지정한다.&lt;/p&gt;
+&lt;h2&gt;백엔드와 통신하기&lt;/h2&gt;
+&lt;p&gt;HTTP 통신 라이브러리인 axios 를 사용한다.&lt;br&gt;
+백엔드 API 엔드포인트로 요청한 뒤 결과 데이터를 사용 할 수 있다.&lt;/p&gt;
+&lt;h2&gt;받아온 데이터 페이지에 전달하기&lt;/h2&gt;
+&lt;p&gt;url 의 데이터를 받아 business_list 에 전달했다.&lt;br&gt;
+data 에서 return 하는것은 vue 문법인것같다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vue&quot;&gt;&lt;pre class=&quot;language-vue&quot;&gt;&lt;code class=&quot;language-vue&quot;&gt;&amp;lt;script&amp;gt;
+    import axios from &amp;quot;axios&amp;quot;;
+    let url = &amp;quot;http://localhost:8000/api/business&amp;quot;;
+    export default {
+      data () {
+        return {
+          business_list: []
+        }
+      },
+      mounted() {
+        axios({
+          method: &amp;quot;GET&amp;quot;,
+          url: url
+        })
+        .then(response =&amp;gt; {
+            this.business_list = response.data;
+          })
+          .catch(response =&amp;gt; {
+            console.log(&amp;quot;실패!!&amp;quot;, response);
+          });
+    
+      }
+    }
+&amp;lt;/script&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;유효성 검사하기&lt;/h2&gt;
+&lt;p&gt;validation 모듈을 사용하여 유효성검사가 가능하다.&lt;br&gt;
+유효성 검사를 통과했을 때 데이터를 전송한다.&lt;br&gt;
+front 의 유효성 검사이기 때문에 무조건 믿지 말고 back 에서도 해야할것 같다.&lt;/p&gt;
+&lt;h2&gt;태그에서 변수 사용하기&lt;/h2&gt;
+&lt;p&gt;다음 예제처럼 &lt;code class=&quot;language-text&quot;&gt;title&lt;/code&gt; 이 아닌 &lt;code class=&quot;language-text&quot;&gt;:title&lt;/code&gt; 을 사용하면 value 에 변수를 사용할 수 있다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vue&quot;&gt;&lt;pre class=&quot;language-vue&quot;&gt;&lt;code class=&quot;language-vue&quot;&gt;&amp;lt;base-page-heading :title=&amp;quot;name&amp;quot;&amp;gt;
+&amp;lt;/base-page-heading&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;특정 라우터로 이동 가능한 버튼&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;router-link&lt;/code&gt; 태그를 사용하면 특정 라우터에 인자를 전달하여 이동시킬 수 있다.&lt;br&gt;
+공식 문서를 참고했는데도 warning 이 발생하여 더 알아봐야 할것같다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vue&quot;&gt;&lt;pre class=&quot;language-vue&quot;&gt;&lt;code class=&quot;language-vue&quot;&gt;&amp;lt;b-button variant=&amp;quot;info&amp;quot; size=&amp;quot;lg&amp;quot; router-link :to=&amp;quot;{name: &amp;#39;business update&amp;#39;, params: {id: id}}&amp;quot;&amp;gt;수정하기&amp;lt;/b-button&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;수정시 form 에 기존 데이터 넣기&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vue&quot;&gt;&lt;pre class=&quot;language-vue&quot;&gt;&lt;code class=&quot;language-vue&quot;&gt;&amp;lt;script&amp;gt;
+    ...
+    mounted() {
+    axios({
+    method: &amp;quot;GET&amp;quot;,
+    url: url+this.$route.params.id
+    })
+    .then(response =&amp;gt; {
+    console.log(response.data);
+    this.form.id = response.data.id;
+    this.form.name = response.data.name;
+    this.form.description = response.data.description;
+    })
+    .catch(response =&amp;gt; {
+    console.log(&amp;quot;실패!!&amp;quot;, response);
+    });
+    },
+    ...
+&amp;lt;/script&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;PATCH 요청시 유의할점&lt;/h2&gt;
+&lt;p&gt;URL 의 가장 뒤에 &lt;code class=&quot;language-text&quot;&gt;/&lt;/code&gt; 를 넣어줘야한다. 모든 요청시 이런식으로 해야하는지는 잘 모르겠다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vue&quot;&gt;&lt;pre class=&quot;language-vue&quot;&gt;&lt;code class=&quot;language-vue&quot;&gt;&amp;lt;script&amp;gt;
+    ...
+    url: url+this.$route.params.id+&amp;quot;/&amp;quot;,
+    ...
+&amp;lt;/script&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[내가 사용하는 pycharm]]></title><description><![CDATA[Run Django Server pycharm 에서 run configurations 을 통해 테스트 서버를 실행하는 방법 정리 프로젝트 파이썬 인터프리터 설정 PyCharm - Preferences - Project: {project_name…]]></description><link>https://ohyunkyo.github.io/TIL/IDE/the-pycharm-i-know/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/IDE/the-pycharm-i-know/</guid><pubDate>Fri, 18 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Run Django Server&lt;/h2&gt;
 &lt;p&gt;pycharm 에서 run configurations 을 통해 테스트 서버를 실행하는 방법 정리&lt;/p&gt;
 &lt;h3&gt;프로젝트 파이썬 인터프리터 설정&lt;/h3&gt;
 &lt;p&gt;PyCharm - Preferences - Project: {project_name} - Python Interpreter 항목에서 적절한 인터프리터 버전을 선택한다&lt;/p&gt;
@@ -83,12 +661,7 @@ npm 을 사용하지 않으면 필요한 모듈을 개별적으로 다운로드 
 &lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;routers&lt;/code&gt; 도 사용했는데 URL name 이 &lt;code class=&quot;language-text&quot;&gt;{basename}-list&lt;/code&gt; 형식으로 생성되지 않는것 같았다.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;어느 하나 내가 원하는 대로 되지 않아서 커밋되지 않은 변경 사항을 모두 버리고 다시 생각해보기로 했다.&lt;br&gt;
-그리고 프론트, 백엔드가 구분되어야 하기 때문에 drf 를 사용하지 않을수 없다는 결론을 내렸다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Serializer 에 대하여]]></title><description><![CDATA[역할 DRF 에서 데이터를 JSON 형태로 직렬화(Serialize) 한다. 데이터를 JSON 으로 바꿔준다고 생각하면 된다. 특징 Django 의 Form 과 같은 역할을 한다. Form 은 데이터를 HTML 형태로 변환 하지만 Serialize…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/serializer/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/serializer/</guid><pubDate>Wed, 16 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;역할&lt;/h2&gt;
-&lt;p&gt;DRF 에서 데이터를 JSON 형태로 직렬화(Serialize) 한다.&lt;br&gt;
-데이터를 JSON 으로 바꿔준다고 생각하면 된다.&lt;/p&gt;
-&lt;h2&gt;특징&lt;/h2&gt;
-&lt;p&gt;Django 의 Form 과 같은 역할을 한다.&lt;br&gt;
-Form 은 데이터를 HTML 형태로 변환 하지만 Serialize 는 JSON 문자열로 변환 해준다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[프로젝트 내부의 API를 호출하면 안되는 이유]]></title><description><![CDATA[0. 서론 월별 재고 확인을 위해 각 상품의 재고를 가져와 월별로 출력하는 기능이 필요했다. 이 월별 재고를 다른곳에서도 확인 가능할 수 있도록 drf 를 사용해 RESTful API 로 데이터를 제공하기로 결정했다. 1. REST API…]]></description><link>https://ohyunkyo.github.io/TIL/django/request-to-internal-drf-api/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django/request-to-internal-drf-api/</guid><pubDate>Mon, 14 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+그리고 프론트, 백엔드가 구분되어야 하기 때문에 drf 를 사용하지 않을수 없다는 결론을 내렸다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[프로젝트 내부의 API를 호출하면 안되는 이유]]></title><description><![CDATA[0. 서론 월별 재고 확인을 위해 각 상품의 재고를 가져와 월별로 출력하는 기능이 필요했다. 이 월별 재고를 다른곳에서도 확인 가능할 수 있도록 drf 를 사용해 RESTful API 로 데이터를 제공하기로 결정했다. 1. REST API…]]></description><link>https://ohyunkyo.github.io/TIL/django/request-to-internal-drf-api/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django/request-to-internal-drf-api/</guid><pubDate>Mon, 14 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;월별 재고 확인을 위해 각 상품의 재고를 가져와 월별로 출력하는 기능이 필요했다.&lt;br&gt;
 이 월별 재고를 다른곳에서도 확인 가능할 수 있도록 drf 를 사용해 RESTful API 로 데이터를 제공하기로 결정했다.&lt;/p&gt;
 &lt;h2&gt;1. REST API 제작&lt;/h2&gt;

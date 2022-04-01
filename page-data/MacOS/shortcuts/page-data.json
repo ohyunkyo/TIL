@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-blog-post-js",
+    "path": "/MacOS/shortcuts/",
+    "result": {"data":{"site":{"siteMetadata":{"title":"Today I Learned"}},"markdownRemark":{"id":"b81ea006-7dc2-5028-bf5d-6d4cf3d3931d","excerpt":"⌘ + H = 어플리케이션 가리기. 화면에서 안보이는 상태가 된다. ⌘ + ⌃ + V = 서식 없이 데이터만 복사하기.","html":"<p>⌘ + H = 어플리케이션 가리기. 화면에서 안보이는 상태가 된다.</p>\n<p>⌘ + ⌃ + V = 서식 없이 데이터만 복사하기.</p>","frontmatter":{"title":"맥북 단축키","date":"March 23, 2022","description":null}},"previous":{"fields":{"slug":"/DevOps/redhat-openshift/"},"frontmatter":{"title":"레드햇 오픈시프트"}},"next":{"fields":{"slug":"/django-rest-framework/django-filter/"},"frontmatter":{"title":"django-filter 라이브러리 사용법"}}},"pageContext":{"id":"b81ea006-7dc2-5028-bf5d-6d4cf3d3931d","previousPostId":"175867fd-6ef2-5de2-ad58-f81b131dc7d0","nextPostId":"6f5ee300-3ef5-5485-bd52-b41b62aa6527"}},
+    "staticQueryHashes": ["2841359383","3257411868"]}
