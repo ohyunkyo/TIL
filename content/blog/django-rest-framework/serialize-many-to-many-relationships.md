@@ -7,13 +7,13 @@ date: "2022-03-31"
 기본적으로 `manytomanyfield` 를 가진 모델(Package)을 직렬화할 경우 연관된 모델(Product)의 pk 만을 가지고 오게 된다.
 
 기본 serializer 가 반환하는 데이터  
-![before-customize](/images/serialize-many-to-many-relationships/before-customize.png)
+![before-customize](/TIL/images/serialize-many-to-many-relationships/before-customize.png)
 
 나는 Package 를 직렬화 할때 Product 의 pk 이외에 다른 컬럼을 가져와야 했다.  
 그리고 package_product 테이블에 생성한 custom field 인 quantity 도 가져와야 했기 때문에 `serializer` 를 커스터마이징 할 필요가 있었다.
 
 내가 원하는 데이터
-![after-customize](/images/serialize-many-to-many-relationships/after-customize.png)
+![after-customize](/TIL/images/serialize-many-to-many-relationships/after-customize.png)
 
 ## 1. 새로운 serializer 생성하기
 기존에 사용하던 serializer 는 `create()`, `list()`, `update()`, `delete()` 에서 계속 사용하고 `package detail` 을 위해 하나 더 만들기로 했다. 
