@@ -9,7 +9,7 @@ date: "2022-04-13"
 
 ## 1. 엑셀 파일이 포함된 response 생성하기
 어떤 원리인지는 잘 모르겠다. 일단 `to_excel()` 메서드의 `excel_writer` 인자는 엑셀이 생성될 위치를 포함한 여러 정보를 전달받게 되는것 같은데,
-여기에 HttpResponse 객체를 넣어주게 되면 해당 객체에 엑셀 파일이 삽입되는것 같다.
+여기에 HttpResponse 객체를 넣어주게 되면 해당 응답객체에 엑셀 파일이 삽입되는것 같다.
 ```python
 response = HttpResponse(headers={
     'Content-Type': 'application/vnd.ms-excel',
