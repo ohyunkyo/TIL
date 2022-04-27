@@ -96,3 +96,4 @@ export default {
 [출처2](https://yamoo9.github.io/axios/guide/)
 [출처3](https://greedysiru.tistory.com/804)
 [출처4](https://dev-jsk.tistory.com/109)
+[출처5](https://veneas.tistory.com/entry/axiosjs-GET-POST-%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C-%EC%84%9C%EB%B2%84%EC%99%80-%ED%86%B5%EC%8B%A0%ED%95%98%EA%B8%B0)
