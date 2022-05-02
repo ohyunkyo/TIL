@@ -19,3 +19,6 @@ Python Interpreter 옵션도 적절히 선택한다.
 - ⌃ + 숫자 = 기억북마크에 저장된 숫자로 이동
 - ⌘ + F3 = 전체 북마크 목록을 본다
 - 전체 북마크 목록 + 알파벳 = 알파벳에 설정된 기억북마크로 이동
+
+
+[추가 단축키](https://blog.jetbrains.com/ko/2020/03/11/top-15-intellij-idea-shortcuts_ko/)
