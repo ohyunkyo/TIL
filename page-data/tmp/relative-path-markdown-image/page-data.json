@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-blog-post-js",
+    "path": "/tmp/relative-path-markdown-image/",
+    "result": {"data":{"site":{"siteMetadata":{"title":"Today I Learned"}},"markdownRemark":{"id":"556b6bba-b5c5-59ba-8836-561d2cc4bca8","excerpt":"https://www.gatsbyjs.com/docs/working-with-images-in-markdown/","html":"<p><a href=\"https://www.gatsbyjs.com/docs/working-with-images-in-markdown/\">https://www.gatsbyjs.com/docs/working-with-images-in-markdown/</a></p>","frontmatter":{"title":"이미지 상대경로 사용하기","date":"Invalid date","description":null}},"previous":null,"next":{"fields":{"slug":"/tmp/base-of-data-and-methods/"},"frontmatter":{"title":"data 속성과 methods"}}},"pageContext":{"id":"556b6bba-b5c5-59ba-8836-561d2cc4bca8","previousPostId":null,"nextPostId":"f87dee99-2d18-5ac2-86f0-de03c280b187"}},
+    "staticQueryHashes": ["2841359383","3257411868"]}

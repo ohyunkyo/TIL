@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-blog-post-js",
+    "path": "/tmp/django-annotation-aggregation/",
+    "result": {"data":{"site":{"siteMetadata":{"title":"Today I Learned"}},"markdownRemark":{"id":"ff118263-97e5-54a0-b753-c191349282fb","excerpt":"http://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/","html":"<p><a href=\"http://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/\">http://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/</a></p>","frontmatter":{"title":"annotation 과 aggregation","date":"Invalid date","description":null}},"previous":{"fields":{"slug":"/tmp/base-of-data-and-methods/"},"frontmatter":{"title":"data 속성과 methods"}},"next":{"fields":{"slug":"/tmp/vue-refactoring/"},"frontmatter":{"title":"뷰 리팩토링"}}},"pageContext":{"id":"ff118263-97e5-54a0-b753-c191349282fb","previousPostId":"f87dee99-2d18-5ac2-86f0-de03c280b187","nextPostId":"9ae90edb-a040-5fef-ba5b-426438f64aa7"}},
+    "staticQueryHashes": ["2841359383","3257411868"]}

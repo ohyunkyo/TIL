@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-blog-post-js",
+    "path": "/tmp/vue-refactoring/",
+    "result": {"data":{"site":{"siteMetadata":{"title":"Today I Learned"}},"markdownRemark":{"id":"9ae90edb-a040-5fef-ba5b-426438f64aa7","excerpt":"https://jess2.xyz/vue/vue-tip/","html":"<p><a href=\"https://jess2.xyz/vue/vue-tip/\">https://jess2.xyz/vue/vue-tip/</a></p>","frontmatter":{"title":"뷰 리팩토링","date":"Invalid date","description":null}},"previous":{"fields":{"slug":"/tmp/django-annotation-aggregation/"},"frontmatter":{"title":"annotation 과 aggregation"}},"next":{"fields":{"slug":"/tmp/create-container-with-secret/"},"frontmatter":{"title":"secret 파일 포함하여 컨테이너 생성하기"}}},"pageContext":{"id":"9ae90edb-a040-5fef-ba5b-426438f64aa7","previousPostId":"ff118263-97e5-54a0-b753-c191349282fb","nextPostId":"3cc28ba4-0574-5bb1-8edf-70ab1ed779cb"}},
+    "staticQueryHashes": ["2841359383","3257411868"]}

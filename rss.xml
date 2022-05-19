@@ -1,4 +1,849 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Gatsby Starter Blog RSS Feed]]></title><description><![CDATA[Gatsby Starter Blog RSS Feed]]></description><link>https://ohyunkyo.github.io/TIL</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 01 Apr 2022 09:10:20 GMT</lastBuildDate><item><title><![CDATA[모달에 데이터 전달하기]]></title><description><![CDATA[0. 서론 frontend 와 backend 를 분리하기 이전, django…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/pass-data-to-modal/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/pass-data-to-modal/</guid><pubDate>Thu, 31 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Gatsby Starter Blog RSS Feed]]></title><description><![CDATA[Gatsby Starter Blog RSS Feed]]></description><link>https://ohyunkyo.github.io/TIL</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 19 May 2022 09:38:42 GMT</lastBuildDate><item><title><![CDATA[젠킨스에서 비공개 저장소 사용하기]]></title><description><![CDATA[0. 서론 프론트엔드 배포를 위해 새로운 Item 을 생성하고 깃허브에서 소스코드를 받아오게 설정할 예정이다. 그러나 백엔드 저장소와는 달리 vue.js 소스는 비공개이기 때문에 다른 방법을 알아봤다. 젠킨스 설정에 대한 부분은 생략한다. 1. SSH…]]></description><link>https://ohyunkyo.github.io/TIL/DevOps/private-repo-on-jenkins/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/DevOps/private-repo-on-jenkins/</guid><pubDate>Mon, 16 May 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;프론트엔드 배포를 위해 새로운 Item 을 생성하고 깃허브에서 소스코드를 받아오게 설정할 예정이다.&lt;br&gt;
+그러나 백엔드 저장소와는 달리 vue.js 소스는 비공개이기 때문에 다른 방법을 알아봤다.&lt;/p&gt;
+&lt;p&gt;젠킨스 설정에 대한 부분은 생략한다.&lt;/p&gt;
+&lt;h2&gt;1. SSH Key 생성&lt;/h2&gt;
+&lt;p&gt;젠킨스 서버의 젠킨스 컨테이너 터미널을 실행한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;docker&lt;/span&gt; &lt;span class=&quot;token builtin class-name&quot;&gt;exec&lt;/span&gt; -it jenkins_cicd /bin/bash&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이후 젠킨스 홈 디렉토리에 새로운 SSH Key 를 생성해준다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;# ssh-keygen -t rsa -f /var/jenkins_home/.ssh/front-end&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이제 &lt;code class=&quot;language-text&quot;&gt;/var/jenkins_home/.ssh/front-end&lt;/code&gt; 파일(개인키)은 젠킨스에, &lt;code class=&quot;language-text&quot;&gt;/var/jenkins_home/.ssh/front-end.pub&lt;/code&gt; 파일(공개키)은 깃허브 저장소에 등록한다.&lt;/p&gt;
+&lt;h2&gt;2. 개인키 등록&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;[젠킨스 서버 IP]:8080/credentials/store/system/domain/_/newCredentials&lt;/code&gt; 경로로 들어가서 다음 사진과 같이 선택하고 개인 키를 붙여넣는다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/TIL/static/76240dce12c0dec1d4c0cd0481167202/636c2/200-private-key.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 89.87341772151898%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAAA7DAAAOwwHHb6hkAAABkklEQVQ4y52U2U4CMRSG+1BceYvh/fRGuTAaSHgheQONMS4wM93X35xTZjCIAabJl2am7el/toqmaRFCQIwRIUTEmJBzHkUpBcJ7DykltDZQSsFaywtEzuVMYwUxVSHCGIPNZoMQq7qqNMCHgMSbykUqBR2WSrE6pTUr1VrzN6m/xCCJEnSYDh4b7PYFDDFMqd5ALo5np5Bi+PH5ibbtOIb0cyyJYqiNRac0lLEwzsM6P8zn0u8nG8Jah06qWoMp1Uyn8bDLX1/fnJhSMGQ17TKXzqTPAZeNNgbGWDjn4Zyr8UjjkiRiDNwdVD6GDRte6MsGOMFuT90LiFZZvLy+oWvbwyI8zokhrAugB8JZi8SuVun5X/4+CPvep9bzHiFnUK8Q7hQx8uUUawrPdrtF0zQ8O+8hyEhYLBAnE8TZDGk6HcjX13tmM+SrK6TVChFA8p4fEqoOgi7opITg8K/X0Le3aG5uoO7uoeZzxMcnlMViz3KJ8vCA8vxc09G7+6vv6UERWkq8Nw1sv3AOB7HroaT8AF4xcoIhu1s1AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;private-key&quot;
+        title=&quot;private-key&quot;
+        src=&quot;/TIL/static/76240dce12c0dec1d4c0cd0481167202/f058b/200-private-key.png&quot;
+        srcset=&quot;/TIL/static/76240dce12c0dec1d4c0cd0481167202/c26ae/200-private-key.png 158w,
+/TIL/static/76240dce12c0dec1d4c0cd0481167202/6bdcf/200-private-key.png 315w,
+/TIL/static/76240dce12c0dec1d4c0cd0481167202/f058b/200-private-key.png 630w,
+/TIL/static/76240dce12c0dec1d4c0cd0481167202/636c2/200-private-key.png 911w&quot;
+        sizes=&quot;(max-width: 630px) 100vw, 630px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;username&lt;/code&gt; 이 개인키를 식별하기 위한 구분자 라고 생각하면 된다. 나머지 항목은 공백이여도 무관하다.&lt;/p&gt;
+&lt;h2&gt;3. 공개키 등록&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;https://github.com/[username]/[reponame]/settings/keys/new&lt;/code&gt; 경로에서 공개 키를 등록한다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/TIL/static/95d747cccac0cd80795ca9420af323f1/54bf4/300-public-key.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 82.91139240506328%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAAA7DAAAOwwHHb6hkAAACxklEQVQ4y5WTzW7rRBiGndPS0yZOYo/HM7bHf3Ec56dJ2yMicnKoihAglmy4GraVoBKCLTfAHXBnILF90EwalEoFweLR2J5vXr8z3zvezcd7tKnJ6w6ZFIRx5igmC5r5De3yjvl6y2z1jqJZInRJnNbEWY1Ma3QxJas62nc79vef4cliiTBz7BgVK8JsTlSsifI5ykwIY0MY5wQyI6/nVNMVSdGiTUNSTDF1Rz1bo/KGD1ZQJA0inSJSO7bIvCMyHSKZIFTuBEcicYLWVVbNkGmFzqfu3dbY0Q80u/09nnAOsufFGXFaumeZlAhdoM2ESBfuPYiNm4uUYVK36KSgP5L4geLSj3hvBe15WBeDcewm7BiYBWG5ITBLTNVRTpeuxs4PQ+3wn+vts93B1TA6OFSZdVC6j8dinU2IVY6QhlGg8EeSoXVywjhQjEPtCISmfypoqtlLByrnbZzxVmb0RhLPD/F88YKzQHEeas5CzblIeDN83nJaTEny5uAwUPRDzV2z5iGp2QrDThbs4leQBZ/I3LGXOZ3I2d1/jpeVrTtod3aBwosyfhxJ8Dx+7/X407N4r3CY+6PXc7W/XvS5ffgSr2pXbsvW3VHwF1+4ov/Db+eXbB6+wLOZstu17R+OYy7ChG90xc9RzKNQPMWJ44dI8xSnfB8pniLNT3HK4yjkuyufxyufbweCrRVMixbbmDitXNZGtnNZh19uGLU3XOQdH5nZCy7MjEvTcp429PSEN0nDmSzZf/qAt7jdsbrZkk86sqp13a62S66/2mLKBqUKYmVcjE6JZMY4OJx7GGr6vjjExl6bcZQyGMtDZAJNup9Rfn3NIIzxxwo/VC5SpwxPQm6xwX7/4R7PXm7baSt6zOFgIOlfSSd+uujfsD243tzhpWVL0Szcnf3770I7XnP2GkfBxWqDZ/N3vOD/1c0/OVytb/kLSMXNJXKicR8AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;public-key&quot;
+        title=&quot;public-key&quot;
+        src=&quot;/TIL/static/95d747cccac0cd80795ca9420af323f1/f058b/300-public-key.png&quot;
+        srcset=&quot;/TIL/static/95d747cccac0cd80795ca9420af323f1/c26ae/300-public-key.png 158w,
+/TIL/static/95d747cccac0cd80795ca9420af323f1/6bdcf/300-public-key.png 315w,
+/TIL/static/95d747cccac0cd80795ca9420af323f1/f058b/300-public-key.png 630w,
+/TIL/static/95d747cccac0cd80795ca9420af323f1/40601/300-public-key.png 945w,
+/TIL/static/95d747cccac0cd80795ca9420af323f1/54bf4/300-public-key.png 1007w&quot;
+        sizes=&quot;(max-width: 630px) 100vw, 630px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h2&gt;4. 저장소 주소 입력하기&lt;/h2&gt;
+&lt;p&gt;젠킨스에서 Job 을 생성하고 해당 저장소의 정보를 입력하기만 하면 끝이다.&lt;br&gt;
+단, 저장소의 주소를 복사할 때 HTTPS 가 아닌 SSH 를 선택해야 한다는것이다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 413px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/TIL/static/6d7fe924d0e927f566c863862e414b0e/6c1e7/400-0-copy-repository-url.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 111.39240506329114%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAYAAADAQbwGAAAACXBIWXMAAA7DAAAOwwHHb6hkAAADfElEQVQ4y4WVy3biRhRFmbbdGDAgQO8nAiQki4d4gw02drd70hnlC5KVv8s00/zYzqoCud2x4wz2ulcl6eioqu6tUrnW4jWfqwqVeodaU6fW1F6oNtRzPI+J6Og0Mpt6YtFIHa5aHUpCoEAIXlaaNFWHxfbIev+Fw9fvhPGYjhmwPTxz/PYLm/snLGOA98eE73//xq9//c7sz28oC4/S1XUbgXR3dlhvmbR174ThoagOjbYl84Jm20aJXfTDAG3XR7vtU9U1SteKgeH2ccMEf5DhRyOamitdvsWm0bFpds7XLYd6zaTT9tHUkHKlRana1KVYbzhhkExJhhNaHYt625KuhICiue+juzQ0GyuIcHqJ/LuSmHzxa1aYkGoOUydkafp4QYzdjaV7RXM+wJXOhWMxdSWxCKoZEKRzpnaPJJ0xc/r04wlhOsMJb2h0XBqqR0N1X3G6rndOiGmSgpWGSluzUQ2dVFc5OgY7Q0XXNXRDl5iW+ROWiKaBZVs4roPj2mimQ7nWplRTxEMWi3GX5SxiPotYzGNW+YB13mO3iNnOI3aLSF6vpj2WeZ/dMiHPfOJuh3Gs4/s2l9WzoG4YrOdDno5bjvslTw8bHh+2bA8PbPd7Nvs9u+MTm/09t3cbef/5y14+v12PybMA17X4LBwqui8FV3nE18cdD/sF97czjocVd3crktgnGQakSShjlgRMUp9x4pGPuuSjHuPExvNsLoXgRUXBMC1uYptR4pMNXclN7JDFNsOezjDUXoj/RdTVSHoarmufHF5Wm3L5VdNHs7uSjumhWgGawO6i2+EpOud4HlPP902vT9vwZbWVin3UjcdMV3uG4yXdaEw/zeknOcPRgsHNTG78KJsTDifE2YLRfIfhDggGI7J8i2qHJ0G5sQ0fy48wBd5A5pYfYwcFQ3S5wX9USUv3ZBTvylx3KRcbWwyIF4SYEBVfNkTuDeS4yEXFiGooBIu8qHOl2NjCphAU7UncEDUsYuGgeOnDmj4jBT9d1fF6qZy/5e5Ivj6w2D4w3zzIfjhZ3rG8fWR3/yzdiw8q73QjMVYuHBZtSTxccN0yX5y2ZF/0f3L9tvN4P5qD7vYIBhndaCRXU+RilXWnd/rVd3vjfzi8qDTkqsbZnHi0IJ2sScZL0un6zUJ8RKtw+PosubhqvPCpXJcNszgi/g9xsIkj5B+x8WcNIVyYRgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;copy-repository-url&quot;
+        title=&quot;copy-repository-url&quot;
+        src=&quot;/TIL/static/6d7fe924d0e927f566c863862e414b0e/6c1e7/400-0-copy-repository-url.png&quot;
+        srcset=&quot;/TIL/static/6d7fe924d0e927f566c863862e414b0e/c26ae/400-0-copy-repository-url.png 158w,
+/TIL/static/6d7fe924d0e927f566c863862e414b0e/6bdcf/400-0-copy-repository-url.png 315w,
+/TIL/static/6d7fe924d0e927f566c863862e414b0e/6c1e7/400-0-copy-repository-url.png 413w&quot;
+        sizes=&quot;(max-width: 413px) 100vw, 413px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/TIL/static/acdca5e98b632337b5f4401932955484/84cc5/400-1-source-code-manage.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 50.632911392405056%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAA8ElEQVQoz52SyYrDMBBE9f+/GAL2WLGsyFqsvXWpQU7IQMBM4sNDG11Ut4o5ayGEAOcczjkQEWqtp+i1TJqAcZwQYzgUo3+hP8GYEibOd5eb9/vlOx+7pAZWUoK6XjFfLlDDAC8E/LIgLMu+72vVGtUYVH1Af1tXVGvBSoyItxuClMhK7QKduMiXIBmDZi2aOcBaUBfUGiznjPs0QQwDojEotbzm0Vr7smV6OPTjD7Z5hps4pFrR5/r+e59QK4HlUkApocWI1oufrr4hhAhjHbrW3nJ3lEpByvlU/kopyM9a1g93tWIWEm7zp4NN9MjhL1MUBPJxOMPgAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;source-code-manage&quot;
+        title=&quot;source-code-manage&quot;
+        src=&quot;/TIL/static/acdca5e98b632337b5f4401932955484/f058b/400-1-source-code-manage.png&quot;
+        srcset=&quot;/TIL/static/acdca5e98b632337b5f4401932955484/c26ae/400-1-source-code-manage.png 158w,
+/TIL/static/acdca5e98b632337b5f4401932955484/6bdcf/400-1-source-code-manage.png 315w,
+/TIL/static/acdca5e98b632337b5f4401932955484/f058b/400-1-source-code-manage.png 630w,
+/TIL/static/acdca5e98b632337b5f4401932955484/84cc5/400-1-source-code-manage.png 898w&quot;
+        sizes=&quot;(max-width: 630px) 100vw, 630px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h2&gt;References&lt;/h2&gt;
+&lt;p&gt;SSH URL 사용 : &lt;a href=&quot;https://mingzz1.github.io/development/basic/2021/04/19/jenkins_with_private_repo.html/&quot;&gt;https://mingzz1.github.io/development/basic/2021/04/19/jenkins_with_private_repo.html/&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[개츠비 이미지 플러그인 적용]]></title><description><![CDATA[0. 서론 개츠비 이미지 플러그인을 사용중임에도 불구하고 이미지 리사이즈, 블러 등의 기능이 작동하지 않아 플러그인 사용 정보를 알아보게 되었다.…]]></description><link>https://ohyunkyo.github.io/TIL/tmp/gatsby-image-plugin/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/gatsby-image-plugin/</guid><pubDate>Fri, 06 May 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;개츠비 이미지 플러그인을 사용중임에도 불구하고 이미지 리사이즈, 블러 등의 기능이 작동하지 않아 플러그인 사용 정보를 알아보게 되었다.&lt;/p&gt;
+&lt;h2&gt;1. 해결 방법&lt;/h2&gt;
+&lt;p&gt;이미지 확장자를 대문자에서 소문자로 변경하면 된다. &lt;code class=&quot;language-text&quot;&gt;PNG&lt;/code&gt; 를 사용해도 이미지는 출력 되니 확장자의 문제라고는 전혀 생각도 못했지만 어쨌든 &lt;code class=&quot;language-text&quot;&gt;png&lt;/code&gt; 로 변경하니 잘된다.&lt;/p&gt;
+&lt;h2&gt;References&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/gatsbyjs/gatsby/issues/6698#issuecomment-986158429&quot;&gt;https://github.com/gatsbyjs/gatsby/issues/6698#issuecomment-986158429&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[http response 의 파일을 다운로드 하기]]></title><description><![CDATA[0. 서론 엑셀 파일이 포함된 HTTP Response 를 리턴하도록 만든 뷰가 있다. 브라우저로 API…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/file-download-from-response/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/file-download-from-response/</guid><pubDate>Wed, 27 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;엑셀 파일이 포함된 HTTP Response 를 리턴하도록 만든 뷰가 있다.&lt;br&gt;
+브라우저로 API 엔드포인트에 접속하여 테스트 했을때 엑셀 파일이 정상적으로 다운로드 되었다.&lt;br&gt;
+이제 프론트엔드에서 이 엔드포인트로 요청을 전달하여 엑셀 파일을 받아오기만 하면 된다.&lt;br&gt;
+그러나 응답 결과는 엑셀 파일이 아니라 JSON 이였다.&lt;/p&gt;
+&lt;p&gt;원인 파악을 위해 여러 자료를 찾아보다 주변의 도움을 받고 문제를 해결했다.&lt;/p&gt;
+&lt;h2&gt;1. 기존 소스코드&lt;/h2&gt;
+&lt;p&gt;엑셀이 포함된 HTTP Response 를 리턴하는 뷰&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# purchase_order_api.view&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;PurchaseOrderDownloadAPI&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;APIView&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; request&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;args&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;**&lt;/span&gt;kwargs&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+        response &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; HttpResponse&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;headers&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;token string&quot;&gt;&apos;Content-Type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;application/vnd.ms-excel&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;token string&quot;&gt;&apos;Content-Disposition&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;attachment; filename*=UTF-8\&apos;\&apos;purchase_order_&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; date_string &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;.xls&apos;&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+        df&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;to_excel&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;response&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; index&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; engine&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;xlwt&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; response&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;해당 뷰의 엔드포인트에 요청 후 응답을 받아 리턴하는 소스&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# purchase_order&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;downloadPurchaseOrder&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;dateString&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; instance&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos;api/purchase_order_download/&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; dateString &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;/&apos;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;response&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;token function&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;발주서 다운로드가 완료되었습니다.&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; response&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;data
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;catch&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;에러 발생&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; err&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;2. 해결하기&lt;/h2&gt;
+&lt;p&gt;아래의 소스를 받고 나의 프로젝트에 적용하여 일단 기능을 구현했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# purchase_order&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;downloadPurchaseOrder&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;dateString&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token literal-property property&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;api/purchase_order_download/&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; dateString &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;/&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token literal-property property&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;get&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token literal-property property&quot;&gt;responseType&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;blob&apos;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; url &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; window&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;URL&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;createObjectURL&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;response&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; link &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; document&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;a&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        link&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;href &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; url&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        link&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setAttribute&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;token string&quot;&gt;&quot;download&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;token string&quot;&gt;&apos;발주서_&apos;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;dateString
+        &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        document&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;body&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;link&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        link&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        link&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+        console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;response&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;token function&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;발주서 다운로드가 완료되었습니다.&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;$router&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;$router&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;currentRoute&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;catch&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;에러 발생&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; err&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;3. 항목별 설명&lt;/h2&gt;
+&lt;h3&gt;3.1 responseType 설정&lt;/h3&gt;
+&lt;p&gt;axios 응답으로 받아오는 데이터 형식의 default 값은 &lt;code class=&quot;language-text&quot;&gt;json&lt;/code&gt; 이다.&lt;br&gt;
+그러나 자바스크립트에서 텍스트가 아닌 대용량 데이터를 주고받을때에는 &lt;code class=&quot;language-text&quot;&gt;blob&lt;/code&gt; 이라는 객체를 사용해야 한다고 한다.&lt;br&gt;
+그렇기 때문에 일단 응답 형식을 &lt;code class=&quot;language-text&quot;&gt;blob&lt;/code&gt; 으로 설정한다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://sambalim.tistory.com/94&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;3.2 blob 객체의 엑셀 데이터를 다운로드 하기&lt;/h3&gt;
+&lt;p&gt;axios 가 받아온 &lt;code class=&quot;language-text&quot;&gt;blob&lt;/code&gt; 형태의 response 에는 http header, footer 등 필요하지 않는 데이터가 있기 때문에 바이너리 데이터만을 사용한다.&lt;/p&gt;
+&lt;p&gt;이 바이너리 데이터로 URL 을 만들고 브라우저의 클릭 이벤트를 발생시켜 해당 URL 을 클릭하게 되면 파일이 다운로드 된다.&lt;br&gt;
+이렇게 하지 않으면 보안상 이슈로 브라우저가 다운로드를 막는다고 한다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[env 파일 사용하기]]></title><description><![CDATA[0. 서론 기존에 API 엔드포인트의 주소를 각 컴포넌트(vue파일)에 명시했었는데, axios 를 모듈화 하기위해선 해당 URL 을 개별적으로 관리할 필요가 있다고 느꼈다. 1. .env 파일이란? vue…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/env-file/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/env-file/</guid><pubDate>Fri, 22 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;기존에 API 엔드포인트의 주소를 각 컴포넌트(vue파일)에 명시했었는데, axios 를 모듈화 하기위해선 해당 URL 을 개별적으로 관리할 필요가 있다고 느꼈다.&lt;/p&gt;
+&lt;h2&gt;1. .env 파일이란?&lt;/h2&gt;
+&lt;p&gt;vue 의 환경변수 파일은 여러개로 나뉠 수 있다.&lt;/p&gt;
+&lt;p&gt;개발환경(&lt;code class=&quot;language-text&quot;&gt;npm run serve&lt;/code&gt;)에서는 &lt;code class=&quot;language-text&quot;&gt;.env.development&lt;/code&gt; 파일을 자동으로 인식한다.&lt;br&gt;
+그렇기 때문에 개발환경에서 필요한 변수를 선언해주면 된다.&lt;br&gt;
+또한 &lt;code class=&quot;language-text&quot;&gt;.gitignore&lt;/code&gt; 파일에 등록하여 깃에 같이 업로드 되지 않도록 해야한다.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;.env.production&lt;/code&gt; 파일은 배포버전에서 자동으로 인식한다.(어떻게 인식하는지 잘 모르겠음)&lt;br&gt;
+실제 운영시 필요한 변수를 선언 하면 될것같다.&lt;/p&gt;
+&lt;p&gt;그리고 그냥 &lt;code class=&quot;language-text&quot;&gt;.env&lt;/code&gt; 파일은 &lt;code class=&quot;language-text&quot;&gt;.env.development&lt;/code&gt; 과 &lt;code class=&quot;language-text&quot;&gt;.env.production&lt;/code&gt; 모두에서 인식하기 때문에 공통적으로 필요한 변수를 선언하면 된다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://hjcode.tistory.com/96&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;2. .env 파일 생성하기&lt;/h2&gt;
+&lt;p&gt;위의 환경변수 파일들은 모두 루트 디렉토리에 생성해야 한다.&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;.gitignore&lt;/code&gt; 파일이나 &lt;code class=&quot;language-text&quot;&gt;package.json&lt;/code&gt; 파일이 있는 그 위치에.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://crispypotato.tistory.com/52&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;3. 변수 선언하기&lt;/h2&gt;
+&lt;p&gt;다음과 같이 &lt;code class=&quot;language-text&quot;&gt;VUE_APP_&lt;/code&gt; 라는 접두어가 붙은 변수들은 자동으로 로딩된다.&lt;br&gt;
+vue2 에선 따로 로딩해줬어야 한다고 한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;VUE_APP_NUM=10
+VUE_APP_STR=hi&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;나는 다음과 같이 개발서버 URL 을 설정했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;# .env.development
+
+VUE_APP_API_URL = http://localhost:8000/&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://kang-ji.tistory.com/241&quot;&gt;출처1&lt;/a&gt;
+&lt;a href=&quot;https://joshua1988.github.io/vue-camp/deploy/env-setup.html#env-%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;4. 환경변수 사용하기&lt;/h2&gt;
+&lt;p&gt;다음과 같은 방법으로 사용할 수 있다.&lt;br&gt;
+위에서도 다뤘듯 별도의 로딩 과정 없이 바로 사용할 수 있다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# src&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;api&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;index&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; axios &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;axios&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;createInstance&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; axios&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token literal-property property&quot;&gt;baseURL&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;VUE_APP_API_URL&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; instance &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;createInstance&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[axios 모듈화 하기]]></title><description><![CDATA[0. 서론 코드의 재사용성을 높이기 위해 현재 뷰 컴포넌트에서 각자 axios 객체를 생성하고 요청하던것을 모듈화 하기로 했다., 1. 모듈화의 장점 쉽고 효율적이다. 간단하면서도 강력한 장점이다. 사용할 API…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/axios-modularization/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/axios-modularization/</guid><pubDate>Fri, 22 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;코드의 재사용성을 높이기 위해 현재 뷰 컴포넌트에서 각자 axios 객체를 생성하고 요청하던것을 모듈화 하기로 했다.,&lt;/p&gt;
+&lt;h2&gt;1. 모듈화의 장점&lt;/h2&gt;
+&lt;p&gt;쉽고 효율적이다.&lt;/p&gt;
+&lt;p&gt;간단하면서도 강력한 장점이다. 사용할 API 가 많아지면 많아질수록 더욱 효율적으로 사용 가능하고 관리하기도 쉽다.&lt;/p&gt;
+&lt;h2&gt;2. 모듈화 하기&lt;/h2&gt;
+&lt;p&gt;우선 axios 인스턴스를 생성하여 리턴하는 파일을 만들어준다.&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;.env&lt;/code&gt; 파일에 정의된 URL 을 사용한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# src&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;api&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;index&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; axios &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;axios&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;createInstance&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; axios&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token literal-property property&quot;&gt;baseURL&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;VUE_APP_API_URL&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; instance &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;createInstance&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이번엔 인스턴스를 활용해 실제로 요청을 보내는 함수를 생성한다.&lt;br&gt;
+위에서 만든 인스턴스를 &lt;code class=&quot;language-text&quot;&gt;import&lt;/code&gt; 하고 &lt;code class=&quot;language-text&quot;&gt;get&lt;/code&gt; 메서드를 사용해 요청을 보낸다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# src&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;api&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;inventory&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;instance&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;./index&apos;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// 품목별 재고 가져오기&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;fetchInventoryBusiness&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;business_id&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; instance&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos;api/inventory/business/&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; business_id
+    &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// 월별 재고 가져오기&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;fetchInventoryMonthly&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;product_id&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; instance&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos;api/inventory/monthly/&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;token literal-property property&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;token literal-property property&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;monthly&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;token literal-property property&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;product&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;token literal-property property&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2022&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;token literal-property property&quot;&gt;model_pk&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; product_id
+            &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    fetchInventoryBusiness&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    fetchInventoryMonthly
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;실제로 뷰 컴포넌트에서 사용하는 부분이다.&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;then, catch&lt;/code&gt; 를 &lt;code class=&quot;language-text&quot;&gt;inventory.js&lt;/code&gt; 에서 해줘도 되겠지만 각 컴포넌트에서 정의해주는 편이 더 활용하기 편하다고 생각했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vue&quot;&gt;&lt;pre class=&quot;language-vue&quot;&gt;&lt;code class=&quot;language-vue&quot;&gt;# src/views/business/Business.vue
+
+...
+&amp;lt;script&amp;gt;
+import {getInventoryBusiness} from &amp;#39;/src/api/inventory&amp;#39;
+
+export default {
+  data () {
+    return {
+      inventory_business: []
+    }
+  },
+  mounted() {
+    const result = getInventoryBusiness(this.$route.query.pk)
+    result.then(response =&amp;gt; {
+      this.inventory_business = response.data
+    }).catch(err =&amp;gt; {
+      console.log(&amp;quot;에러 발생&amp;quot;, err)
+    });
+  }
+}
+&amp;lt;/script&amp;gt;
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://heewon26.tistory.com/158&quot;&gt;출처1&lt;/a&gt;
+&lt;a href=&quot;https://yamoo9.github.io/axios/guide/&quot;&gt;출처2&lt;/a&gt;
+&lt;a href=&quot;https://greedysiru.tistory.com/804&quot;&gt;출처3&lt;/a&gt;
+&lt;a href=&quot;https://dev-jsk.tistory.com/109&quot;&gt;출처4&lt;/a&gt;
+&lt;a href=&quot;https://veneas.tistory.com/entry/axiosjs-GET-POST-%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C-%EC%84%9C%EB%B2%84%EC%99%80-%ED%86%B5%EC%8B%A0%ED%95%98%EA%B8%B0&quot;&gt;출처5&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[django orm 에서 column name 변경하여 리턴하기]]></title><description><![CDATA[…]]></description><link>https://ohyunkyo.github.io/TIL/django/rename-column-name/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django/rename-column-name/</guid><pubDate>Thu, 21 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# model.py&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# 상품 정의&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Product&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Model&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;CharField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;max_length&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; unique&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  description &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;TextField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;null&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; blank&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  business &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ForeignKey&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Business&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; on_delete&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;PROTECT&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  maximum_quantity &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;SmallIntegerField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Meta&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      verbose_name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;상품 정의&apos;&lt;/span&gt;
+
+
+&lt;span class=&quot;token comment&quot;&gt;# 부자재&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Supplement&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Model&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;CharField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;max_length&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; unique&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  description &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;TextField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;null&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; blank&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  business &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ForeignKey&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Business&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; on_delete&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;PROTECT&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  maximum_quantity &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;SmallIntegerField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Meta&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      verbose_name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;부자재&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# model.py&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# 상품 재고 처리 기록&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ProductHistory&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Model&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  business &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ForeignKey&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Business&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; on_delete&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;PROTECT&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; blank&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  product &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ForeignKey&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Product&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; on_delete&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;PROTECT&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; blank&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  status &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;CharField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;max_length&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; default&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;pending&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; choices&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;common_const&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;COMMON_STATUS&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  quantity &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;IntegerField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  inventory_process &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ForeignKey&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;InventoryProcess&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; on_delete&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;PROTECT&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  expiry_at &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;DateField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;null&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; blank&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  created_at &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;DateTimeField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;auto_now_add&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  updated_at &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;DateTimeField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;auto_now&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  reserved_at &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;DateTimeField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;null&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; blank&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  admin &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ForeignKey&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;User&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; on_delete&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;PROTECT&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; blank&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Meta&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      verbose_name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;상품 재고 처리 기록&apos;&lt;/span&gt;
+      indexes &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+        models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Index&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;fields&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;status&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;expiry_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;created_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;updated_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;reserved_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; name&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;product_history_common&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+
+
+&lt;span class=&quot;token comment&quot;&gt;# 부자재 재고 처리 기록&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;SupplementHistory&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Model&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  business &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ForeignKey&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Business&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; on_delete&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;PROTECT&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; blank&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  supplement &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ForeignKey&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Supplement&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; on_delete&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;PROTECT&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; blank&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  status &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;CharField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;max_length&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; default&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;pending&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; choices&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;common_const&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;COMMON_STATUS&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  quantity &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;IntegerField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  inventory_process &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ForeignKey&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;InventoryProcess&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; on_delete&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;PROTECT&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  expiry_at &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;DateField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;null&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; blank&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  created_at &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;DateTimeField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;auto_now_add&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  updated_at &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;DateTimeField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;auto_now&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  reserved_at &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;DateTimeField&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;null&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; blank&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  admin &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ForeignKey&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;User&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; on_delete&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;PROTECT&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; blank&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Meta&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      verbose_name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;부자재 재고 처리 기록&apos;&lt;/span&gt;
+      indexes &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+        models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Index&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;fields&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;status&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;expiry_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;created_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;updated_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;reserved_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; name&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;supplement_history_common&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ProductInventory&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+
+	&lt;span class=&quot;token comment&quot;&gt;# noinspection PyMethodMayBeStatic&lt;/span&gt;
+	&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;get_list&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; business_id&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+		product_history_list &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ProductHistory&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;business_id&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;business_id&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; status&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;complete&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; \
+			values&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;product_id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;expiry_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;created_at__date&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;inventory_process__effect&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;order_by&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;product_id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;expiry_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;annotate&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;quantity&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;Sum&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;quantity&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; \
+			values&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;product_id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;product__name&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;expiry_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;quantity&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;created_at__date&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;inventory_process__effect&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+		&lt;span class=&quot;token comment&quot;&gt;# template 에 전달될 상품 재고처리 기록 변수 초기화&lt;/span&gt;
+		product_inventory_list &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; defaultdict&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+		&lt;span class=&quot;token comment&quot;&gt;# 개별 상품의 재고처리 기록을 가공한다&lt;/span&gt;
+		&lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; product_history &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; product_history_list&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+			&lt;span class=&quot;token comment&quot;&gt;# 재고처리 기록의 column 을 변수에 set&lt;/span&gt;
+			product_id &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;product_history&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;product_id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+			name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; product_history&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;product__name&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+			expiry_at &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;product_history&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;expiry_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+			quantity &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;product_history&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;quantity&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+			effect &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; product_history&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;inventory_process__effect&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+
+			&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+
+		&lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;product_inventory_list&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;items&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;SupplementInventory&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+
+	&lt;span class=&quot;token comment&quot;&gt;# noinspection PyMethodMayBeStatic&lt;/span&gt;
+	&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;get_list&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; business_id&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+		supplement_history_list &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; SupplementHistory&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;business_id&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;business_id&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; status&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;complete&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; \
+			values&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;supplement_id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;expiry_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;created_at__date&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;inventory_process__effect&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;order_by&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;supplement_id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;expiry_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;annotate&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;quantity&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;Sum&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;quantity&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; \
+			values&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;supplement_id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;supplement__name&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;expiry_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;quantity&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;created_at__date&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;inventory_process__effect&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+		&lt;span class=&quot;token comment&quot;&gt;# template 에 전달될 부자재 재고처리 기록 변수 초기화&lt;/span&gt;
+		supplement_inventory_list &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; defaultdict&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+		&lt;span class=&quot;token comment&quot;&gt;# 개별 부자재의 재고처리 기록을 가공한다&lt;/span&gt;
+		&lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; supplement_history &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; supplement_history_list&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+			&lt;span class=&quot;token comment&quot;&gt;# 재고처리 기록의 column 을 변수에 set&lt;/span&gt;
+			supplement_id &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;supplement_history&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;supplement_id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+			name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; supplement_history&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;supplement__name&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+			expiry_at &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;supplement_history&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;expiry_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+			quantity &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;supplement_history&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;quantity&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+			effect &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; supplement_history&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;inventory_process__effect&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+			
+			&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+			
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;supplement_inventory_list&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;items&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;테이블 명만 다르고 컬럼명은 모두 일치하는 서로 다른 두개의 모델이 같은 과정을 거쳐 같은 형태의 데이터를 리턴하길 원했다.&lt;br&gt;
+처음에는 다른 방법이 생각나지 않아 일단 각 모델별 메서드에서 똑같은 코드를 반복해서 사용했다.&lt;br&gt;
+이후 코드를 재사용할 수 있도록 하나의 메서드에서 컨트롤 가능하도록 만드려고 했는데,&lt;br&gt;
+그러기 위해선 각 쿼리셋이 동일한 key 를 가진 dict 를 반환하도록 하는게 좋을것 같았다.&lt;/p&gt;
+&lt;h2&gt;1. annotate 사용하기&lt;/h2&gt;
+&lt;p&gt;django 의 기능인 annotation 을 사용하여 컬럼 이름을 바꾼채로 리턴하도록 할 수 있다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 예제&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; django&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;models &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; F
+
+MyModel&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;annotate&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;renamed_value&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;F&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;cryptic_value_name&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;values&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;renamed_value&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 적용&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; django&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;models &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; F
+
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;InventoryBusiness&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; business_id&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;business_id &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; business_id
+
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;get_product_inventory&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        queryset &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ProductHistory&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;business_id&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;business_id&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; status&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;complete&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; \
+            values&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;product_id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;expiry_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;created_at__date&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;inventory_process__effect&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;order_by&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;product_id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;expiry_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;\
+            annotate&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;quantity&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;Sum&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;quantity&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; model_pk&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;F&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;product_id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; model_name&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;F&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;product__name&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; \
+            values&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;model_pk&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;model_name&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;expiry_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;quantity&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;created_at__date&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;inventory_process__effect&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get_inventory&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;queryset&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;get_supplement_inventory&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        queryset &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; SupplementHistory&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;business_id&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;business_id&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; status&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;complete&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; \
+            values&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;supplement_id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;expiry_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;created_at__date&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;inventory_process__effect&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;order_by&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;supplement_id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;expiry_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;\
+            annotate&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;quantity&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;Sum&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;quantity&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; model_pk&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;F&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;supplement_id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; model_name&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;F&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;supplement__name&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; \
+            values&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;model_pk&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;model_name&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;expiry_at&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;quantity&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;created_at__date&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;inventory_process__effect&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get_inventory&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;queryset&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;get_inventory&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; queryset&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; model_history &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; queryset&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            model_pk &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; model_history&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;model_pk&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+            &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;99. 끝나고 나서&lt;/h2&gt;
+&lt;h3&gt;테이블을 구분한 이유&lt;/h3&gt;
+&lt;p&gt;지금보니 상품, 부자재 테이블을 나눌 필요가 전혀 없었던것 같다.&lt;br&gt;
+하나의 테이블에서 상품인지 부자재인지만 구분하면 됐을텐데 괜히 테이블도 두개로 나누고 재고 테이블도 둘로 분리되어 관리가 어렵게 된것 같아 보인다.&lt;br&gt;
+시간이 된다면 마이그레이션을 진행해서 하나로 통합하고 싶다.&lt;/p&gt;
+&lt;h3&gt;annotate 사용하기&lt;/h3&gt;
+&lt;p&gt;어노테이션은 새로운 컬럼을 추가하는것과 같다고 한다.&lt;br&gt;
+현재 품목별 재고보기에서 파이썬으로 처리하는 부분을 어노테이션을 사용하여 추가 작업 없이 쿼리만으로 해결 가능할것 같다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[django 에서 트랜잭션 적용하기]]></title><description><![CDATA[…]]></description><link>https://ohyunkyo.github.io/TIL/django/django-db-transaction/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django/django-db-transaction/</guid><pubDate>Wed, 20 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;어플리케이션 외부의 데이터 혹은 업로드 한 엑셀 데이터를 가공하여 발주서 테이블에 등록하는 기능을 만들었다.&lt;br&gt;
+이때 특정 데이터로 패키지를 검색해서 발주서 객체에 추가하는데, 패키지를 검색하지 못해서 예외가 발생할 경우 해당 작업 전체가 취소되어야 한다.&lt;/p&gt;
+&lt;p&gt;django 에 대해 잘 알지 못했기 때문에 트랜잭션은 나중에 적용하기로 하고 일단 하드코딩으로 기능을 구현했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;current_time &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; timezone&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;now&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+created_at &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; current_time&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;strftime&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;%Y%m%d%H%M%S&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        
+&lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; loop
+    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        package &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Package&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;product_code&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;product_code&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;except&lt;/span&gt; Package&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;DoesNotExist&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# 패키지가 없을경우 이번에 넣은 데이터 모두 삭제&lt;/span&gt;
+        purchase_order_list &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; PurchaseOrder&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;created_at&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;current_time&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; status&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;pending&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        purchase_order_list&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;delete&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        
+        data &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;token string&quot;&gt;&apos;message&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Package MultipleObjectsReturned&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;token string&quot;&gt;&apos;product_code&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; product_code
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; JsonResponse&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+    purchase_order &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; PurchaseOrder&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    purchase_order&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;package &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; package
+    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+    purchase_order&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;created_at &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; current_time
+    purchase_order&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;save&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;패키지가 존재하지 않을경우 현재 작업에서 지금까지 등록된 데이터를 모두 삭제하고 오류가 발생했다고 알려준다.&lt;/p&gt;
+&lt;h2&gt;1. 트랜잭션이란?&lt;/h2&gt;
+&lt;p&gt;트랜잭션은 데이터 조작을 위한 단위라고 한다.&lt;br&gt;
+쉽게 말해서 한개 이상의 쿼리(DML)가 포함된 쿼리 집합이라고 생각하면 될것 같은데 쿼리와 마찬가지로 commit 이나 rollback 할 수 있다.&lt;/p&gt;
+&lt;p&gt;영화관처럼 반드시 결제와 예약이 같이 이뤄져야 할 때, 결제후 예약이 누락되는 문제가 발생해선 안되기 때문에
+결제와 예약을 하나의 트랜잭션으로 묶고 commit 과 rollback 을 정하도록 한다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://wonit.tistory.com/462&quot;&gt;트랜잭션에 대해서&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;2. django 의 트랜잭션&lt;/h2&gt;
+&lt;p&gt;데이터베이스 설정을 변경하는것으로 하나의 request 전체를 트랜잭션으로 지정 할 수도 있다. 이후 일부 View 에서는 적용되지 않도록 할 수 있다.&lt;br&gt;
+아니면 아예 처음부터 일부 View 에만 적용되도록 할 수도 있다.&lt;/p&gt;
+&lt;h2&gt;3. django 의 쿼리 커밋&lt;/h2&gt;
+&lt;p&gt;django 에서는 기본적으로 autocommit 옵션이 true 로 설정되어 자동으로 커밋 된다고 한다.&lt;br&gt;
+‘개발자가 따로 커밋하지 않으니 당연히 자동으로 커밋해주겠지’ 라고 생각할 수 있지만 이번에 트랜잭션에 대해 공부하기 전에는 커밋에 관해 전혀 생각도 하지 못했다.&lt;/p&gt;
+&lt;h2&gt;4. 트랜잭션 적용해보기&lt;/h2&gt;
+&lt;p&gt;발주서 추가 하는 부분에 &lt;code class=&quot;language-text&quot;&gt;transaction.atomic()&lt;/code&gt; 라는 context manager 를 사용하면 기존처럼 데이터를 추가한 뒤 삭제하지 않아도 된다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Importer&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+	&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; request&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+		self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;request &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; request
+		self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;created_at &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; timezone&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;now&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+		self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;date_string &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;created_at&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;strftime&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;%Y%m%d%H%M%S&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+	&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;find_package&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;**&lt;/span&gt;kwargs&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+		keyword &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;None&lt;/span&gt;
+		mode &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; kwargs&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;mode&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+
+		&lt;span class=&quot;token keyword&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+			&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; mode &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;serial_code&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+				keyword &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; kwargs&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;serial_code&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+				package &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Package&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;serial_code&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;keyword&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+			&lt;span class=&quot;token keyword&quot;&gt;elif&lt;/span&gt; mode &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;product_code&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+				keyword &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; kwargs&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;product_code&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+				package &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Package&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;product_code&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;keyword&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+			&lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+				package &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;None&lt;/span&gt;
+		&lt;span class=&quot;token keyword&quot;&gt;except&lt;/span&gt; Package&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;DoesNotExist&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+			&lt;span class=&quot;token keyword&quot;&gt;raise&lt;/span&gt; Exception&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;등록 되지 않은 패키지 입니다(&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; mode&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;: &apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; keyword &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;)&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+		&lt;span class=&quot;token keyword&quot;&gt;except&lt;/span&gt; Package&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;MultipleObjectsReturned&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+			&lt;span class=&quot;token keyword&quot;&gt;raise&lt;/span&gt; Exception&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;중복 등록된 패키지 입니다.(&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; mode&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;: &apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; keyword &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;)&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+		&lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; package
+
+	&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;import_json&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+		json_data &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; json&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;loads&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;request&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;body&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+		&lt;span class=&quot;token keyword&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+			&lt;span class=&quot;token keyword&quot;&gt;with&lt;/span&gt; transaction&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;atomic&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+				&lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; purchase_order_object &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; json_data&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;purchase_order&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+					serial_code &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; purchase_order_object&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;serial_code&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+
+					package &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;find_package&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mode&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;serial_code&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; serial_code&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;serial_code&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+					&lt;span class=&quot;token comment&quot;&gt;# 모델 객체에 데이터 저장&lt;/span&gt;
+					purchase_order &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; PurchaseOrder&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+					purchase_order&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;order_number &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; dateformat&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;created_at&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Ymd&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+					&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+					purchase_order&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;created_at &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;created_at
+
+					&lt;span class=&quot;token comment&quot;&gt;# 모델 객체 DB insert&lt;/span&gt;
+					purchase_order&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;save&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+			data &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+				&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+			&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+		&lt;span class=&quot;token keyword&quot;&gt;except&lt;/span&gt; Exception &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; e&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+			data &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+				&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+			&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+		&lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; data&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://myjorney.tistory.com/142&quot;&gt;출처1&lt;/a&gt;
+&lt;a href=&quot;https://blog.doosikbae.com/146&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;5. 예외 발생시 처리하기&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;try&lt;/code&gt; 블록이 &lt;code class=&quot;language-text&quot;&gt;transaction.atomic()&lt;/code&gt; 블록을 감싸도록 한 후 예외를 처리하면 된다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://lee-seul.github.io/django/2019/02/02/django-transactionmanagementerror.html&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[엑셀 파일 HttpResponse 에 담아 전달하기]]></title><description><![CDATA[0. 서론 엑셀 파일 생성에 필요한 dataframe 을 완성했다. 그리고  메서드를 사용해 프로젝트 내부에 엑셀도 생성해 봤다. 이제 프로젝트 내부가 아닌 Http response 에 엑셀 파일을 담아 리턴해주기만 하면 된다.…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/create-xls-file-and-return-it/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/create-xls-file-and-return-it/</guid><pubDate>Wed, 13 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;엑셀 파일 생성에 필요한 dataframe 을 완성했다. 그리고 &lt;code class=&quot;language-text&quot;&gt;to_excel()&lt;/code&gt; 메서드를 사용해 프로젝트 내부에 엑셀도 생성해 봤다.&lt;br&gt;
+이제 프로젝트 내부가 아닌 Http response 에 엑셀 파일을 담아 리턴해주기만 하면 된다.&lt;/p&gt;
+&lt;h2&gt;1. 엑셀 파일이 포함된 response 생성하기&lt;/h2&gt;
+&lt;p&gt;어떤 원리인지는 잘 모르겠다. 일단 &lt;code class=&quot;language-text&quot;&gt;to_excel()&lt;/code&gt; 메서드의 &lt;code class=&quot;language-text&quot;&gt;excel_writer&lt;/code&gt; 인자는 엑셀이 생성될 위치를 포함한 여러 정보를 전달받게 되는것 같은데,
+여기에 HttpResponse 객체를 넣어주게 되면 해당 응답객체에 엑셀 파일이 삽입되는것 같다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;response &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; HttpResponse&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;headers&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;Content-Type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;application/vnd.ms-excel&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;Content-Disposition&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;attachment; filename*=UTF-8\&apos;\&apos;purchase_order_&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; date_string &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;.xls&apos;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+df&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;to_excel&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;response&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; index&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; engine&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;xlwt&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; response&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/35267585/django-pandas-to-http-response-download-file&quot;&gt;출처1&lt;/a&gt;
+&lt;a href=&quot;https://gist.github.com/jonperron/733c3ead188f72f0a8a6f39e3d89295d&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[내가 사용해본 django-pandas]]></title><description><![CDATA[pandas 란? pandas 는 데이터 조작 및 분석을 위해 python 으로 작성된 소프트웨어 라이브러리이다. 또한 R, SQL, spreadsheet 등 에서 가능하던 작업을 pandas…]]></description><link>https://ohyunkyo.github.io/TIL/django/tht-django-pandas-i-know/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django/tht-django-pandas-i-know/</guid><pubDate>Wed, 13 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;pandas 란?&lt;/h2&gt;
+&lt;p&gt;pandas 는 데이터 조작 및 분석을 위해 python 으로 작성된 소프트웨어 라이브러리이다.&lt;br&gt;
+또한 R, SQL, spreadsheet 등 에서 가능하던 작업을 pandas 에서 수행 가능하도록 하는 메서드를 가지고 있다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://pandas.pydata.org/docs/getting_started/comparison/index.html&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;django-pandas 사용하기&lt;/h2&gt;
+&lt;p&gt;이런 pandas 를 django 프로젝트에서 사용 가능하도록 도와주는 도구가 django-pandas 이다.&lt;/p&gt;
+&lt;h3&gt;설치하기&lt;/h3&gt;
+&lt;p&gt;django-pandas 를 사용하기 전에 pandas 를 설치해야 한다&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;pip &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; numpy
+pip &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; pandas&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이제 django-pandas 를 설치한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;pip &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; django-pandas&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;queryset 으로 dataframe 생성하기&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;read_frame()&lt;/code&gt; 메서드를 사용하면 간단하게 생성할 수 있다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; django_pandas&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; read_frame
+qs &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; InventoryProcess&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+df &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; read_frame&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;qs&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;df&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 결과 &lt;/span&gt;
+
+   &lt;span class=&quot;token function&quot;&gt;id&lt;/span&gt;     name  effect
+&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;   &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;  초기재고    True
+&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;   &lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;    반품    True
+&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;   &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;    출고   False
+&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;   &lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;    입고    True&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이제 이 데이터 프레임의 양식을 변경해보자&lt;/p&gt;
+&lt;h3&gt;column 순서 변경하기&lt;/h3&gt;
+&lt;p&gt;dataframe 에 원하는 순서대로 컬럼 명을 나열한 리스트를 전달하면 해당 순서대로 컬럼의 위치가 변경된다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; django_pandas&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; read_frame
+qs &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; InventoryProcess&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+df &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; read_frame&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;qs&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+df &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; df&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;name&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;effect&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;# 추가한 코드&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;df&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 결과 &lt;/span&gt;
+
+     name  effect  &lt;span class=&quot;token function&quot;&gt;id&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;  초기재고    True   &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;    반품    True   &lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;    출고   False   &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;    입고    True   &lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;컬럼 명 변경하기 - 전체&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;columns&lt;/code&gt; 속성을 사용하여 사용하여 dataframe 의 컬럼 이름을 변경한다.&lt;br&gt;
+아래의 방법으로는 모든 컬럼의 이름을 변경하기 때문에 실제 컬럼 갯수와 리스트의 요소 갯수가 일치해야 한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; django_pandas&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; read_frame
+qs &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; InventoryProcess&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+df &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; read_frame&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;qs&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+df &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; df&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;name&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;effect&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+df&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;columns &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;이름&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;처리방법&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;# 추가한 코드&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;df&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 결과 &lt;/span&gt;
+
+     이름   처리방법  &lt;span class=&quot;token function&quot;&gt;id&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;  초기재고   True   &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;    반품   True   &lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;    출고  False   &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;    입고   True   &lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;컬럼명 변경하기 - 개별&lt;/h3&gt;
+&lt;p&gt;전체 컬럼명이 아닌 일부만 변경하고 싶을 경우 &lt;code class=&quot;language-text&quot;&gt;rename()&lt;/code&gt; 메서드에 기존컬럼 이름과 변경할 컬럼 이름을 전달한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; django_pandas&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; read_frame
+qs &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; InventoryProcess&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+df &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; read_frame&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;qs&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+df &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; df&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;name&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;effect&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+df&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;columns &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;이름&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;처리방법&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+df&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;rename&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;columns&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;pk&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; inplace&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;# 추가한 코드&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;df&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 결과 &lt;/span&gt;
+
+     이름   처리방법  pk
+&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;  초기재고   True   &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;    반품   True   &lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;    출고  False   &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;    입고   True   &lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;인덱스 제거하여 출력하기&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;to_string()&lt;/code&gt; 메서드의 인수에 &lt;code class=&quot;language-text&quot;&gt;index=False&lt;/code&gt; 를 전달하여 인덱스가 표시되지 않도록 한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; django_pandas&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; read_frame
+qs &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; InventoryProcess&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+df &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; read_frame&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;qs&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+df &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; df&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;name&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;effect&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+df&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;columns &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;이름&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;처리방법&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+df&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;rename&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;columns&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;pk&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; inplace&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; 
+
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;df&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;to_string&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;index&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;# 변경한 코드&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 결과 &lt;/span&gt;
+
+이름  처리방법  pk
+초기재고  True   &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;
+반품  True   &lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;
+출고 False   &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;
+입고  True   &lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://seong6496.tistory.com/133&quot;&gt;출처1&lt;/a&gt;
+&lt;a href=&quot;https://hogni.tistory.com/51&quot;&gt;출처2&lt;/a&gt;
+&lt;a href=&quot;https://github.com/chrisdev/django-pandas&quot;&gt;django-pandas github&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[json 데이터를 dataframe 으로 변환하기]]></title><description><![CDATA[0. 서론 모델의 데이터를 가공하여 엑셀 파일을 리턴하는 기능을 만들어 사용중이였다. 원하는대로 작동하긴 했지만 가독성도 떨어지고 복잡한 소스코드를 계속 사용할 생각은 없었다. 그래서 drf…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/json-to-dataframe/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/json-to-dataframe/</guid><pubDate>Tue, 12 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;모델의 데이터를 가공하여 엑셀 파일을 리턴하는 기능을 만들어 사용중이였다.&lt;br&gt;
+원하는대로 작동하긴 했지만 가독성도 떨어지고 복잡한 소스코드를 계속 사용할 생각은 없었다.&lt;br&gt;
+그래서 drf 로 리팩토링 하는 과정에서 다른 방법을 사용하여 더 좋은 소스코드를 작성하고자 했다.&lt;/p&gt;
+&lt;p&gt;엑셀파일을 어디에서 생성할것인지가 첫번째 고민이였다.&lt;br&gt;
+vue.js 에서 json 데이터로 엑셀 파일을 생성하는 라이브러리가 있다는것을 알게됐기 때문인데,&lt;br&gt;
+관련 지식이나 경험이 없어서 친구의 조언대로 기존 방식(백엔드에서 생성 후 전달)을 사용하기로 했다.&lt;/p&gt;
+&lt;p&gt;엑셀파일을 생성할 때에는 하드코딩에 가까운 기존 방식보다는 pandas 라이브러리를 사용하는것이 더 적합하다고 생각했다.&lt;br&gt;
+간단한 메서드로 엑셀파일을 생성 할 수 있는것처럼 보였고, dataframe 형식을 배워두면 유용하게 사용할 수 있을것 같았다.&lt;/p&gt;
+&lt;h2&gt;1. 기본 예제 실습하기&lt;/h2&gt;
+&lt;p&gt;pandas 예제에서는 queryset 으로 쉽게 dataframe 을 생성했다.&lt;br&gt;
+그래서 비슷한 방식으로 &lt;code class=&quot;language-text&quot;&gt;serializer.data&lt;/code&gt; 를 넘기면 똑같이 dataframe 이 생성될것이라 기대했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 처음 실습한 기본 예제&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; django_pandas&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; read_frame
+
+qs &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; PurchaseOrder&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+df &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; read_frame&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;qs&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# serializer 를 사용하기위해 변형한 예제&lt;/span&gt;
+
+&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+qs &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; PurchaseOrder&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+serializer &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; PurchaseOrderSerializer&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;qs&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+df &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; read_frame&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;serializer&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;그러나 당연히 실패했다.&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;read_frame&lt;/code&gt; 은 쿼리셋을 dataframe 으로 변환하는 메서드이기 때문이다.&lt;/p&gt;
+&lt;h2&gt;2. 구글링하기&lt;/h2&gt;
+&lt;p&gt;당연히 serializer 를 dataframe 으로 바꿀 수 있는 방법이 있을것이라 생각했다.&lt;br&gt;
+하지만 그중에 django-rest-pandas 는 업데이트된지도 너무 오래됐고 다른곳에서 활용하기 힘들것 같아서 제외하고 다른 방법을 찾아봤다.&lt;/p&gt;
+&lt;p&gt;serializer to dataframe 같은 검색어로 시간을 허비하던 중 serializer 가 JSON 데이터를 리턴한다는 사실이 떠올랐다.&lt;/p&gt;
+&lt;h2&gt;3. json 데이터를 dataframe 으로 변환하기&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;json_normalize()&lt;/code&gt; 메서드를 사용하여 json 데이터를 dataframe 으로 변환 할 수 있었다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# purchase_order_api.py&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; pandas&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;json &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; json_normalize
+
+queryset &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; PurchaseOrder&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;created_at__icontains&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;created_at&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;values&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+serializer &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; PurchaseOrderDownloadSerializer&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;queryset&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; many&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+df &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; json_normalize&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;serializer&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.delftstack.com/ko/howto/python-pandas/json-to-pandas-dataframe/&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[axios 에서 form 전송하기]]></title><description><![CDATA[0. 서론 validation 을 사용하지 않는 form 은 처음이였는데 데이터가 제대로 전송되지 않아서 찾아봤다. 1. 문제점 기본적으로 axios 에서 데이터를 전송할 때에는 json 형태의 데이터가 전송된다. 그렇기 때문에 form…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/axios-send-form/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/axios-send-form/</guid><pubDate>Fri, 08 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;validation 을 사용하지 않는 form 은 처음이였는데 데이터가 제대로 전송되지 않아서 찾아봤다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token function&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token literal-property property&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token literal-property property&quot;&gt;open_market&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token literal-property property&quot;&gt;purchase_order_file&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;null&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    
+    &lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;
+    
+&lt;span class=&quot;token literal-property property&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;onSubmit&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token function&quot;&gt;axios&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;token literal-property property&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;POST&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;token literal-property property&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; url&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;token literal-property property&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;form
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;1. 문제점&lt;/h2&gt;
+&lt;p&gt;기본적으로 axios 에서 데이터를 전송할 때에는 json 형태의 데이터가 전송된다.&lt;br&gt;
+그렇기 때문에 form 을 사용해야 하는 경우(file 전송 등)에는 별도의 설정이 필요하다.&lt;/p&gt;
+&lt;h2&gt;2. 해결방법&lt;/h2&gt;
+&lt;p&gt;input 의 데이터를 FormData 형식으로 변경 후 전송한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;onSubmit&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; form &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;FormData&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    form&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;open_market&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;form&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;open_market&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    form&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;purchase_order_file&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;form&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;purchase_order_file&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;axios&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token literal-property property&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;POST&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token literal-property property&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; url&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token literal-property property&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; form&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token literal-property property&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;token string-property property&quot;&gt;&apos;Content-Type&apos;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;multipart/form-data&apos;&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;response&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;$router&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token literal-property property&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;purchase order queue&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token literal-property property&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token literal-property property&quot;&gt;date_string&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; response&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;result_data&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;catch&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;error&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token function&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;등록에 실패했습니다&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;error&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;response&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://yamoo9.github.io/axios/guide/form-format.html#%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80&quot;&gt;출처1&lt;/a&gt;
+&lt;a href=&quot;https://solbel.tistory.com/886&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Vue Router 사용한 페이지 이동]]></title><description><![CDATA[0. 서론 API 에서 받아온 날짜 형식을 변경해서 사용하고 싶었다. 그리고 그 변경된 형식을  태그의  속성에 사용하여 페이지 이동하는데 사용할 생각이였다. 1. router-link 로 페이지 이동하기 vue…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/how-to-redirect-by-vue-router/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/how-to-redirect-by-vue-router/</guid><pubDate>Wed, 06 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;API 에서 받아온 날짜 형식을 변경해서 사용하고 싶었다.&lt;br&gt;
+그리고 그 변경된 형식을 &lt;code class=&quot;language-text&quot;&gt;router-link&lt;/code&gt; 태그의 &lt;code class=&quot;language-text&quot;&gt;params&lt;/code&gt; 속성에 사용하여 페이지 이동하는데 사용할 생각이였다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;Y:M:D H-m-s -&gt; YMDHms&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;1. router-link 로 페이지 이동하기&lt;/h2&gt;
+&lt;p&gt;vue 에 대해서 자세히 공부하고 시작한것이 아니라 템플릿을 구매하고 필요한부분만 찾아서 사용했기 때문에 이 방식밖에 알지 못했다.&lt;br&gt;
+그래서 filter 기능을 params 에 적용하면 원하는 기능을 구현할 수 있다고 생각했다.&lt;br&gt;
+그러나 아래와 같은 형식으로는 에러가 출력됐다. 해당 위치에서 filter 를 사용하기 위해 다른 형식으로도 시도해봤지만 결국 되지 않았다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vue&quot;&gt;&lt;pre class=&quot;language-vue&quot;&gt;&lt;code class=&quot;language-vue&quot;&gt;...
+&amp;lt;router-link :to=&amp;quot;{name: &amp;#39;purchase order queue&amp;#39;, params: {created_at: purchase_order.created_at | dateToString }}&amp;quot;&amp;gt;{{ purchase_order.created_at }}&amp;lt;/router-link&amp;gt;
+...&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;2. 메서드를 사용하여 페이지 이동하기&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;router-link&lt;/code&gt; 를 사용하여 문제를 해결하기위해 구글링 하던 중 다른 방법으로도 페이지를 이동할 수 있다는것을 알게 되었다.&lt;br&gt;
+vue 컴포넌트 내에 메서드를 생성하고 클릭시 메서드가 실행되도록 하는 방식이다.&lt;br&gt;
+이런 방식을 사용하면 코드가 조금 복잡해지지만 커스텀 할 수 있다는 장점이 있다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vue&quot;&gt;&lt;pre class=&quot;language-vue&quot;&gt;&lt;code class=&quot;language-vue&quot;&gt;...
+&amp;lt;b-link @click=&amp;quot;purchaseOrderQueue(purchase_order.created_at)&amp;quot;&amp;gt;{{ purchase_order.created_at }}&amp;lt;/b-link&amp;gt;
+...&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vue&quot;&gt;&lt;pre class=&quot;language-vue&quot;&gt;&lt;code class=&quot;language-vue&quot;&gt;...
+methods: {
+    purchaseOrderQueue(dateValue) {
+        let dateFormat = &amp;quot;YYYYMMDDHHmmss&amp;quot;
+        let dataString = moment(new Date(dateValue)).format(dateFormat)
+        this.$router.push({
+            name: &amp;quot;purchase order queue&amp;quot;,
+            params: { created_at: dataString}
+        })
+    }
+}
+...&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[ViewSet 과 APIView 를 사용해야 할 때]]></title><description><![CDATA[ViewSet 을 사용해야 할 때 API가 기본 CRUD 작업을 수행할 일이 많을 경우. 장점 모든 코드를 쓸 필요 없이 적은 양의 코드로도 CRUD 를 구현할 수 있다. APIView…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/when-use-viewset-or-apiview/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/when-use-viewset-or-apiview/</guid><pubDate>Tue, 05 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;ViewSet 을 사용해야 할 때&lt;/h2&gt;
+&lt;p&gt;API가 기본 CRUD 작업을 수행할 일이 많을 경우.&lt;/p&gt;
+&lt;h3&gt;장점&lt;/h3&gt;
+&lt;p&gt;모든 코드를 쓸 필요 없이 적은 양의 코드로도 CRUD 를 구현할 수 있다.&lt;/p&gt;
+&lt;h2&gt;APIView 를 사용해야 할 때&lt;/h2&gt;
+&lt;p&gt;많은 커스텀 작업이 필요한 경우.&lt;/p&gt;
+&lt;h3&gt;장점&lt;/h3&gt;
+&lt;p&gt;익숙하지 않은 사람들이 코드를 이해하기 쉽다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.reddit.com/r/django/comments/sm07s2/drf_when_to_use_viewsets_vs_generic_views_vs/&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[모달에 데이터 전달하기]]></title><description><![CDATA[0. 서론 frontend 와 backend 를 분리하기 이전, django…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/pass-data-to-modal/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/pass-data-to-modal/</guid><pubDate>Thu, 31 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;frontend 와 backend 를 분리하기 이전, django 템플릿으로 리스트 페이지를 만들고 각각의 객체에 수정과 삭제 버튼을 추가한 모델이 있었다.&lt;br&gt;
 수정 버튼은 수정페이지로 이동하고 삭제 버튼은 안내메시지를 포함한 모달을 띄운다.&lt;br&gt;
 이때 각 안내메시지가 해당 객체에 대한 내용을 포함하도록 하고 싶었기 때문에 객체마다 개별적인 모달을 가지고 있었고
@@ -647,7 +1492,21 @@ front 의 유효성 검사이기 때문에 무조건 믿지 말고 back 에서�
     ...
     url: url+this.$route.params.id+&amp;quot;/&amp;quot;,
     ...
-&amp;lt;/script&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[내가 사용하는 pycharm]]></title><description><![CDATA[Run Django Server pycharm 에서 run configurations 을 통해 테스트 서버를 실행하는 방법 정리 프로젝트 파이썬 인터프리터 설정 PyCharm - Preferences - Project: {project_name…]]></description><link>https://ohyunkyo.github.io/TIL/IDE/the-pycharm-i-know/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/IDE/the-pycharm-i-know/</guid><pubDate>Fri, 18 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Run Django Server&lt;/h2&gt;
+&amp;lt;/script&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[내가 이해한 vue.js]]></title><description><![CDATA[vue.js 를 선택한 이유 지금 내가 프론트엔드 프레임워크를 사용하려면 비교적 배우기 쉽고 복잡하지 않은 것을 선택하여 시작 하는것이 유리하다고 생각했다. vue.js…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/the-vue-js-i-know/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/the-vue-js-i-know/</guid><pubDate>Fri, 18 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;vue.js 를 선택한 이유&lt;/h2&gt;
+&lt;p&gt;지금 내가 프론트엔드 프레임워크를 사용하려면 비교적 배우기 쉽고 복잡하지 않은 것을 선택하여 시작 하는것이 유리하다고 생각했다.&lt;br&gt;
+vue.js 는 &lt;a href=&quot;https://velog.io/@leehaeun0/React-vs-Vue-%EC%9E%A5%EB%8B%A8%EC%A0%90-%EB%B9%84%EA%B5%90&quot;&gt;작은 프로젝트를 빠르게 만들기 쉽고, 자바스크립트 문법에 대해 잘 몰라도 된단다.&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;vue.js 란 무엇일까&lt;/h2&gt;
+&lt;p&gt;이름에서 보이는것처럼 js 기반의 웹 프레임워크이다.&lt;br&gt;
+다른 프레임워크와는 다르게 html 에 vue 문법을 조합하여 사용하는 방식이다.&lt;/p&gt;
+&lt;h2&gt;이걸 왜 쓰나요?&lt;/h2&gt;
+&lt;p&gt;간단히 말하면 이게 더 편리하다는거다.&lt;/p&gt;
+&lt;h3&gt;Virtual DOM&lt;/h3&gt;
+&lt;p&gt;DOM 이라는건 HTML 문서를 트리 구조로 표현한것 이라고 생각하면 된다.&lt;br&gt;
+이 DOM 을 통해 HTML 과 CSS 를 조작할 수 있는것이다.&lt;/p&gt;
+&lt;p&gt;하나의 페이지만 봐도 수많은 HTML 태그가 있고 그만큼 DOM 요소들도 많다.&lt;br&gt;
+그런데 만약 사용자 요청에 따라 HTML 을 변경해야 할 일이 많다면 관리 해야 할 DOM 요소들이 많아지고,
+그만큼 개발자가 신경써야 할 사항도 점점 많아지게 된다.&lt;/p&gt;
+&lt;p&gt;이때 기존 방식보다 더 단순하고 편리하게 관리 가능한 V-DOM 을 사용 한다는것이다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[내가 사용하는 pycharm]]></title><description><![CDATA[Run Django Server pycharm 에서 run configurations 을 통해 테스트 서버를 실행하는 방법 정리 프로젝트 파이썬 인터프리터 설정 PyCharm - Preferences - Project: {project_name…]]></description><link>https://ohyunkyo.github.io/TIL/IDE/the-pycharm-i-know/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/IDE/the-pycharm-i-know/</guid><pubDate>Fri, 18 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Run Django Server&lt;/h2&gt;
 &lt;p&gt;pycharm 에서 run configurations 을 통해 테스트 서버를 실행하는 방법 정리&lt;/p&gt;
 &lt;h3&gt;프로젝트 파이썬 인터프리터 설정&lt;/h3&gt;
 &lt;p&gt;PyCharm - Preferences - Project: {project_name} - Python Interpreter 항목에서 적절한 인터프리터 버전을 선택한다&lt;/p&gt;
@@ -663,21 +1522,8 @@ Python Interpreter 옵션도 적절히 선택한다.&lt;/p&gt;
 &lt;li&gt;⌃ + 숫자 = 기억북마크에 저장된 숫자로 이동&lt;/li&gt;
 &lt;li&gt;⌘ + F3 = 전체 북마크 목록을 본다&lt;/li&gt;
 &lt;li&gt;전체 북마크 목록 + 알파벳 = 알파벳에 설정된 기억북마크로 이동&lt;/li&gt;
-&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[내가 이해한 vue.js]]></title><description><![CDATA[vue.js 를 선택한 이유 지금 내가 프론트엔드 프레임워크를 사용하려면 비교적 배우기 쉽고 복잡하지 않은 것을 선택하여 시작 하는것이 유리하다고 생각했다. vue.js…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/the-vue-js-i-know/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/the-vue-js-i-know/</guid><pubDate>Fri, 18 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;vue.js 를 선택한 이유&lt;/h2&gt;
-&lt;p&gt;지금 내가 프론트엔드 프레임워크를 사용하려면 비교적 배우기 쉽고 복잡하지 않은 것을 선택하여 시작 하는것이 유리하다고 생각했다.&lt;br&gt;
-vue.js 는 &lt;a href=&quot;https://velog.io/@leehaeun0/React-vs-Vue-%EC%9E%A5%EB%8B%A8%EC%A0%90-%EB%B9%84%EA%B5%90&quot;&gt;작은 프로젝트를 빠르게 만들기 쉽고, 자바스크립트 문법에 대해 잘 몰라도 된단다.&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;vue.js 란 무엇일까&lt;/h2&gt;
-&lt;p&gt;이름에서 보이는것처럼 js 기반의 웹 프레임워크이다.&lt;br&gt;
-다른 프레임워크와는 다르게 html 에 vue 문법을 조합하여 사용하는 방식이다.&lt;/p&gt;
-&lt;h2&gt;이걸 왜 쓰나요?&lt;/h2&gt;
-&lt;p&gt;간단히 말하면 이게 더 편리하다는거다.&lt;/p&gt;
-&lt;h3&gt;Virtual DOM&lt;/h3&gt;
-&lt;p&gt;DOM 이라는건 HTML 문서를 트리 구조로 표현한것 이라고 생각하면 된다.&lt;br&gt;
-이 DOM 을 통해 HTML 과 CSS 를 조작할 수 있는것이다.&lt;/p&gt;
-&lt;p&gt;하나의 페이지만 봐도 수많은 HTML 태그가 있고 그만큼 DOM 요소들도 많다.&lt;br&gt;
-그런데 만약 사용자 요청에 따라 HTML 을 변경해야 할 일이 많다면 관리 해야 할 DOM 요소들이 많아지고,
-그만큼 개발자가 신경써야 할 사항도 점점 많아지게 된다.&lt;/p&gt;
-&lt;p&gt;이때 기존 방식보다 더 단순하고 편리하게 관리 가능한 V-DOM 을 사용 한다는것이다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[vue.js 설치해보기]]></title><description><![CDATA[0. 서론 앞으로 개발할 예정인 재고관리 API 서버와 연동하기 위해 프론트엔드 프레임워크를 사용하여 간단히 화면을 구성해보기로 했다. 1. 설치 일단 vue.js 를 먼저 설치 한 뒤 프로젝트를 생성해줬다.…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/install-vue/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/install-vue/</guid><pubDate>Thu, 17 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.jetbrains.com/ko/2020/03/11/top-15-intellij-idea-shortcuts_ko/&quot;&gt;추가 단축키&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[vue.js 설치해보기]]></title><description><![CDATA[0. 서론 앞으로 개발할 예정인 재고관리 API 서버와 연동하기 위해 프론트엔드 프레임워크를 사용하여 간단히 화면을 구성해보기로 했다. 1. 설치 일단 vue.js 를 먼저 설치 한 뒤 프로젝트를 생성해줬다.…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/install-vue/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/install-vue/</guid><pubDate>Thu, 17 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;앞으로 개발할 예정인 재고관리 API 서버와 연동하기 위해 프론트엔드 프레임워크를 사용하여 간단히 화면을 구성해보기로 했다.&lt;/p&gt;
 &lt;h2&gt;1. 설치&lt;/h2&gt;
 &lt;p&gt;일단 vue.js 를 먼저 설치 한 뒤 프로젝트를 생성해줬다.&lt;/p&gt;
@@ -802,4 +1648,4 @@ npm 을 사용하지 않으면 필요한 모듈을 개별적으로 다운로드 
 &lt;a href=&quot;https://docs.python.org/3/tutorial/classes.html&quot;&gt;클래스&lt;/a&gt;
 &lt;a href=&quot;https://www.i-programmer.info/programming/python/11683-programmers-python-variables-objects-and-attributes.html&quot;&gt;변수/객체/속성&lt;/a&gt;
 &lt;a href=&quot;https://youtu.be/BJ-VvGyQxho&quot;&gt;클래스변수/인스턴스변수&lt;/a&gt;
-&lt;a href=&quot;https://youtu.be/rq8cL2XMM5M&quot;&gt;클래스메서드/스태틱메서드&lt;/a&gt;&lt;/p&gt;</content:encoded></item></channel></rss>
+&lt;a href=&quot;https://youtu.be/rq8cL2XMM5M&quot;&gt;클래스메서드/스태틱메서드&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[data 속성과 methods]]></title><description><![CDATA[https://v3.ko.vuejs.org/guide/data-methods.html]]></description><link>https://ohyunkyo.github.io/TIL/tmp/base-of-data-and-methods/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/base-of-data-and-methods/</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://v3.ko.vuejs.org/guide/data-methods.html&quot;&gt;https://v3.ko.vuejs.org/guide/data-methods.html&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[annotation 과 aggregation]]></title><description><![CDATA[http://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/]]></description><link>https://ohyunkyo.github.io/TIL/tmp/django-annotation-aggregation/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/django-annotation-aggregation/</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;http://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/&quot;&gt;http://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[뷰 리팩토링]]></title><description><![CDATA[https://jess2.xyz/vue/vue-tip/]]></description><link>https://ohyunkyo.github.io/TIL/tmp/vue-refactoring/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/vue-refactoring/</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://jess2.xyz/vue/vue-tip/&quot;&gt;https://jess2.xyz/vue/vue-tip/&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[secret 파일 포함하여 컨테이너 생성하기]]></title><description><![CDATA[https://yongho1037.tistory.com/808]]></description><link>https://ohyunkyo.github.io/TIL/tmp/create-container-with-secret/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/create-container-with-secret/</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://yongho1037.tistory.com/808&quot;&gt;https://yongho1037.tistory.com/808&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[이미지 상대경로 사용하기]]></title><description><![CDATA[https://www.gatsbyjs.com/docs/working-with-images-in-markdown/]]></description><link>https://ohyunkyo.github.io/TIL/tmp/relative-path-markdown-image/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/relative-path-markdown-image/</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://www.gatsbyjs.com/docs/working-with-images-in-markdown/&quot;&gt;https://www.gatsbyjs.com/docs/working-with-images-in-markdown/&lt;/a&gt;&lt;/p&gt;</content:encoded></item></channel></rss>
