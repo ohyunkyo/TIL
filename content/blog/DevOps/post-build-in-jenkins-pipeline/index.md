@@ -76,6 +76,8 @@ pipeline {
 `notifyEvents` 스탭에서 사용하는 변수 명에 대한 정보를 찾을수가 없어서 조금 애를 먹었다.   
 결국엔 원하는 정보를 얻긴 했지만 전체 변수에 대한 설명이 있는 페이지가 있었으면 좋았을것 같다.(있는데 못찾은걸수도 있음)
 
+> 2022-06-14 : https://www.jenkins.io/doc/book/pipeline/getting-started/#global-variable-reference
+
 ## References 
 https://medium.com/@gustavo.guss/how-to-do-post-build-in-jenkins-pipeline-d1e7233909b8  
 https://www.jenkins.io/doc/pipeline/tour/post/
