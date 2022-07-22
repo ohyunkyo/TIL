@@ -1,4 +1,112 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Gatsby Starter Blog RSS Feed]]></title><description><![CDATA[Gatsby Starter Blog RSS Feed]]></description><link>https://ohyunkyo.github.io/TIL</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 15 Jun 2022 06:11:27 GMT</lastBuildDate><item><title><![CDATA[젠킨스 pipeline 에서 빌드 후 조치 실행하기]]></title><description><![CDATA[0. 서론 현재  의 빌드 후 조치 항목에서  로 알림을 보내고 있다.  이것과 동일한 알림을 파이프라인에서 보내도록 하기 위해 찾아봤다. 1. post 사용하기 아래 예제처럼  블록 뒤  블록을 추가하여 원하는  이 실행되도록 설정해준다…]]></description><link>https://ohyunkyo.github.io/TIL/DevOps/post-build-in-jenkins-pipeline/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/DevOps/post-build-in-jenkins-pipeline/</guid><pubDate>Fri, 10 Jun 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Gatsby Starter Blog RSS Feed]]></title><description><![CDATA[Gatsby Starter Blog RSS Feed]]></description><link>https://ohyunkyo.github.io/TIL</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 22 Jul 2022 09:19:21 GMT</lastBuildDate><item><title><![CDATA[drf 사용하여 API 만들기]]></title><description><![CDATA[0. 서론 장고 프로젝트를 생성하는것부터 간단한 API 를 만드는 과정을 정리한다.…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/start-with-drf/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/start-with-drf/</guid><pubDate>Fri, 22 Jul 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;장고 프로젝트를 생성하는것부터 간단한 API 를 만드는 과정을 정리한다.&lt;/p&gt;
+&lt;h2&gt;1. 장고 프로젝트 생성&lt;/h2&gt;
+&lt;p&gt;내가 원하는 구조를 위해 프로젝트의 &lt;code class=&quot;language-text&quot;&gt;root&lt;/code&gt; 로 사용될 디렉토리를 먼저 생성하고 그 안에서 프로젝트를 생성 하는 명령어를 실행한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;mkdir&lt;/span&gt; ingredient-manage
+$ &lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; ingredient-manage 
+$ django-admin startproject config &lt;span class=&quot;token builtin class-name&quot;&gt;.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이렇게 하고 나면 다음과 같은 구조의 디렉토리와 파일을 볼 수 있는데,  이후 &lt;code class=&quot;language-text&quot;&gt;ingredient-manage&lt;/code&gt; 디렉토리에 &lt;code class=&quot;language-text&quot;&gt;app&lt;/code&gt; 을 추가하는 방식으로 개발을 진행할것이다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;ingredient-manage
+├── config
+    ├── __init__.py
+    ├── asgi.py
+    ├── settings.py
+    ├── urls.py
+    ├── wsgi.py
+├── manage.py&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;django-admin startproject&lt;/code&gt; 명령어로 생성한 프로젝트에는 기본적인 설정 파일 이외엔 넣지 않을 예정이기 때문에 앞으로 장고 프로젝트를 생성할 때에는 &lt;code class=&quot;language-text&quot;&gt;config&lt;/code&gt; 라는 이름의 프로젝트를 생성하기로 했다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;2. IDE 설정&lt;/h2&gt;
+&lt;p&gt;각 IDE 에서 파이썬 인터프리터 및 테스트 환경을 설정해준다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/TIL/IDE/the-pycharm-i-know/&quot;&gt;Pycharm 설정 방법&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;이후 테스트 서버가 실행되는지 확인한다.&lt;/p&gt;
+&lt;h2&gt;3. django-rest-framework 설치&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;$ &lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; ingredient-manage
+$ pip &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; djangorestframework
+$ pip &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; django-filter &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;4. app 생성하기&lt;/h2&gt;
+&lt;p&gt;다음으로 app 을 하나 생성한다.&lt;br&gt;
+각 기능별로 app 을 분리하여 재사용 할 수도 있지만 지금 단계에서는 하나의 app 에 모든 기능을 만들 예정이다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;$ django-admin startapp management&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;4. settings.py 파일 설정하기&lt;/h2&gt;
+&lt;h3&gt;4.1 INSTALLED_APPS&lt;/h3&gt;
+&lt;p&gt;drf 와 방금 생성한 app 을 사용하기 위해선 &lt;code class=&quot;language-text&quot;&gt;INSTALLED_APPS&lt;/code&gt; 에 drf 와 새로 생성한 app 을 추가해야 한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;INSTALLED_APPS &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;rest_framework&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;django_filters&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;management.apps.ManagementConfig&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;4.2 Internationalization&lt;/h3&gt;
+&lt;p&gt;다음으론 i18n 설정을 다음과 같이변경한다. 언어 코드와 타임존을 변경했고, DB 에 한국 시간(&lt;code class=&quot;language-text&quot;&gt;KST&lt;/code&gt;)을 저장하기 위해 &lt;code class=&quot;language-text&quot;&gt;USE_TZ&lt;/code&gt; 를 &lt;code class=&quot;language-text&quot;&gt;False&lt;/code&gt; 로 변경했다. 만약 &lt;code class=&quot;language-text&quot;&gt;True&lt;/code&gt; 상태라면 &lt;code class=&quot;language-text&quot;&gt;UTC&lt;/code&gt; 시간이 저장된다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;LANGUAGE_CODE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;ko-kr&apos;&lt;/span&gt;
+
+TIME_ZONE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Asia/Seoul&apos;&lt;/span&gt;
+
+USE_I18N &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;
+
+USE_L10N &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;
+
+USE_TZ &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;False&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;4.3 secret 파일&lt;/h3&gt;
+&lt;p&gt;나는 이번 장고 프로젝트를 github 의 public repository 에 업로드 할 예정이다.&lt;br&gt;
+그런데 프로젝트 내부엔 공개할 수 없는 패스워드나 키가 포함되어있기 때문에 그대로 업로드 할수는 없다.&lt;br&gt;
+대신 이것들을 별도로 다른 파일에 보관하고 &lt;code class=&quot;language-text&quot;&gt;settings.py&lt;/code&gt; 에서 그 파일을 불러오도록 할 것이다.&lt;/p&gt;
+&lt;p&gt;먼저 &lt;code class=&quot;language-text&quot;&gt;django-secret.json&lt;/code&gt; 이라는 파일을 프로젝트 루트 디렉토리(&lt;code class=&quot;language-text&quot;&gt;ingredient-manage&lt;/code&gt;)에 생성한다. 그 다음 공개하지 않고 싶은 패스워드나 키를 추가한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;json&quot;&gt;&lt;pre class=&quot;language-json&quot;&gt;&lt;code class=&quot;language-json&quot;&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;DJANGO_SECRET_KEY&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;DB_DEFAULT_ENGINE&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;DB_DEFAULT_NAME&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;DB_DEFAULT_USER&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;DB_DEFAULT_PASSWORD&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;DB_DEFAULT_HOST&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;DB_DEFAULT_PORT&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;PROD_ALLOWED_HOSTS&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;그다음으론 이 파일을 읽은 뒤 적절한 위치에 적절히 호출하면 된다.&lt;br&gt;
+나는 &lt;code class=&quot;language-text&quot;&gt;settings.py&lt;/code&gt; 파일의 &lt;code class=&quot;language-text&quot;&gt;BASE_DIR&lt;/code&gt; 변수 아래에서 &lt;code class=&quot;language-text&quot;&gt;django-secret.json&lt;/code&gt; 파일을 불러왔다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; json
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; pathlib &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; Path
+
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; django&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;core&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exceptions &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; ImproperlyConfigured
+
+&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+
+BASE_DIR &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Path&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;__file__&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;resolve&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;parent&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;parent
+
+
+&lt;span class=&quot;token comment&quot;&gt;# Quick-start development settings - unsuitable for production&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;./django-secret.json&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; f&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    django_secret &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; json&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;loads&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;read&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;get_secret&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;setting&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; secrets&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;django_secret&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; secrets&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;setting&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;except&lt;/span&gt; KeyError&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        error_msg &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Set the {0} enviroment varialble&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;setting&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;raise&lt;/span&gt; ImproperlyConfigured&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;error_msg&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        
+&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;그리고 아래처럼 호출했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+
+SECRET_KEY &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; get_secret&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;DJANGO_SECRET_KEY&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;SECRET_KEY&lt;/code&gt; 뿐 아니라 DB 정보도 같은 방식으로 호출하면 중요한 정보를 노출하지 않을 수 있다.&lt;/p&gt;
+&lt;h3&gt;4.4 local, prod&lt;/h3&gt;
+&lt;!--
+개발, 운영 디비 `DEBUG = True` 같은 설정
+--&gt;
+&lt;h2&gt;References&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://docs.djangoproject.com/ko/4.0/intro/tutorial01/&quot;&gt;django 튜토리얼&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://forum.djangoproject.com/t/project-naming-conventions/339/12&quot;&gt;프로젝트 이름을 config 로 사용한 이유&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[장고 user 모델 커스텀하기]]></title><description><![CDATA[https://whatisthenext.tistory.com/128
+https://velog.io/@iedcon/AbstractBaseUser%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Django-%EC%BB%A4%EC%8A…]]></description><link>https://ohyunkyo.github.io/TIL/tmp/custom-user-model/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/custom-user-model/</guid><pubDate>Tue, 05 Jul 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://whatisthenext.tistory.com/128&quot;&gt;https://whatisthenext.tistory.com/128&lt;/a&gt;
+&lt;a href=&quot;https://velog.io/@iedcon/AbstractBaseUser%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Django-%EC%BB%A4%EC%8A%A4%ED%85%80-%EC%9C%A0%EC%A0%80-%EB%AA%A8%EB%8D%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0&quot;&gt;https://velog.io/@iedcon/AbstractBaseUser%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Django-%EC%BB%A4%EC%8A%A4%ED%85%80-%EC%9C%A0%EC%A0%80-%EB%AA%A8%EB%8D%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[젠킨스 pipeline 에서 빌드 후 조치 실행하기]]></title><description><![CDATA[0. 서론 현재  의 빌드 후 조치 항목에서  로 알림을 보내고 있다.  이것과 동일한 알림을 파이프라인에서 보내도록 하기 위해 찾아봤다. 1. post 사용하기 아래 예제처럼  블록 뒤  블록을 추가하여 원하는  이 실행되도록 설정해준다…]]></description><link>https://ohyunkyo.github.io/TIL/DevOps/post-build-in-jenkins-pipeline/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/DevOps/post-build-in-jenkins-pipeline/</guid><pubDate>Fri, 10 Jun 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;현재 &lt;code class=&quot;language-text&quot;&gt;freestyle project&lt;/code&gt; 의 빌드 후 조치 항목에서 &lt;code class=&quot;language-text&quot;&gt;notify.events&lt;/code&gt; 로 알림을 보내고 있다.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
