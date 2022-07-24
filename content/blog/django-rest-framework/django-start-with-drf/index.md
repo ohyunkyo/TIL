@@ -35,8 +35,6 @@ ingredient-manage
 
 [Pycharm 설정 방법](/IDE/the-pycharm-i-know/)
 
-이후 테스트 서버가 실행되는지 확인한다.
-
 ## 3. django-rest-framework 설치
 
 ```shell
@@ -142,10 +140,48 @@ SECRET_KEY = get_secret("DJANGO_SECRET_KEY")
 
 `SECRET_KEY` 뿐 아니라 DB 정보도 같은 방식으로 호출하면 중요한 정보를 노출하지 않을 수 있다.
 
-### 4.4 local, prod
-<!--
-개발, 운영 디비 `DEBUG = True` 같은 설정
--->
+### 4.4 settings 분리하기
+이제 개발과 운영 환경을 다르게 유지하기 위해 `settings.py` 파일을 분리한다. `DEBUG` 옵션 처럼 각 운영 환경에서 다른 옵션값을 설정해야 하는 경우 필요한 작업이다.
+
+`config` 디렉토리에 새로운 `Python Package` 를 생성한 뒤 그 내부에 `base.py`, `local.py`, `prod.py` 파일 세개를 추가한다.  
+그리고 `settings.py` 파일의 내용을 모두 복사해 `base.py` 파일에 붙여넣은 뒤 삭제한다.  
+`local.py` 파일과 `prod.py` 파일은 각각 개발, 운영 환경에서만 필요한 설정을 포함하면 되는데, 나는 아래처럼 설정했다.
+
+```python
+# local.py
+
+from .base import *
+```
+
+```python
+# prod.py
+
+from .base import *
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+ALLOWED_HOSTS = get_secret("PROD_ALLOWED_HOSTS")
+```
+
+> `base.py` 파일은 모든 환경에서 공통으로 사용되는 설정만 포함하면 된다.
+
+최종적으로는 아래와 같은 형태의 구조가 되면 된다.
+
+```
+ingredient-manage
+├── config
+    ├── settings
+        ├── __init__.py
+        ├── base.py
+        ├── local.py
+        ├── prod.py 
+    ├── __init__.py
+    ├── asgi.py
+    ├── urls.py
+    ├── wsgi.py
+├── manage.py
+```
 
 ## References
 [django 튜토리얼](https://docs.djangoproject.com/ko/4.0/intro/tutorial01/)  
