@@ -157,8 +157,6 @@ SECRET_KEY = get_secret("DJANGO_SECRET_KEY")
 #### 5.4.3 local.py, prod.py 설정
 `local.py` 파일과 `prod.py` 파일은 각각 개발, 운영 환경에서만 필요한 설정을 포함하면 되는데, 나는 아래처럼 설정했다.
 
- 
-
 ```python
 # local.py
 # 기본 설정 그대로 사용
@@ -184,6 +182,123 @@ DEBUG = False
 
 운영서버를 실행할 때에는 gunicorn 에 `DJANGO_SETTINGS_MODULE=config.settings.prod` 라는 옵션을 추가하면 된다.
 
+## 6. drf 시작하기
+커스텀한 `User` 모델을 api 를 통해 조회하는 예제를 만들어봤다. 
+### 6.1 /config/urls.py
+management app 의 `urls.py` 파일을 불러오는 구문을 추가한다
+```python
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('management.urls')),
+]
+```
+
+### 6.2 /management/urls.py<a id='6.2-/management/urls.py'></a>
+`rest_framework.routers` 의 `DefaultRouter` 를 사용해 URL 패턴을 정의한다.  
+```python
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+
+from .views import api_views
+
+router = DefaultRouter()
+
+router.register(r'user', api_views.UserModelViewSet, basename='user')
+
+
+urlpatterns = [
+    # api
+    path('api/', include(router.urls)),
+]
+```
+
+### 6.3 /management/models.py
+장고에서 사용될 모델을 정의한다. 나는 `User` 모델을 커스텀하여 사용하기로 했기 때문에 `User` 클래스를 작성했다.
+
+```python
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.db import models
+
+
+class User(AbstractBaseUser):
+    username = None
+    email = models.EmailField(unique=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    class Meta:
+        db_table = 'auth_user'
+        verbose_name = '사용자'
+```
+
+### 6.4 /management/filters.py
+drf 의 `filter` 는 API 가 쿼리셋에서 반환하는 항목을 제한 할 수 있다.  
+예를들어, 특정 날짜에 가입한 회원만 반환한다던가 몇살 이상 회원만 반환 하도록 할 수 있다.  
+
+지금은 `filter` 의 기능이 필요 없지만 사용가능하도록 간략히 작성했다.
+```python
+import django_filters
+from django_filters import FilterSet
+
+from .models import User
+
+
+class UserFilter(FilterSet):
+	class Meta:
+		model = User
+		fields = ['email']
+```
+
+### 6.5 /management/serializers.py
+`serializers` 는 쿼리셋이나 모델 인스턴스를 파이썬 데이터 형태로 변경해준다.  
+또한, 모델 인스턴스의 특정 필드만을 반환하거나 데이터 형식(날짜 등)을 변환하여 반환 하도록 할 수 있다.
+
+아래 예제는 `User` 모델에서 `id`, `email`, `password` 필드를 반환하도록 만든 `serializers` 이다.
+```python
+from rest_framework import serializers
+
+from .models import User
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'email', 'password']
+```
+
+### 6.6 /management/views/viewsets.py
+`viewset` 는 클래스 형태의 뷰이다. `.get()` 이나 `.post()` 같은 메서드 대신에 `.list()` 나 `.create()` 같은 액션을 지원한다.
+
+아래 예제는 지금까지 생성한 `UserFilter`, `User` 모델, `UserSerializer` 를 사용하는 `Viewset` 예제이다.
+
+```python
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.viewsets import ModelViewSet
+
+from management.filters import UserFilter
+from management.models import User
+from management.serializers import UserSerializer
+
+
+class UserModelViewSet(ModelViewSet):
+    queryset = User.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = UserFilter
+    serializer_class = UserSerializer
+```
+
+## 7. 결과 확인
+[6.2](#6.2-/management/urls.py) 에서 등록한 대로 주소창에 입력해보면 아래 사진처럼 API 화면을 확인할 수 있다.
+> ex) example.com/api/user/
+
+![drf-page](./700-drf-page.png)
+
 ## References
 [1. django 튜토리얼](https://docs.djangoproject.com/ko/4.0/intro/tutorial01/)  
-[1. 프로젝트 이름을 config 로 사용한 이유](https://forum.djangoproject.com/t/project-naming-conventions/339/12) 
+[1. 프로젝트 이름을 config 로 사용한 이유](https://forum.djangoproject.com/t/project-naming-conventions/339/12)  
+[6.2 Routers](https://www.django-rest-framework.org/api-guide/routers/)  
+[6.4 Filtering](https://www.django-rest-framework.org/api-guide/filtering/)  
+[6.5 Serializers](https://www.django-rest-framework.org/api-guide/serializers/)  
+[6.6 Viewsets](https://www.django-rest-framework.org/api-guide/viewsets/)  
