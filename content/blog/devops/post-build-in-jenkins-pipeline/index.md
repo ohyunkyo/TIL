@@ -1,6 +1,7 @@
 ---
 title: "젠킨스 pipeline 에서 빌드 후 조치 실행하기"
 date: "2022-06-10"
+category: devops
 ---
 
 ## 0. 서론

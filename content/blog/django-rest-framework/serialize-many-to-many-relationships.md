@@ -1,6 +1,7 @@
 ---
 title: "다대다 관계 모델 직렬화(serialize) 하기"
 date: "2022-03-31"
+category: django-rest-framework
 ---
 
 ## 0. 서론

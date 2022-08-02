@@ -2,6 +2,7 @@
 title: "깃 커밋 리셋하기"
 date: "2022-07-29"
 last_modified_at: "2022-07-00"
+category: git
 ---
 
 ## 0. 서론

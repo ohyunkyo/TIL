@@ -1,6 +1,7 @@
 ---
 title: "내가 사용하는 pycharm"
 date: "2022-03-18"
+category: ide
 ---
 
 ## Run Django Server

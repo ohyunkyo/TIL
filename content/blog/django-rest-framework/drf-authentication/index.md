@@ -2,6 +2,7 @@
 title: "drf 의 인증"
 date: "2022-07-29"
 last_modified_at: "2022-07-00"
+category: django-rest-framework
 ---
 
 ## 0. 서론

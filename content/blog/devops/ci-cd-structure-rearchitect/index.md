@@ -2,6 +2,7 @@
 title: "CI/CD 구조 재구축"
 date: "2022-06-09"
 last_modified_at: "2022-06-13"
+category: devops
 ---
 
 ## 0. 서론

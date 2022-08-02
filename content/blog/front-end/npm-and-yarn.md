@@ -1,6 +1,7 @@
 ---
 title: "npm 과 yarn. 정의하고 선택해보기."
 date: "2022-03-17"
+category: front-end
 ---
 
 ## npm 이란?

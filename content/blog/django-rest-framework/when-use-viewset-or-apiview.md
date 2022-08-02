@@ -1,6 +1,7 @@
 ---
 title: "ViewSet 과 APIView 를 사용해야 할 때"
 date: "2022-04-05"
+category: django-rest-framework
 ---
 
 ## ViewSet 을 사용해야 할 때

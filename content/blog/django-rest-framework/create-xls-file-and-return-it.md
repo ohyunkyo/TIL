@@ -1,6 +1,7 @@
 ---
 title: "엑셀 파일 HttpResponse 에 담아 전달하기"
 date: "2022-04-13"
+category: django-rest-framework
 ---
 
 ## 0. 서론

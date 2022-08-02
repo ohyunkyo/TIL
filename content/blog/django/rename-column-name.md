@@ -1,6 +1,7 @@
 ---
 title: "django orm 에서 column name 변경하여 리턴하기"
 date: "2022-04-21"
+category: django
 ---
 
 ## 0. 서론

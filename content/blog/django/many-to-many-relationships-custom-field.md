@@ -1,6 +1,7 @@
 ---
 title: "django model 의 다대다 관계에서 필드 추가하기"
 date: "2022-03-30"
+category: django
 ---
 
 ## 0. 서론

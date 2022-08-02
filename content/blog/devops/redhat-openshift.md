@@ -1,6 +1,7 @@
 ---
 title: "레드햇 오픈시프트"
 date: "2022-03-22"
+category: devops
 ---
 
 ## 0. 서론

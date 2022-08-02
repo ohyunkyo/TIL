@@ -1,6 +1,7 @@
 ---
 title: "requirements 파일 생성하기"
 date: "2022-03-17"
+category: django
 ---
 
 ## 역할

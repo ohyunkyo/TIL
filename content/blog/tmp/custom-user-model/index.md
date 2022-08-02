@@ -2,6 +2,7 @@
 title: "장고 user 모델 커스텀하기"
 date: "2022-07-05"
 last_modified_at: "2022-07-00"
+category: tmp
 ---
 
 https://whatisthenext.tistory.com/128

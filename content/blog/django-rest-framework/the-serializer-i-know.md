@@ -1,6 +1,7 @@
 ---
 title: "Serializer 에 대하여"
 date: "2022-03-29"
+category: django-rest-framework
 ---
 
 ## 역할

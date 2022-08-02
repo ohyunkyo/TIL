@@ -1,6 +1,7 @@
 ---
 title: "json 데이터를 dataframe 으로 변환하기"
 date: "2022-04-12"
+category: django-rest-framework
 ---
 
 ## 0. 서론

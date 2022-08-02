@@ -1,6 +1,7 @@
 ---
 title: "django-filter 라이브러리 사용법"
 date: "2022-03-23"
+category: django-rest-framework
 ---
 
 ## 0. 서론

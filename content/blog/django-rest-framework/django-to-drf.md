@@ -1,6 +1,7 @@
 ---
 title: "장고에서 drf 로 마이그레이션 시도"
 date: "2022-03-16"
+category: django-rest-framework
 ---
 
 ## 0. 서론

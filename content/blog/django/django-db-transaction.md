@@ -1,6 +1,7 @@
 ---
 title: "django 에서 트랜잭션 적용하기"
 date: "2022-04-20"
+category: django
 ---
 
 ## 0. 서론 

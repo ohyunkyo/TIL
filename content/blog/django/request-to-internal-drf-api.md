@@ -1,6 +1,7 @@
 ---
 title: "프로젝트 내부의 API를 호출하면 안되는 이유"
 date: "2022-03-14"
+category: django
 ---
 
 ## 0. 서론

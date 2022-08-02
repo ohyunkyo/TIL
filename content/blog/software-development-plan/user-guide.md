@@ -1,6 +1,8 @@
 ---
 title: "사용자 가이드 만들기"
 date: "2022-03-24"
+category: software-development-plan
+
 ---
 
 ## 0. 서론

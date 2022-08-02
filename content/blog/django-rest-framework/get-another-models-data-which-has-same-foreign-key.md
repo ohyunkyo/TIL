@@ -1,6 +1,7 @@
 ---
 title: "foreign key 가 동일한 다른 모델의 데이터 가져오기"
 date: "2022-03-31"
+category: django-rest-framework
 ---
 
 ## 0. 서론

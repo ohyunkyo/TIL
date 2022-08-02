@@ -1,6 +1,7 @@
 ---
 title: "drf 사용하여 API 만들기"
 date: "2022-07-22"
+category: django-rest-framework
 ---
 
 ## 0. 서론
