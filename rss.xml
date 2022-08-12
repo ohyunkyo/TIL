@@ -1,4 +1,224 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Gatsby Starter Blog RSS Feed]]></title><description><![CDATA[Gatsby Starter Blog RSS Feed]]></description><link>https://ohyunkyo.github.io/TIL</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 29 Jul 2022 09:09:41 GMT</lastBuildDate><item><title><![CDATA[drf 의 인증]]></title><description><![CDATA[0. 서론 drf 로 구현한 API 서버에서 사용자 인증을 고민하던중 여러 방법이 있다는것을 알게되었다. 그 방법들중 일부를 간단히 정리하고 내가 사용할 것을 정했다. 1. drf Authentication…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/drf-authentication/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/drf-authentication/</guid><pubDate>Fri, 29 Jul 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Gatsby Starter Blog RSS Feed]]></title><description><![CDATA[Gatsby Starter Blog RSS Feed]]></description><link>https://ohyunkyo.github.io/TIL</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 12 Aug 2022 03:21:48 GMT</lastBuildDate><item><title><![CDATA[개츠비 카테고리 플러그인 사용하기]]></title><description><![CDATA[0. 서론 내가 만든 블로그 와 TIL…]]></description><link>https://ohyunkyo.github.io/TIL/react/gatsby-plugin-categories/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/react/gatsby-plugin-categories/</guid><pubDate>Tue, 02 Aug 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;내가 만든 &lt;a href=&quot;https://ohyunkyo.github.io&quot;&gt;블로그&lt;/a&gt; 와 &lt;a href=&quot;https://ohyunkyo.github.io/TIL&quot;&gt;TIL&lt;/a&gt; 는 일반적인 블로그 양식과 달리, 카테고리별로 게시물들이 분류되어 있지 않고 전체 게시물 목록만을 출력한다.
+그래서 원하는 게시글을 찾기 어렵고 어떤 주제에 관한 글이 있는지 직관적으로 판단하기 어렵다.&lt;/p&gt;
+&lt;p&gt;이것을 각각의 카테고리 별로 목록 페이지를 생성해 해당 카테고리의 게시물만을 보여주도록 수정한 다음, 이번에 기획중인 포트폴리오의 profile 부분에 블로그 링크들을 추가하면 좋을것 같았다.&lt;/p&gt;
+&lt;h2&gt;1. 카테고리 사용 계획&lt;/h2&gt;
+&lt;p&gt;내가 만들고자 하는것은 다음과 같다.&lt;/p&gt;
+&lt;h3&gt;1.1 각 카테고리 별 목록 페이지 추가&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;/category/{category_name}&lt;/code&gt; 페이지가 있어야 한다.&lt;/li&gt;
+&lt;li&gt;해당 페이지에서 각 카테고리에 해당하는 게시물 목록을 출력한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;1.2 모든 페이지에서 카테고리 메뉴 바 출력하기&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;각 카테고리 별 목록 페이지로 이동 가능한 메뉴 바를 만들고 모든 페이지에서 볼수 있도록 한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;1.3 각 게시물 페이지에서 해당 카테고리 목록 페이지로 이동&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;게시물 페이지에 해당 카테고리의 목록 페이지로 이동 가능한 링크 출력&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;2. 기능 구현할 방법 찾아보기&lt;/h2&gt;
+&lt;p&gt;위 계획을 구현하기 위해 여러 방법을 찾아봤다. 많은 사람들이 다양한 방법으로 구현한 예제가 있었지만 리액트를 전혀 모르는 나에겐 적용하기 어려웠다.&lt;br&gt;
+그때 간단히 사용 가능한 플러그인을 발견했다.&lt;/p&gt;
+&lt;h2&gt;3. 예제 적용하기&lt;/h2&gt;
+&lt;p&gt;내가 만든 블로그에 플러그인 예제를 적용하는 방법을 정리한다.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;블로그는 &lt;a href=&quot;https://ohyunkyo.github.io/git/github-page-make-blog/&quot;&gt;github pages 를 사용하여 블로그 만들기&lt;/a&gt; 와 같은 방법으로 만들었다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;3.1 category 추가&lt;/h2&gt;
+&lt;p&gt;가장 먼저 해야할 것은 &lt;code class=&quot;language-text&quot;&gt;*.md&lt;/code&gt; 파일들에 &lt;code class=&quot;language-text&quot;&gt;category&lt;/code&gt; 라는 &lt;code class=&quot;language-text&quot;&gt;front-matter&lt;/code&gt; 를 추가하는것이다. 이 마크다운 문서는 아래와 같은 &lt;code class=&quot;language-text&quot;&gt;front-matter&lt;/code&gt; 를 가지고 있는데 다른 &lt;code class=&quot;language-text&quot;&gt;markdown&lt;/code&gt; 문서에도 &lt;code class=&quot;language-text&quot;&gt;category&lt;/code&gt; 를 추가해주면 된다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;markdown&quot;&gt;&lt;pre class=&quot;language-markdown&quot;&gt;&lt;code class=&quot;language-markdown&quot;&gt;&lt;span class=&quot;token front-matter-block&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;token front-matter yaml language-yaml&quot;&gt;title: &quot;개츠비 카테고리 플러그인 사용하기&quot;
+date: &quot;2022-08-02&quot;
+last_modified_at: &quot;2022-08-00&quot;
+category: react&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;---&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;3.2 설치&lt;/h2&gt;
+&lt;p&gt;다음으로는 해당 플러그인을 설치한다. &lt;code class=&quot;language-text&quot;&gt;README.md&lt;/code&gt; 에서는 &lt;code class=&quot;language-text&quot;&gt;yarn&lt;/code&gt; 을 사용했지만 나는 &lt;code class=&quot;language-text&quot;&gt;npm&lt;/code&gt; 을 사용한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; gatsby-plugin-categories &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;3.3 파일 추가&lt;/h2&gt;
+&lt;p&gt;예제 적용을 위한 파일을 추가한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# src&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;components&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;PostsList&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; React &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react&quot;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; PostsListCard &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;./PostsListCard&quot;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;PostsList&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; postEdges &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; postEdges&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; node &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;PostsListCard key&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;node&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;fields&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;slug&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;node&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; PostsList&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# src&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;components&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;PostsListCard&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; React &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react&quot;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; Link &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;gatsby&quot;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; Card &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react-bootstrap&quot;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;PostsListCard&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; frontmatter&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; fields&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; excerpt &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; title &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; frontmatter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;title &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; fields&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;slug
+
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Card className&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;mb-4&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Card&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Body&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;h2 className&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;card-title&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;title&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;h2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;div
+          dangerouslySetInnerHTML&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;token literal-property property&quot;&gt;__html&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; frontmatter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;description &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; excerpt&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Link to&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;fields&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;slug&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; className&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;btn btn-primary&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+          Read More &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;rarr&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Link&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Card&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Body&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Card&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Footer className&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;text-muted&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+        Posted on &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;frontmatter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;date&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Card&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Footer&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Card&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; PostsListCard&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# src&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;templates&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;category&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; React &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react&quot;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; graphql &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;gatsby&quot;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; Container &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react-bootstrap&quot;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; Layout &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;../components/layout&quot;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;SEO&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;../components/seo&quot;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; PostsList &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;../components/PostsList&quot;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;CategoryTemplate&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; location&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; pageContext&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; data &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; category &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; pageContext
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Layout location&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;location&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; title&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;Posts in category &quot;&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;category&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;div className&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;category-container&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;SEO&lt;/span&gt; title&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;Posts in category &quot;&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;category&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+          &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;h1&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;Category&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;category&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;h1&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+          &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;PostsList postEdges&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;allMarkdownRemark&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;edges&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;div&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Layout&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; pageQuery &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; graphql&lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;
+  query CategoryPage($category: String) {
+    allMarkdownRemark(
+      limit: 1000
+      filter: { fields: { category: { eq: $category } } }
+    ) {
+      totalCount
+      edges {
+        node {
+          fields {
+            slug
+            category
+          }
+          excerpt
+          timeToRead
+          frontmatter {
+            title
+            date
+          }
+        }
+      }
+    }
+  }
+&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; CategoryTemplate&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;3.4 파일 수정&lt;/h2&gt;
+&lt;p&gt;다음으로는 플러그인을 불러오고 내가 원하는 기능을 사용하기 위해 기존 파일을 수정한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# gatsby&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+
+&lt;span class=&quot;token literal-property property&quot;&gt;plugins&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token literal-property property&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;gatsby-plugin-categories&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token literal-property property&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token literal-property property&quot;&gt;templatePath&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;__dirname&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;/src/templates/category.js&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# src&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;templates&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;blog&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;post&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; Container&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Row&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Col&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Card &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react-bootstrap&quot;&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;
+
+# 적당한 위치에 추가
+&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Col md&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;post&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;fields&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;category &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Card className&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;my-4&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Card&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Header&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;Filed Under&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Card&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Header&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Card&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Body&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Link to&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;/category/&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;post&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;fields&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;category&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+          &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;post&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;fields&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;category&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Link&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Card&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Body&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Card&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Col&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+
+&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; pageQuery &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; graphql&lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;
+  query BlogPostBySlug(
+    $id: String!
+    $previousPostId: String
+    $nextPostId: String
+  ) {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+    markdownRemark(id: { eq: $id }) {
+      id
+      excerpt(pruneLength: 160)
+      html
+      frontmatter {
+        title
+        date(formatString: &quot;MMMM DD, YYYY&quot;)
+        description
+      }
+      /* 추가한 부분 */
+      fields {
+        category
+        slug
+      }
+      /*-----------*/
+    }
+    previous: markdownRemark(id: { eq: $previousPostId }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        title
+      }
+    }
+    next: markdownRemark(id: { eq: $nextPostId }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        title
+      }
+    }
+  }
+&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;만약 설치되지 않은 npm 패키지가 있다면 따로 설치해준다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;99. 끝나고 나서&lt;/h2&gt;
+&lt;p&gt;개인적으로 &lt;code class=&quot;language-text&quot;&gt;gatsby-plugin-categories&lt;/code&gt; 의 &lt;code class=&quot;language-text&quot;&gt;README.md&lt;/code&gt; 파일의 설명이 굉장히 부족하다고 느꼈다.&lt;br&gt;
+다른 참조할만한 문서도 없어서 소스코드만을 보고 구현에 성공했는데, 어떤 파일이 필요하고 각 파일이 어떤 역할을 하는지에 대해서는 기본적으로 제공해야 한다고 생각한다.&lt;/p&gt;
+&lt;p&gt;내가 앞으로 어떤식으로든 소프트웨어를 만들게 되면 최대한 자세한 설명을 포함하는 문서를 제공해야겠다는 생각을 했다.&lt;/p&gt;
+&lt;h2&gt;References&lt;/h2&gt;</content:encoded></item><item><title><![CDATA[drf 의 인증]]></title><description><![CDATA[0. 서론 drf 로 구현한 API 서버에서 사용자 인증을 고민하던중 여러 방법이 있다는것을 알게되었다. 그 방법들중 일부를 간단히 정리하고 내가 사용할 것을 정했다. 1. drf Authentication…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/drf-authentication/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/drf-authentication/</guid><pubDate>Fri, 29 Jul 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;drf 로 구현한 API 서버에서 사용자 인증을 고민하던중 여러 방법이 있다는것을 알게되었다.&lt;br&gt;
 그 방법들중 일부를 간단히 정리하고 내가 사용할 것을 정했다.&lt;/p&gt;
 &lt;h2&gt;1. drf Authentication&lt;/h2&gt;
@@ -442,7 +662,7 @@ urlpatterns &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span
 &lt;a href=&quot;https://www.django-rest-framework.org/api-guide/serializers/&quot;&gt;6.5 Serializers&lt;/a&gt;&lt;br&gt;
 &lt;a href=&quot;https://www.django-rest-framework.org/api-guide/viewsets/&quot;&gt;6.6 Viewsets&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[장고 user 모델 커스텀하기]]></title><description><![CDATA[https://whatisthenext.tistory.com/128
 https://velog.io/@iedcon/AbstractBaseUser%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Django-%EC%BB%A4%EC%8A…]]></description><link>https://ohyunkyo.github.io/TIL/tmp/custom-user-model/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/custom-user-model/</guid><pubDate>Tue, 05 Jul 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://whatisthenext.tistory.com/128&quot;&gt;https://whatisthenext.tistory.com/128&lt;/a&gt;
-&lt;a href=&quot;https://velog.io/@iedcon/AbstractBaseUser%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Django-%EC%BB%A4%EC%8A%A4%ED%85%80-%EC%9C%A0%EC%A0%80-%EB%AA%A8%EB%8D%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0&quot;&gt;https://velog.io/@iedcon/AbstractBaseUser%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Django-%EC%BB%A4%EC%8A%A4%ED%85%80-%EC%9C%A0%EC%A0%80-%EB%AA%A8%EB%8D%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[젠킨스 pipeline 에서 빌드 후 조치 실행하기]]></title><description><![CDATA[0. 서론 현재  의 빌드 후 조치 항목에서  로 알림을 보내고 있다.  이것과 동일한 알림을 파이프라인에서 보내도록 하기 위해 찾아봤다. 1. post 사용하기 아래 예제처럼  블록 뒤  블록을 추가하여 원하는  이 실행되도록 설정해준다…]]></description><link>https://ohyunkyo.github.io/TIL/DevOps/post-build-in-jenkins-pipeline/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/DevOps/post-build-in-jenkins-pipeline/</guid><pubDate>Fri, 10 Jun 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;a href=&quot;https://velog.io/@iedcon/AbstractBaseUser%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Django-%EC%BB%A4%EC%8A%A4%ED%85%80-%EC%9C%A0%EC%A0%80-%EB%AA%A8%EB%8D%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0&quot;&gt;https://velog.io/@iedcon/AbstractBaseUser%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Django-%EC%BB%A4%EC%8A%A4%ED%85%80-%EC%9C%A0%EC%A0%80-%EB%AA%A8%EB%8D%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[젠킨스 pipeline 에서 빌드 후 조치 실행하기]]></title><description><![CDATA[0. 서론 현재  의 빌드 후 조치 항목에서  로 알림을 보내고 있다.  이것과 동일한 알림을 파이프라인에서 보내도록 하기 위해 찾아봤다. 1. post 사용하기 아래 예제처럼  블록 뒤  블록을 추가하여 원하는  이 실행되도록 설정해준다…]]></description><link>https://ohyunkyo.github.io/TIL/devops/post-build-in-jenkins-pipeline/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/devops/post-build-in-jenkins-pipeline/</guid><pubDate>Fri, 10 Jun 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;현재 &lt;code class=&quot;language-text&quot;&gt;freestyle project&lt;/code&gt; 의 빌드 후 조치 항목에서 &lt;code class=&quot;language-text&quot;&gt;notify.events&lt;/code&gt; 로 알림을 보내고 있다.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
@@ -568,7 +788,7 @@ https://velog.io/@iedcon/AbstractBaseUser%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-D
 &lt;/blockquote&gt;
 &lt;h2&gt;References&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://medium.com/@gustavo.guss/how-to-do-post-build-in-jenkins-pipeline-d1e7233909b8&quot;&gt;https://medium.com/@gustavo.guss/how-to-do-post-build-in-jenkins-pipeline-d1e7233909b8&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;https://www.jenkins.io/doc/pipeline/tour/post/&quot;&gt;https://www.jenkins.io/doc/pipeline/tour/post/&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[CI/CD 구조 재구축]]></title><description><![CDATA[0. 서론  정리 도중 도커 허브에 이미지를 업로드 할 필요성이 없다고 느껴졌다. 그래서 도커 허브에 이미지를 업로드 하는 과정을 뺀 구조로 변경했다.…]]></description><link>https://ohyunkyo.github.io/TIL/DevOps/ci-cd-structure-rearchitect/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/DevOps/ci-cd-structure-rearchitect/</guid><pubDate>Thu, 09 Jun 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;a href=&quot;https://www.jenkins.io/doc/pipeline/tour/post/&quot;&gt;https://www.jenkins.io/doc/pipeline/tour/post/&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[CI/CD 구조 재구축]]></title><description><![CDATA[0. 서론  정리 도중 도커 허브에 이미지를 업로드 할 필요성이 없다고 느껴졌다. 그래서 도커 허브에 이미지를 업로드 하는 과정을 뺀 구조로 변경했다.…]]></description><link>https://ohyunkyo.github.io/TIL/devops/ci-cd-structure-rearchitect/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/devops/ci-cd-structure-rearchitect/</guid><pubDate>Thu, 09 Jun 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;젠킨스를 사용한 장고 배포&lt;/code&gt; 정리 도중 도커 허브에 이미지를 업로드 할 필요성이 없다고 느껴졌다.&lt;br&gt;
 그래서 도커 허브에 이미지를 업로드 하는 과정을 뺀 구조로 변경했다.&lt;/p&gt;
 &lt;h2&gt;1. 기존 구조&lt;/h2&gt;
@@ -634,7 +854,7 @@ https://velog.io/@iedcon/AbstractBaseUser%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-D
         decoding=&quot;async&quot;
       /&gt;
   &lt;/a&gt;
-    &lt;/span&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[젠킨스 서비스 컨테이너 생성시 쉘 스크립트 실행되도록 하기]]></title><description><![CDATA[0. 서론 도커허브의 젠킨스 이미지를 사용하여 젠킨스 서비스가 포함된 컨테이너를 시작했다. 그리고 해당 컨테이너의  쉘을 실행한 뒤, 각 Job…]]></description><link>https://ohyunkyo.github.io/TIL/DevOps/overriding-jenkins-sh/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/DevOps/overriding-jenkins-sh/</guid><pubDate>Mon, 23 May 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+    &lt;/span&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[젠킨스 서비스 컨테이너 생성시 쉘 스크립트 실행되도록 하기]]></title><description><![CDATA[0. 서론 도커허브의 젠킨스 이미지를 사용하여 젠킨스 서비스가 포함된 컨테이너를 시작했다. 그리고 해당 컨테이너의  쉘을 실행한 뒤, 각 Job…]]></description><link>https://ohyunkyo.github.io/TIL/devops/overriding-jenkins-sh/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/devops/overriding-jenkins-sh/</guid><pubDate>Mon, 23 May 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;도커허브의 젠킨스 이미지를 사용하여 젠킨스 서비스가 포함된 컨테이너를 시작했다.&lt;br&gt;
 그리고 해당 컨테이너의 &lt;code class=&quot;language-text&quot;&gt;bash&lt;/code&gt; 쉘을 실행한 뒤, 각 Job 에서 테스트나 빌드를 위해 필요한 모듈 또는 패키지를 설치하여 사용중이였다.&lt;br&gt;
 이때의 변경사항은 컨테이너에 저장되지 않기 때문에 컨테이너를 재시작 하게 된다면 동일한 작업을 다시 반복해서 해야 하는 문제가 있었다.&lt;br&gt;
@@ -795,7 +1015,7 @@ services:
         privileged: true
         user: root
         command: sh -c &quot;/var/jenkins_home/scripts/django_test_module.sh &amp;amp;&amp;amp; /sbin/tini -- /usr/local/bin/jenkins.sh&quot;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://binux.tistory.com/76&quot;&gt;command 설정에서 여러개의 명령어가 실행되도록 하기&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[젠킨스에서 비공개 저장소 사용하기]]></title><description><![CDATA[0. 서론 프론트엔드 배포를 위해 새로운 Item 을 생성하고 깃허브에서 소스코드를 받아오게 설정할 예정이다. 그러나 백엔드 저장소와는 달리 vue.js 소스는 비공개이기 때문에 다른 방법을 알아봤다. 젠킨스 설정에 대한 부분은 생략한다. 1. SSH…]]></description><link>https://ohyunkyo.github.io/TIL/DevOps/private-repo-on-jenkins/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/DevOps/private-repo-on-jenkins/</guid><pubDate>Mon, 16 May 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://binux.tistory.com/76&quot;&gt;command 설정에서 여러개의 명령어가 실행되도록 하기&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[젠킨스에서 비공개 저장소 사용하기]]></title><description><![CDATA[0. 서론 프론트엔드 배포를 위해 새로운 Item 을 생성하고 깃허브에서 소스코드를 받아오게 설정할 예정이다. 그러나 백엔드 저장소와는 달리 vue.js 소스는 비공개이기 때문에 다른 방법을 알아봤다. 젠킨스 설정에 대한 부분은 생략한다. 1. SSH…]]></description><link>https://ohyunkyo.github.io/TIL/devops/private-repo-on-jenkins/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/devops/private-repo-on-jenkins/</guid><pubDate>Mon, 16 May 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;프론트엔드 배포를 위해 새로운 Item 을 생성하고 깃허브에서 소스코드를 받아오게 설정할 예정이다.&lt;br&gt;
 그러나 백엔드 저장소와는 달리 vue.js 소스는 비공개이기 때문에 다른 방법을 알아봤다.&lt;/p&gt;
 &lt;p&gt;젠킨스 설정에 대한 부분은 생략한다.&lt;/p&gt;
@@ -934,12 +1154,12 @@ services:
   &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h2&gt;References&lt;/h2&gt;
-&lt;p&gt;SSH URL 사용 : &lt;a href=&quot;https://mingzz1.github.io/development/basic/2021/04/19/jenkins_with_private_repo.html/&quot;&gt;https://mingzz1.github.io/development/basic/2021/04/19/jenkins_with_private_repo.html/&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[개츠비 이미지 플러그인 적용]]></title><description><![CDATA[0. 서론 개츠비 이미지 플러그인을 사용중임에도 불구하고 이미지 리사이즈, 블러 등의 기능이 작동하지 않아 플러그인 사용 정보를 알아보게 되었다.…]]></description><link>https://ohyunkyo.github.io/TIL/tmp/gatsby-image-plugin/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/gatsby-image-plugin/</guid><pubDate>Fri, 06 May 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
-&lt;p&gt;개츠비 이미지 플러그인을 사용중임에도 불구하고 이미지 리사이즈, 블러 등의 기능이 작동하지 않아 플러그인 사용 정보를 알아보게 되었다.&lt;/p&gt;
+&lt;p&gt;SSH URL 사용 : &lt;a href=&quot;https://mingzz1.github.io/development/basic/2021/04/19/jenkins_with_private_repo.html/&quot;&gt;https://mingzz1.github.io/development/basic/2021/04/19/jenkins_with_private_repo.html/&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[개츠비 이미지 플러그인 적용]]></title><description><![CDATA[0. 서론  을 사용중임에도 불구하고 이미지 리사이즈, 블러 등의 기능이 작동하지 않아 플러그인 사용법에 대해 알아보게 되었다.…]]></description><link>https://ohyunkyo.github.io/TIL/react/gatsby-plugin-image/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/react/gatsby-plugin-image/</guid><pubDate>Fri, 06 May 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;gatsby-plugin-image&lt;/code&gt; 을 사용중임에도 불구하고 이미지 리사이즈, 블러 등의 기능이 작동하지 않아 플러그인 사용법에 대해 알아보게 되었다.&lt;/p&gt;
 &lt;h2&gt;1. 해결 방법&lt;/h2&gt;
 &lt;p&gt;이미지 확장자를 대문자에서 소문자로 변경하면 된다. &lt;code class=&quot;language-text&quot;&gt;PNG&lt;/code&gt; 를 사용해도 이미지는 출력 되니 확장자의 문제라고는 전혀 생각도 못했지만 어쨌든 &lt;code class=&quot;language-text&quot;&gt;png&lt;/code&gt; 로 변경하니 잘된다.&lt;/p&gt;
 &lt;h2&gt;References&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/gatsbyjs/gatsby/issues/6698#issuecomment-986158429&quot;&gt;https://github.com/gatsbyjs/gatsby/issues/6698#issuecomment-986158429&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[http response 의 파일을 다운로드 하기]]></title><description><![CDATA[0. 서론 엑셀 파일이 포함된 HTTP Response 를 리턴하도록 만든 뷰가 있다. 브라우저로 API…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/file-download-from-response/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/file-download-from-response/</guid><pubDate>Wed, 27 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/gatsbyjs/gatsby/issues/6698#issuecomment-986158429&quot;&gt;https://github.com/gatsbyjs/gatsby/issues/6698#issuecomment-986158429&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[http response 의 파일을 다운로드 하기]]></title><description><![CDATA[0. 서론 엑셀 파일이 포함된 HTTP Response 를 리턴하도록 만든 뷰가 있다. 브라우저로 API…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/file-download-from-response/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/file-download-from-response/</guid><pubDate>Wed, 27 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;엑셀 파일이 포함된 HTTP Response 를 리턴하도록 만든 뷰가 있다.&lt;br&gt;
 브라우저로 API 엔드포인트에 접속하여 테스트 했을때 엑셀 파일이 정상적으로 다운로드 되었다.&lt;br&gt;
 이제 프론트엔드에서 이 엔드포인트로 요청을 전달하여 엑셀 파일을 받아오기만 하면 된다.&lt;br&gt;
@@ -1012,7 +1232,46 @@ services:
 &lt;h3&gt;3.2 blob 객체의 엑셀 데이터를 다운로드 하기&lt;/h3&gt;
 &lt;p&gt;axios 가 받아온 &lt;code class=&quot;language-text&quot;&gt;blob&lt;/code&gt; 형태의 response 에는 http header, footer 등 필요하지 않는 데이터가 있기 때문에 바이너리 데이터만을 사용한다.&lt;/p&gt;
 &lt;p&gt;이 바이너리 데이터로 URL 을 만들고 브라우저의 클릭 이벤트를 발생시켜 해당 URL 을 클릭하게 되면 파일이 다운로드 된다.&lt;br&gt;
-이렇게 하지 않으면 보안상 이슈로 브라우저가 다운로드를 막는다고 한다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[axios 모듈화 하기]]></title><description><![CDATA[0. 서론 코드의 재사용성을 높이기 위해 현재 뷰 컴포넌트에서 각자 axios 객체를 생성하고 요청하던것을 모듈화 하기로 했다., 1. 모듈화의 장점 쉽고 효율적이다. 간단하면서도 강력한 장점이다. 사용할 API…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/axios-modularization/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/axios-modularization/</guid><pubDate>Fri, 22 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+이렇게 하지 않으면 보안상 이슈로 브라우저가 다운로드를 막는다고 한다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[env 파일 사용하기]]></title><description><![CDATA[0. 서론 기존에 API 엔드포인트의 주소를 각 컴포넌트(vue파일)에 명시했었는데, axios 를 모듈화 하기위해선 해당 URL 을 개별적으로 관리할 필요가 있다고 느꼈다. 1. .env 파일이란? vue…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/env-file/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/env-file/</guid><pubDate>Fri, 22 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;기존에 API 엔드포인트의 주소를 각 컴포넌트(vue파일)에 명시했었는데, axios 를 모듈화 하기위해선 해당 URL 을 개별적으로 관리할 필요가 있다고 느꼈다.&lt;/p&gt;
+&lt;h2&gt;1. .env 파일이란?&lt;/h2&gt;
+&lt;p&gt;vue 의 환경변수 파일은 여러개로 나뉠 수 있다.&lt;/p&gt;
+&lt;p&gt;개발환경(&lt;code class=&quot;language-text&quot;&gt;npm run serve&lt;/code&gt;)에서는 &lt;code class=&quot;language-text&quot;&gt;.env.development&lt;/code&gt; 파일을 자동으로 인식한다.&lt;br&gt;
+그렇기 때문에 개발환경에서 필요한 변수를 선언해주면 된다.&lt;br&gt;
+또한 &lt;code class=&quot;language-text&quot;&gt;.gitignore&lt;/code&gt; 파일에 등록하여 깃에 같이 업로드 되지 않도록 해야한다.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;.env.production&lt;/code&gt; 파일은 배포버전에서 자동으로 인식한다.(어떻게 인식하는지 잘 모르겠음)&lt;br&gt;
+실제 운영시 필요한 변수를 선언 하면 될것같다.&lt;/p&gt;
+&lt;p&gt;그리고 그냥 &lt;code class=&quot;language-text&quot;&gt;.env&lt;/code&gt; 파일은 &lt;code class=&quot;language-text&quot;&gt;.env.development&lt;/code&gt; 과 &lt;code class=&quot;language-text&quot;&gt;.env.production&lt;/code&gt; 모두에서 인식하기 때문에 공통적으로 필요한 변수를 선언하면 된다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://hjcode.tistory.com/96&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;2. .env 파일 생성하기&lt;/h2&gt;
+&lt;p&gt;위의 환경변수 파일들은 모두 루트 디렉토리에 생성해야 한다.&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;.gitignore&lt;/code&gt; 파일이나 &lt;code class=&quot;language-text&quot;&gt;package.json&lt;/code&gt; 파일이 있는 그 위치에.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://crispypotato.tistory.com/52&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;3. 변수 선언하기&lt;/h2&gt;
+&lt;p&gt;다음과 같이 &lt;code class=&quot;language-text&quot;&gt;VUE_APP_&lt;/code&gt; 라는 접두어가 붙은 변수들은 자동으로 로딩된다.&lt;br&gt;
+vue2 에선 따로 로딩해줬어야 한다고 한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;VUE_APP_NUM=10
+VUE_APP_STR=hi&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;나는 다음과 같이 개발서버 URL 을 설정했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;# .env.development
+
+VUE_APP_API_URL = http://localhost:8000/&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://kang-ji.tistory.com/241&quot;&gt;출처1&lt;/a&gt;
+&lt;a href=&quot;https://joshua1988.github.io/vue-camp/deploy/env-setup.html#env-%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;4. 환경변수 사용하기&lt;/h2&gt;
+&lt;p&gt;다음과 같은 방법으로 사용할 수 있다.&lt;br&gt;
+위에서도 다뤘듯 별도의 로딩 과정 없이 바로 사용할 수 있다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# src&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;api&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;index&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; axios &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;axios&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;createInstance&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; axios&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token literal-property property&quot;&gt;baseURL&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;VUE_APP_API_URL&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; instance &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;createInstance&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[axios 모듈화 하기]]></title><description><![CDATA[0. 서론 코드의 재사용성을 높이기 위해 현재 뷰 컴포넌트에서 각자 axios 객체를 생성하고 요청하던것을 모듈화 하기로 했다., 1. 모듈화의 장점 쉽고 효율적이다. 간단하면서도 강력한 장점이다. 사용할 API…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/axios-modularization/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/axios-modularization/</guid><pubDate>Fri, 22 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;코드의 재사용성을 높이기 위해 현재 뷰 컴포넌트에서 각자 axios 객체를 생성하고 요청하던것을 모듈화 하기로 했다.,&lt;/p&gt;
 &lt;h2&gt;1. 모듈화의 장점&lt;/h2&gt;
 &lt;p&gt;쉽고 효율적이다.&lt;/p&gt;
@@ -1093,46 +1352,7 @@ export default {
 &lt;a href=&quot;https://yamoo9.github.io/axios/guide/&quot;&gt;출처2&lt;/a&gt;
 &lt;a href=&quot;https://greedysiru.tistory.com/804&quot;&gt;출처3&lt;/a&gt;
 &lt;a href=&quot;https://dev-jsk.tistory.com/109&quot;&gt;출처4&lt;/a&gt;
-&lt;a href=&quot;https://veneas.tistory.com/entry/axiosjs-GET-POST-%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C-%EC%84%9C%EB%B2%84%EC%99%80-%ED%86%B5%EC%8B%A0%ED%95%98%EA%B8%B0&quot;&gt;출처5&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[env 파일 사용하기]]></title><description><![CDATA[0. 서론 기존에 API 엔드포인트의 주소를 각 컴포넌트(vue파일)에 명시했었는데, axios 를 모듈화 하기위해선 해당 URL 을 개별적으로 관리할 필요가 있다고 느꼈다. 1. .env 파일이란? vue…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/env-file/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/env-file/</guid><pubDate>Fri, 22 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
-&lt;p&gt;기존에 API 엔드포인트의 주소를 각 컴포넌트(vue파일)에 명시했었는데, axios 를 모듈화 하기위해선 해당 URL 을 개별적으로 관리할 필요가 있다고 느꼈다.&lt;/p&gt;
-&lt;h2&gt;1. .env 파일이란?&lt;/h2&gt;
-&lt;p&gt;vue 의 환경변수 파일은 여러개로 나뉠 수 있다.&lt;/p&gt;
-&lt;p&gt;개발환경(&lt;code class=&quot;language-text&quot;&gt;npm run serve&lt;/code&gt;)에서는 &lt;code class=&quot;language-text&quot;&gt;.env.development&lt;/code&gt; 파일을 자동으로 인식한다.&lt;br&gt;
-그렇기 때문에 개발환경에서 필요한 변수를 선언해주면 된다.&lt;br&gt;
-또한 &lt;code class=&quot;language-text&quot;&gt;.gitignore&lt;/code&gt; 파일에 등록하여 깃에 같이 업로드 되지 않도록 해야한다.&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;.env.production&lt;/code&gt; 파일은 배포버전에서 자동으로 인식한다.(어떻게 인식하는지 잘 모르겠음)&lt;br&gt;
-실제 운영시 필요한 변수를 선언 하면 될것같다.&lt;/p&gt;
-&lt;p&gt;그리고 그냥 &lt;code class=&quot;language-text&quot;&gt;.env&lt;/code&gt; 파일은 &lt;code class=&quot;language-text&quot;&gt;.env.development&lt;/code&gt; 과 &lt;code class=&quot;language-text&quot;&gt;.env.production&lt;/code&gt; 모두에서 인식하기 때문에 공통적으로 필요한 변수를 선언하면 된다.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://hjcode.tistory.com/96&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;2. .env 파일 생성하기&lt;/h2&gt;
-&lt;p&gt;위의 환경변수 파일들은 모두 루트 디렉토리에 생성해야 한다.&lt;br&gt;
-&lt;code class=&quot;language-text&quot;&gt;.gitignore&lt;/code&gt; 파일이나 &lt;code class=&quot;language-text&quot;&gt;package.json&lt;/code&gt; 파일이 있는 그 위치에.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://crispypotato.tistory.com/52&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;3. 변수 선언하기&lt;/h2&gt;
-&lt;p&gt;다음과 같이 &lt;code class=&quot;language-text&quot;&gt;VUE_APP_&lt;/code&gt; 라는 접두어가 붙은 변수들은 자동으로 로딩된다.&lt;br&gt;
-vue2 에선 따로 로딩해줬어야 한다고 한다.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;VUE_APP_NUM=10
-VUE_APP_STR=hi&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;나는 다음과 같이 개발서버 URL 을 설정했다.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;# .env.development
-
-VUE_APP_API_URL = http://localhost:8000/&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://kang-ji.tistory.com/241&quot;&gt;출처1&lt;/a&gt;
-&lt;a href=&quot;https://joshua1988.github.io/vue-camp/deploy/env-setup.html#env-%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;4. 환경변수 사용하기&lt;/h2&gt;
-&lt;p&gt;다음과 같은 방법으로 사용할 수 있다.&lt;br&gt;
-위에서도 다뤘듯 별도의 로딩 과정 없이 바로 사용할 수 있다.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# src&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;api&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;index&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
-
-&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; axios &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;axios&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;createInstance&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; axios&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;token literal-property property&quot;&gt;baseURL&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;VUE_APP_API_URL&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; instance &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;createInstance&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[django orm 에서 column name 변경하여 리턴하기]]></title><description><![CDATA[…]]></description><link>https://ohyunkyo.github.io/TIL/django/rename-column-name/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django/rename-column-name/</guid><pubDate>Thu, 21 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;a href=&quot;https://veneas.tistory.com/entry/axiosjs-GET-POST-%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C-%EC%84%9C%EB%B2%84%EC%99%80-%ED%86%B5%EC%8B%A0%ED%95%98%EA%B8%B0&quot;&gt;출처5&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[django orm 에서 column name 변경하여 리턴하기]]></title><description><![CDATA[…]]></description><link>https://ohyunkyo.github.io/TIL/django/rename-column-name/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django/rename-column-name/</guid><pubDate>Thu, 21 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# model.py&lt;/span&gt;
 
 &lt;span class=&quot;token comment&quot;&gt;# 상품 정의&lt;/span&gt;
@@ -1548,7 +1768,7 @@ queryset &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; PurchaseOrd
 &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 serializer &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; PurchaseOrderDownloadSerializer&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;queryset&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; many&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 df &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; json_normalize&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;serializer&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.delftstack.com/ko/howto/python-pandas/json-to-pandas-dataframe/&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[axios 에서 form 전송하기]]></title><description><![CDATA[0. 서론 validation 을 사용하지 않는 form 은 처음이였는데 데이터가 제대로 전송되지 않아서 찾아봤다. 1. 문제점 기본적으로 axios 에서 데이터를 전송할 때에는 json 형태의 데이터가 전송된다. 그렇기 때문에 form…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/axios-send-form/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/axios-send-form/</guid><pubDate>Fri, 08 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.delftstack.com/ko/howto/python-pandas/json-to-pandas-dataframe/&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[axios 에서 form 전송하기]]></title><description><![CDATA[0. 서론 validation 을 사용하지 않는 form 은 처음이였는데 데이터가 제대로 전송되지 않아서 찾아봤다. 1. 문제점 기본적으로 axios 에서 데이터를 전송할 때에는 json 형태의 데이터가 전송된다. 그렇기 때문에 form…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/axios-send-form/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/axios-send-form/</guid><pubDate>Fri, 08 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;validation 을 사용하지 않는 form 은 처음이였는데 데이터가 제대로 전송되지 않아서 찾아봤다.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token function&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
@@ -1599,7 +1819,7 @@ df &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; json_normalize&lt
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;a href=&quot;https://yamoo9.github.io/axios/guide/form-format.html#%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80&quot;&gt;출처1&lt;/a&gt;
-&lt;a href=&quot;https://solbel.tistory.com/886&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Vue Router 사용한 페이지 이동]]></title><description><![CDATA[0. 서론 API 에서 받아온 날짜 형식을 변경해서 사용하고 싶었다. 그리고 그 변경된 형식을  태그의  속성에 사용하여 페이지 이동하는데 사용할 생각이였다. 1. router-link 로 페이지 이동하기 vue…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/how-to-redirect-by-vue-router/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/how-to-redirect-by-vue-router/</guid><pubDate>Wed, 06 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;a href=&quot;https://solbel.tistory.com/886&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Vue Router 사용한 페이지 이동]]></title><description><![CDATA[0. 서론 API 에서 받아온 날짜 형식을 변경해서 사용하고 싶었다. 그리고 그 변경된 형식을  태그의  속성에 사용하여 페이지 이동하는데 사용할 생각이였다. 1. router-link 로 페이지 이동하기 vue…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/how-to-redirect-by-vue-router/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/how-to-redirect-by-vue-router/</guid><pubDate>Wed, 06 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;API 에서 받아온 날짜 형식을 변경해서 사용하고 싶었다.&lt;br&gt;
 그리고 그 변경된 형식을 &lt;code class=&quot;language-text&quot;&gt;router-link&lt;/code&gt; 태그의 &lt;code class=&quot;language-text&quot;&gt;params&lt;/code&gt; 속성에 사용하여 페이지 이동하는데 사용할 생각이였다.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;Y:M:D H-m-s -&gt; YMDHms&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -1766,7 +1986,7 @@ class PackageDetailSerializer(serializers.ModelSerializer):
 &lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/22616973/django-rest-framework-use-different-serializers-in-the-same-modelviewset&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;99. 끝나고 나서&lt;/h2&gt;
 &lt;p&gt;package_product_list 와 package_supplement_list 의 데이터중 &lt;code class=&quot;language-text&quot;&gt;package detail&lt;/code&gt; 컴포넌트에서 사용하지 않는 데이터가 많다.&lt;br&gt;
-성능 이슈가 발생할 가능성이 있기때문에 이중에서 필요한 데이터만 가져오는 방법을 찾아야할것같다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[모달에 데이터 전달하기]]></title><description><![CDATA[0. 서론 frontend 와 backend 를 분리하기 이전, django…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/pass-data-to-modal/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/pass-data-to-modal/</guid><pubDate>Thu, 31 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+성능 이슈가 발생할 가능성이 있기때문에 이중에서 필요한 데이터만 가져오는 방법을 찾아야할것같다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[모달에 데이터 전달하기]]></title><description><![CDATA[0. 서론 frontend 와 backend 를 분리하기 이전, django…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/pass-data-to-modal/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/pass-data-to-modal/</guid><pubDate>Thu, 31 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;frontend 와 backend 를 분리하기 이전, django 템플릿으로 리스트 페이지를 만들고 각각의 객체에 수정과 삭제 버튼을 추가한 모델이 있었다.&lt;br&gt;
 수정 버튼은 수정페이지로 이동하고 삭제 버튼은 안내메시지를 포함한 모달을 띄운다.&lt;br&gt;
 이때 각 안내메시지가 해당 객체에 대한 내용을 포함하도록 하고 싶었기 때문에 객체마다 개별적인 모달을 가지고 있었고
@@ -2025,7 +2245,7 @@ class MyViewSet(ModelViewSet):
         model_instance &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;queryset&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;pk&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;kwargs&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;pk&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
         serializer &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get_serializer&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;model_instance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; data&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;request&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
         &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/37021954/django-update-viewset&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[사용자 가이드 만들기]]></title><description><![CDATA[…]]></description><link>https://ohyunkyo.github.io/TIL/software-documentation/user-guide/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/software-documentation/user-guide/</guid><pubDate>Thu, 24 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/37021954/django-update-viewset&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[사용자 가이드 만들기]]></title><description><![CDATA[…]]></description><link>https://ohyunkyo.github.io/TIL/software-development-plan/user-guide/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/software-development-plan/user-guide/</guid><pubDate>Thu, 24 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;회사에서 현재 제작중인 웹 페이지 사용법에 대해 교육 해달라는 요청을 받았다.&lt;/p&gt;
 &lt;p&gt;교육을 하려면 정리하고 준비를 해야 한다.&lt;br&gt;
 그래서 프로젝트 시작때 만들지 못한 기획서와 산출물 함께 만들면 좋겠다는 생각을 했다.&lt;br&gt;
@@ -2064,7 +2284,7 @@ class MyViewSet(ModelViewSet):
 &lt;h2&gt;6. flowchart&lt;/h2&gt;
 &lt;h2&gt;7. 화면 설계&lt;/h2&gt;
 &lt;h2&gt;8. 리뷰&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://6987.tistory.com/entry/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EA%B0%9C%EB%B0%9C-%ED%9A%8C%EC%82%AC%EC%97%90%EC%84%9C-%EA%B8%B0%ED%9A%8D%EC%9D%B4%EB%9E%80&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[v-b-modal 변수와 함께 사용하기]]></title><description><![CDATA[0. 서론 리스트 페이지에서 각 항목마다 버튼을 배치하고, 클릭시 항목별로 다른 모달이 팝업되도록 하고싶었다. 1. 적용 방법 처음 사용하던 소스는 다음과 같다.  안에서 같은 의 모달을 여러번 사용했다. 검색 후 다음과 같이 변경했다. 출처 9…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/dynamic-v-b-modal/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/dynamic-v-b-modal/</guid><pubDate>Thu, 24 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://6987.tistory.com/entry/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EA%B0%9C%EB%B0%9C-%ED%9A%8C%EC%82%AC%EC%97%90%EC%84%9C-%EA%B8%B0%ED%9A%8D%EC%9D%B4%EB%9E%80&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[v-b-modal 변수와 함께 사용하기]]></title><description><![CDATA[0. 서론 리스트 페이지에서 각 항목마다 버튼을 배치하고, 클릭시 항목별로 다른 모달이 팝업되도록 하고싶었다. 1. 적용 방법 처음 사용하던 소스는 다음과 같다.  안에서 같은 의 모달을 여러번 사용했다. 검색 후 다음과 같이 변경했다. 출처 9…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/dynamic-v-b-modal/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/dynamic-v-b-modal/</guid><pubDate>Thu, 24 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;리스트 페이지에서 각 항목마다 버튼을 배치하고, 클릭시 항목별로 다른 모달이 팝업되도록 하고싶었다.&lt;/p&gt;
 &lt;h2&gt;1. 적용 방법&lt;/h2&gt;
 &lt;p&gt;처음 사용하던 소스는 다음과 같다. &lt;code class=&quot;language-text&quot;&gt;for loop&lt;/code&gt; 안에서 같은 &lt;code class=&quot;language-text&quot;&gt;id&lt;/code&gt;의 모달을 여러번 사용했다.&lt;/p&gt;
@@ -2088,7 +2308,7 @@ class MyViewSet(ModelViewSet):
 변경 : &amp;lt;b-modal :id=&amp;quot;`modal-block-vcenter-`+inventory_process.id&amp;quot; body-class=&amp;quot;p-0&amp;quot; centered hide-footer hide-header&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/47281857/bind-modal-to-corresponding-button-after-a-v-for&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;99. 끝나고 나서&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;for loop&lt;/code&gt; 내부에 모달을 만들지 말고 하나의 모달에 버튼을 누를때마다 데이터를 전달하는 방식으로 하는것이 더 좋았을것같다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Vue Router 를 사용하여 페이지 새로고침 하기]]></title><description><![CDATA[0. 서론 모달에서  요청이 완료되면  라우트로 이동하도록 하고싶었다. 그런데 이동하고자 하는 라우트와 현재 라우트가 동일했기 때문에 에러가 발생했다.…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/vue-router-refresh/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/vue-router-refresh/</guid><pubDate>Thu, 24 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;for loop&lt;/code&gt; 내부에 모달을 만들지 말고 하나의 모달에 버튼을 누를때마다 데이터를 전달하는 방식으로 하는것이 더 좋았을것같다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Vue Router 를 사용하여 페이지 새로고침 하기]]></title><description><![CDATA[0. 서론 모달에서  요청이 완료되면  라우트로 이동하도록 하고싶었다. 그런데 이동하고자 하는 라우트와 현재 라우트가 동일했기 때문에 에러가 발생했다.…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/vue-router-refresh/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/vue-router-refresh/</guid><pubDate>Thu, 24 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;모달에서 &lt;code class=&quot;language-text&quot;&gt;DELETE&lt;/code&gt; 요청이 완료되면 &lt;code class=&quot;language-text&quot;&gt;inventory process list&lt;/code&gt; 라우트로 이동하도록 하고싶었다.&lt;br&gt;
 그런데 이동하고자 하는 라우트와 현재 라우트가 동일했기 때문에 에러가 발생했다.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vue&quot;&gt;&lt;pre class=&quot;language-vue&quot;&gt;&lt;code class=&quot;language-vue&quot;&gt;# 기존 소스
@@ -2175,8 +2395,8 @@ django ORM 의 &lt;code class=&quot;language-text&quot;&gt;model.objects.filter=
 &lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/65158059/django-filters-icontains-type-of-lookup-expression-doesnt-work-properly&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;99. 끝나고 나서&lt;/h2&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;serializer&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;filter_backends&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;filterset_class&lt;/code&gt; 등 &lt;code class=&quot;language-text&quot;&gt;ModelViewSet&lt;/code&gt; 의 파라미터들이 어떻게 작동하는지 정확히 알지 못하고 사용중이다.&lt;br&gt;
-일단 front/back 분리가 완료되면 부족했던점에 대해 알아봐야 할것같다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[맥북 단축키]]></title><description><![CDATA[⌘ + H = 어플리케이션 가리기. 화면에서 안보이는 상태가 된다. ⌘ + ⌃ + V = 서식 없이 데이터만 복사하기.]]></description><link>https://ohyunkyo.github.io/TIL/MacOS/shortcuts/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/MacOS/shortcuts/</guid><pubDate>Wed, 23 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;⌘ + H = 어플리케이션 가리기. 화면에서 안보이는 상태가 된다.&lt;/p&gt;
-&lt;p&gt;⌘ + ⌃ + V = 서식 없이 데이터만 복사하기.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[레드햇 오픈시프트]]></title><description><![CDATA[0. 서론 레드햇 개발자포럼 웨비나에서 알게된 레드햇 오픈시프트에 대해 간단하게 정리해봤다. 웨비나에서는 오픈시프트의 각 기능을 사용하는 방법에 대해 강의했는데, 나는 CI/CD…]]></description><link>https://ohyunkyo.github.io/TIL/DevOps/redhat-openshift/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/DevOps/redhat-openshift/</guid><pubDate>Tue, 22 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+일단 front/back 분리가 완료되면 부족했던점에 대해 알아봐야 할것같다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[맥북 단축키]]></title><description><![CDATA[⌘ + H = 어플리케이션 가리기. 화면에서 안보이는 상태가 된다. ⌘ + ⌃ + V = 서식 없이 데이터만 복사하기.]]></description><link>https://ohyunkyo.github.io/TIL/mac-os/shortcuts/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/mac-os/shortcuts/</guid><pubDate>Wed, 23 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;⌘ + H = 어플리케이션 가리기. 화면에서 안보이는 상태가 된다.&lt;/p&gt;
+&lt;p&gt;⌘ + ⌃ + V = 서식 없이 데이터만 복사하기.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[레드햇 오픈시프트]]></title><description><![CDATA[0. 서론 레드햇 개발자포럼 웨비나에서 알게된 레드햇 오픈시프트에 대해 간단하게 정리해봤다. 웨비나에서는 오픈시프트의 각 기능을 사용하는 방법에 대해 강의했는데, 나는 CI/CD…]]></description><link>https://ohyunkyo.github.io/TIL/devops/redhat-openshift/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/devops/redhat-openshift/</guid><pubDate>Tue, 22 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;레드햇 개발자포럼 웨비나에서 알게된 레드햇 오픈시프트에 대해 간단하게 정리해봤다.&lt;br&gt;
 웨비나에서는 오픈시프트의 각 기능을 사용하는 방법에 대해 강의했는데,&lt;br&gt;
 나는 CI/CD 에 대해 잘 알지 못해서 사용 방법 보다는 어떤 역할을 하는지에 대해서만 웨비나 내용을 기반으로 따로 알아보고 정리했다.&lt;/p&gt;
@@ -2212,7 +2432,7 @@ Tekton 을 사용하여 여러 플랫폼에서 배포를 자동화 한다.&lt;/p
 &lt;h2&gt;99. 끝나고 나서&lt;/h2&gt;
 &lt;p&gt;CI/CD 에 대한 개념이 잘 잡혀있지 않다보니 웨비나에 참여하면서 각 기능의 특장점에 집중하지 못했고 기본적인 수행 기능만 알게 되는것으로 끝났다.&lt;br&gt;
 그리고 각 기능에 대한 이해가 없다보니 설명도 많이 부족하다.&lt;/p&gt;
-&lt;p&gt;재고관리 웹 front/back 분리가 완료되고 나면 CI/CD 에 대해서 공부할 예정인데, 그 이후에 다시 이 문서를 더 보완 할 수 있으면 좋을것 같다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[vue.js 기초 사용법]]></title><description><![CDATA[개요 백엔드 개발자로서 구매한 템플릿을 변경하는데 필요한 부분만 간단히 정리. 라우팅 특정 URL 에 특정 컴포넌트를 라우팅 시킨다. URL 의 경로와 이름을 지정한다. 백엔드와 통신하기 HTTP 통신 라이브러리인 axios…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/base-of-vue/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/base-of-vue/</guid><pubDate>Mon, 21 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;개요&lt;/h2&gt;
+&lt;p&gt;재고관리 웹 front/back 분리가 완료되고 나면 CI/CD 에 대해서 공부할 예정인데, 그 이후에 다시 이 문서를 더 보완 할 수 있으면 좋을것 같다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[vue.js 기초 사용법]]></title><description><![CDATA[개요 백엔드 개발자로서 구매한 템플릿을 변경하는데 필요한 부분만 간단히 정리. 라우팅 특정 URL 에 특정 컴포넌트를 라우팅 시킨다. URL 의 경로와 이름을 지정한다. 백엔드와 통신하기 HTTP 통신 라이브러리인 axios…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/base-of-vue/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/base-of-vue/</guid><pubDate>Mon, 21 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;개요&lt;/h2&gt;
 &lt;p&gt;백엔드 개발자로서 구매한 템플릿을 변경하는데 필요한 부분만 간단히 정리.&lt;/p&gt;
 &lt;h2&gt;라우팅&lt;/h2&gt;
 &lt;p&gt;특정 URL 에 특정 컴포넌트를 라우팅 시킨다.&lt;br&gt;
@@ -2285,7 +2505,7 @@ front 의 유효성 검사이기 때문에 무조건 믿지 말고 back 에서�
     ...
     url: url+this.$route.params.id+&amp;quot;/&amp;quot;,
     ...
-&amp;lt;/script&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[내가 사용하는 pycharm]]></title><description><![CDATA[Run Django Server pycharm 에서 run configurations 을 통해 테스트 서버를 실행하는 방법 정리 프로젝트 파이썬 인터프리터 설정 PyCharm - Preferences - Project: {project_name…]]></description><link>https://ohyunkyo.github.io/TIL/IDE/the-pycharm-i-know/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/IDE/the-pycharm-i-know/</guid><pubDate>Fri, 18 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Run Django Server&lt;/h2&gt;
+&amp;lt;/script&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[내가 사용하는 pycharm]]></title><description><![CDATA[Run Django Server pycharm 에서 run configurations 을 통해 테스트 서버를 실행하는 방법 정리 프로젝트 파이썬 인터프리터 설정 PyCharm - Preferences - Project: {project_name…]]></description><link>https://ohyunkyo.github.io/TIL/ide/the-pycharm-i-know/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/ide/the-pycharm-i-know/</guid><pubDate>Fri, 18 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Run Django Server&lt;/h2&gt;
 &lt;p&gt;pycharm 에서 run configurations 을 통해 테스트 서버를 실행하는 방법 정리&lt;/p&gt;
 &lt;h3&gt;프로젝트 파이썬 인터프리터 설정&lt;/h3&gt;
 &lt;p&gt;PyCharm - Preferences - Project: {project_name} - Python Interpreter 항목에서 적절한 인터프리터 버전을 선택한다&lt;/p&gt;
@@ -2302,7 +2522,7 @@ Python Interpreter 옵션도 적절히 선택한다.&lt;/p&gt;
 &lt;li&gt;⌘ + F3 = 전체 북마크 목록을 본다&lt;/li&gt;
 &lt;li&gt;전체 북마크 목록 + 알파벳 = 알파벳에 설정된 기억북마크로 이동&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;a href=&quot;https://blog.jetbrains.com/ko/2020/03/11/top-15-intellij-idea-shortcuts_ko/&quot;&gt;추가 단축키&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[내가 이해한 vue.js]]></title><description><![CDATA[vue.js 를 선택한 이유 지금 내가 프론트엔드 프레임워크를 사용하려면 비교적 배우기 쉽고 복잡하지 않은 것을 선택하여 시작 하는것이 유리하다고 생각했다. vue.js…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/the-vue-js-i-know/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/the-vue-js-i-know/</guid><pubDate>Fri, 18 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;vue.js 를 선택한 이유&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.jetbrains.com/ko/2020/03/11/top-15-intellij-idea-shortcuts_ko/&quot;&gt;추가 단축키&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[내가 이해한 vue.js]]></title><description><![CDATA[vue.js 를 선택한 이유 지금 내가 프론트엔드 프레임워크를 사용하려면 비교적 배우기 쉽고 복잡하지 않은 것을 선택하여 시작 하는것이 유리하다고 생각했다. vue.js…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/the-vue-js-i-know/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/the-vue-js-i-know/</guid><pubDate>Fri, 18 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;vue.js 를 선택한 이유&lt;/h2&gt;
 &lt;p&gt;지금 내가 프론트엔드 프레임워크를 사용하려면 비교적 배우기 쉽고 복잡하지 않은 것을 선택하여 시작 하는것이 유리하다고 생각했다.&lt;br&gt;
 vue.js 는 &lt;a href=&quot;https://velog.io/@leehaeun0/React-vs-Vue-%EC%9E%A5%EB%8B%A8%EC%A0%90-%EB%B9%84%EA%B5%90&quot;&gt;작은 프로젝트를 빠르게 만들기 쉽고, 자바스크립트 문법에 대해 잘 몰라도 된단다.&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;vue.js 란 무엇일까&lt;/h2&gt;
@@ -2324,7 +2544,7 @@ vue.js 는 &lt;a href=&quot;https://velog.io/@leehaeun0/React-vs-Vue-%EC%9E%A5%E
 &lt;h2&gt;파일 사용 방법&lt;/h2&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;$ pip install -r requirements.txt&lt;/code&gt;&lt;/p&gt;
 &lt;h2&gt;유의사항&lt;/h2&gt;
-&lt;p&gt;보통 프로젝트 디렉토리 내부에 생성하는듯 하다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[vue.js 설치해보기]]></title><description><![CDATA[0. 서론 앞으로 개발할 예정인 재고관리 API 서버와 연동하기 위해 프론트엔드 프레임워크를 사용하여 간단히 화면을 구성해보기로 했다. 1. 설치 일단 vue.js 를 먼저 설치 한 뒤 프로젝트를 생성해줬다.…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/install-vue/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/install-vue/</guid><pubDate>Thu, 17 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;보통 프로젝트 디렉토리 내부에 생성하는듯 하다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[vue.js 설치해보기]]></title><description><![CDATA[0. 서론 앞으로 개발할 예정인 재고관리 API 서버와 연동하기 위해 프론트엔드 프레임워크를 사용하여 간단히 화면을 구성해보기로 했다. 1. 설치 일단 vue.js 를 먼저 설치 한 뒤 프로젝트를 생성해줬다.…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/install-vue/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/install-vue/</guid><pubDate>Thu, 17 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;앞으로 개발할 예정인 재고관리 API 서버와 연동하기 위해 프론트엔드 프레임워크를 사용하여 간단히 화면을 구성해보기로 했다.&lt;/p&gt;
 &lt;h2&gt;1. 설치&lt;/h2&gt;
 &lt;p&gt;일단 vue.js 를 먼저 설치 한 뒤 프로젝트를 생성해줬다.&lt;/p&gt;
@@ -2388,7 +2608,7 @@ npm 을 사용하지 않으면 필요한 모듈을 개별적으로 다운로드 
 &lt;p&gt;내가 원하던 형태로 작동한다. 그러나 이것이 정답인것 같지는 않다.&lt;br&gt;
 &lt;a href=&quot;https://github.com/ohyunkyo/inventory-manage/commit/f2b6c40806074f10650c0e6e64b4b806bc538b91#r68620070&quot;&gt;지금 사용한 방법&lt;/a&gt; 보다 더 좋은 방법이 있을것같다는 생각이 든다.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://groups.google.com/g/django-rest-framework/c/26tIiJB7vQw&quot;&gt;drf 구글 그룹&lt;/a&gt; 에서는 믹스인 사용을 권장한다.&lt;br&gt;
-기능 개발이 모두 끝나면 코드 리팩토링할 예정인데, 믹스인에 대해 알아보고 필요한 부분에 적용해야겠다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[객체지향 개념 기초]]></title><description><![CDATA[0. 서론 장고를 공부하면서도 파이썬에 대해 너무 모르는게 많았다. 객체지향의 개념중 대충 감으로만 알고 넘기던 것들의 정의에 대해서 정리해봤다. 클래스(Class…]]></description><link>https://ohyunkyo.github.io/TIL/OOP/OOP-essential/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/OOP/OOP-essential/</guid><pubDate>Mon, 14 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+기능 개발이 모두 끝나면 코드 리팩토링할 예정인데, 믹스인에 대해 알아보고 필요한 부분에 적용해야겠다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[객체지향 개념 기초]]></title><description><![CDATA[0. 서론 장고를 공부하면서도 파이썬에 대해 너무 모르는게 많았다. 객체지향의 개념중 대충 감으로만 알고 넘기던 것들의 정의에 대해서 정리해봤다. 클래스(Class…]]></description><link>https://ohyunkyo.github.io/TIL/oop/oop-essential/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/oop/oop-essential/</guid><pubDate>Mon, 14 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;장고를 공부하면서도 파이썬에 대해 너무 모르는게 많았다.&lt;br&gt;
 객체지향의 개념중 대충 감으로만 알고 넘기던 것들의 정의에 대해서 정리해봤다.&lt;/p&gt;
 &lt;h3&gt;클래스(Class)&lt;/h3&gt;
