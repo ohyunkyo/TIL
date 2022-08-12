@@ -2,7 +2,7 @@
 title: "개츠비 카테고리 플러그인 사용하기"
 date: "2022-08-02"
 last_modified_at: "2022-08-00"
-category: react
+category: gatsby
 ---
 
 ## 0. 서론

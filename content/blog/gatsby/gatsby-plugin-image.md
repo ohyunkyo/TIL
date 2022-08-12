@@ -2,7 +2,7 @@
 title: "개츠비 이미지 플러그인 적용"
 date: "2022-05-06"
 last_modified_at: "2022-08-02"
-category: react
+category: gatsby
 ---
 
 ## 0. 서론
