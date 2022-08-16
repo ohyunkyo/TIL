@@ -1,86 +1,60 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Gatsby Starter Blog RSS Feed]]></title><description><![CDATA[Gatsby Starter Blog RSS Feed]]></description><link>https://ohyunkyo.github.io/TIL</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 12 Aug 2022 03:21:48 GMT</lastBuildDate><item><title><![CDATA[개츠비 카테고리 플러그인 사용하기]]></title><description><![CDATA[0. 서론 내가 만든 블로그 와 TIL…]]></description><link>https://ohyunkyo.github.io/TIL/react/gatsby-plugin-categories/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/react/gatsby-plugin-categories/</guid><pubDate>Tue, 02 Aug 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
-&lt;p&gt;내가 만든 &lt;a href=&quot;https://ohyunkyo.github.io&quot;&gt;블로그&lt;/a&gt; 와 &lt;a href=&quot;https://ohyunkyo.github.io/TIL&quot;&gt;TIL&lt;/a&gt; 는 일반적인 블로그 양식과 달리, 카테고리별로 게시물들이 분류되어 있지 않고 전체 게시물 목록만을 출력한다.
-그래서 원하는 게시글을 찾기 어렵고 어떤 주제에 관한 글이 있는지 직관적으로 판단하기 어렵다.&lt;/p&gt;
-&lt;p&gt;이것을 각각의 카테고리 별로 목록 페이지를 생성해 해당 카테고리의 게시물만을 보여주도록 수정한 다음, 이번에 기획중인 포트폴리오의 profile 부분에 블로그 링크들을 추가하면 좋을것 같았다.&lt;/p&gt;
-&lt;h2&gt;1. 카테고리 사용 계획&lt;/h2&gt;
-&lt;p&gt;내가 만들고자 하는것은 다음과 같다.&lt;/p&gt;
-&lt;h3&gt;1.1 각 카테고리 별 목록 페이지 추가&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Gatsby Starter Blog RSS Feed]]></title><description><![CDATA[Gatsby Starter Blog RSS Feed]]></description><link>https://ohyunkyo.github.io/TIL</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 16 Aug 2022 09:05:19 GMT</lastBuildDate><item><title><![CDATA[개츠비 카테고리 플러그인 사용하기]]></title><description><![CDATA[0. 서론 내가  를 사용해 만든 블로그 와 TIL…]]></description><link>https://ohyunkyo.github.io/TIL/gatsby/gatsby-plugin-categories/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/gatsby/gatsby-plugin-categories/</guid><pubDate>Tue, 02 Aug 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;내가 &lt;code class=&quot;language-text&quot;&gt;gatsby&lt;/code&gt; 를 사용해 만든 &lt;a href=&quot;https://ohyunkyo.github.io&quot;&gt;블로그&lt;/a&gt; 와 &lt;a href=&quot;https://ohyunkyo.github.io/TIL&quot;&gt;TIL&lt;/a&gt; 는 일반적인 블로그 양식과 달리, 게시물들이 분류되어 있지 않고 전체 게시물 목록만을 출력한다.
+그래서 원하는 게시글을 찾거나 어떤 주제에 관한 글이 있는지 직관적으로 판단하기 어렵다.&lt;/p&gt;
+&lt;p&gt;이 문제를 해결하기 위해 여러 방법을 찾아봤다. 많은 사람들이 다양한 방법으로 구현한 예제가 있었지만 리액트를 전혀 모르는 나에겐 적용하기 어려웠다.&lt;br&gt;
+그때 간단히 사용 가능한 &lt;code class=&quot;language-text&quot;&gt;gatsby_plugin_categories&lt;/code&gt; 라는 플러그인을 발견했는데, 이 플러그인을 사용해 게시물을 분류하는 방법을 정리한다.&lt;/p&gt;
+&lt;h3&gt;0.1. 카테고리 사용 계획&lt;/h3&gt;
+&lt;p&gt;내가 필요한 것은 다음과 같다.&lt;/p&gt;
+&lt;h4&gt;0.1.1 각 카테고리 별 목록 페이지&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;/category/{category_name}&lt;/code&gt; 페이지가 있어야 한다.&lt;/li&gt;
 &lt;li&gt;해당 페이지에서 각 카테고리에 해당하는 게시물 목록을 출력한다.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3&gt;1.2 모든 페이지에서 카테고리 메뉴 바 출력하기&lt;/h3&gt;
+&lt;h4&gt;0.1.2 각 카테고리 별 목록 페이지로 이동 가능한 네비게이션 메뉴&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;각 카테고리 별 목록 페이지로 이동 가능한 메뉴 바를 만들고 모든 페이지에서 볼수 있도록 한다.&lt;/li&gt;
+&lt;li&gt;각 카테고리 별 목록 페이지로 이동 가능한 네비게이션을 만들고 모든 페이지에서 볼수 있도록 한다.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3&gt;1.3 각 게시물 페이지에서 해당 카테고리 목록 페이지로 이동&lt;/h3&gt;
+&lt;h4&gt;0.1.3 각 게시물 페이지에서 해당 카테고리 목록 페이지로 이동&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;게시물 페이지에 해당 카테고리의 목록 페이지로 이동 가능한 링크 출력&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;2. 기능 구현할 방법 찾아보기&lt;/h2&gt;
-&lt;p&gt;위 계획을 구현하기 위해 여러 방법을 찾아봤다. 많은 사람들이 다양한 방법으로 구현한 예제가 있었지만 리액트를 전혀 모르는 나에겐 적용하기 어려웠다.&lt;br&gt;
-그때 간단히 사용 가능한 플러그인을 발견했다.&lt;/p&gt;
-&lt;h2&gt;3. 예제 적용하기&lt;/h2&gt;
-&lt;p&gt;내가 만든 블로그에 플러그인 예제를 적용하는 방법을 정리한다.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;블로그는 &lt;a href=&quot;https://ohyunkyo.github.io/git/github-page-make-blog/&quot;&gt;github pages 를 사용하여 블로그 만들기&lt;/a&gt; 와 같은 방법으로 만들었다.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2&gt;3.1 category 추가&lt;/h2&gt;
-&lt;p&gt;가장 먼저 해야할 것은 &lt;code class=&quot;language-text&quot;&gt;*.md&lt;/code&gt; 파일들에 &lt;code class=&quot;language-text&quot;&gt;category&lt;/code&gt; 라는 &lt;code class=&quot;language-text&quot;&gt;front-matter&lt;/code&gt; 를 추가하는것이다. 이 마크다운 문서는 아래와 같은 &lt;code class=&quot;language-text&quot;&gt;front-matter&lt;/code&gt; 를 가지고 있는데 다른 &lt;code class=&quot;language-text&quot;&gt;markdown&lt;/code&gt; 문서에도 &lt;code class=&quot;language-text&quot;&gt;category&lt;/code&gt; 를 추가해주면 된다.&lt;/p&gt;
+&lt;h2&gt;1. 마크다운 파일 수정하기&lt;/h2&gt;
+&lt;p&gt;가장 먼저 해야할 것은 &lt;code class=&quot;language-text&quot;&gt;*.md&lt;/code&gt; 파일들에 &lt;code class=&quot;language-text&quot;&gt;category&lt;/code&gt; 라는 &lt;code class=&quot;language-text&quot;&gt;front-matter&lt;/code&gt; 를 추가하는것이다.&lt;br&gt;
+이 마크다운 문서는 아래와 같은 &lt;code class=&quot;language-text&quot;&gt;front-matter&lt;/code&gt; 를 가지고 있는데, 이것처럼 &lt;code class=&quot;language-text&quot;&gt;category&lt;/code&gt; 를 추가하면 된다.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;markdown&quot;&gt;&lt;pre class=&quot;language-markdown&quot;&gt;&lt;code class=&quot;language-markdown&quot;&gt;&lt;span class=&quot;token front-matter-block&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;---&lt;/span&gt;
 &lt;span class=&quot;token front-matter yaml language-yaml&quot;&gt;title: &quot;개츠비 카테고리 플러그인 사용하기&quot;
 date: &quot;2022-08-02&quot;
 last_modified_at: &quot;2022-08-00&quot;
 category: react&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;---&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;3.2 설치&lt;/h2&gt;
-&lt;p&gt;다음으로는 해당 플러그인을 설치한다. &lt;code class=&quot;language-text&quot;&gt;README.md&lt;/code&gt; 에서는 &lt;code class=&quot;language-text&quot;&gt;yarn&lt;/code&gt; 을 사용했지만 나는 &lt;code class=&quot;language-text&quot;&gt;npm&lt;/code&gt; 을 사용한다.&lt;/p&gt;
+&lt;h2&gt;2. 각 카테고리 별 목록 페이지 생성&lt;/h2&gt;
+&lt;p&gt;이제 방금 추가한 &lt;code class=&quot;language-text&quot;&gt;category&lt;/code&gt; 별로 목록 페이지를 생성하고 해당 목록 페이지에서 각 카테고리의 게시물 목록을 출력하도록 할것이다.&lt;br&gt;
+이 부분은 &lt;code class=&quot;language-text&quot;&gt;gatsby_plugin_categories&lt;/code&gt; 의 예제 소스를 가져와서 적용하기만 하면 쉽게 구현 가능하다.&lt;/p&gt;
+&lt;h3&gt;2.1 설치&lt;/h3&gt;
+&lt;p&gt;먼저 해당 플러그인을 설치한다. &lt;code class=&quot;language-text&quot;&gt;README.md&lt;/code&gt; 에서는 &lt;code class=&quot;language-text&quot;&gt;yarn&lt;/code&gt; 을 사용하는 방법을 안내하지만 나는 &lt;code class=&quot;language-text&quot;&gt;npm&lt;/code&gt; 을 사용했다.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; gatsby-plugin-categories &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;3.3 파일 추가&lt;/h2&gt;
-&lt;p&gt;예제 적용을 위한 파일을 추가한다.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# src&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;components&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;PostsList&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+&lt;h3&gt;2.2 파일 수정&lt;/h3&gt;
+&lt;p&gt;플러그인을 불러오도록 &lt;code class=&quot;language-text&quot;&gt;gatsby-config.js&lt;/code&gt; 파일을 수정한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// gatsby-config.js&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; React &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react&quot;&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; PostsListCard &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;./PostsListCard&quot;&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;PostsList&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; postEdges &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; postEdges&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; node &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;PostsListCard key&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;node&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;fields&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;slug&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;node&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
-  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; PostsList&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# src&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;components&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;PostsListCard&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
-
-&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; React &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react&quot;&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; Link &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;gatsby&quot;&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; Card &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react-bootstrap&quot;&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;PostsListCard&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; frontmatter&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; fields&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; excerpt &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; title &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; frontmatter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;title &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; fields&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;slug
-
-  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Card className&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;mb-4&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
-      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Card&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Body&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
-        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;h2 className&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;card-title&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;title&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;h2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
-        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;div
-          dangerouslySetInnerHTML&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;token literal-property property&quot;&gt;__html&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; frontmatter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;description &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; excerpt&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-          &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
-        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Link to&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;fields&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;slug&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; className&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;btn btn-primary&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
-          Read More &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;rarr&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Link&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
-      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Card&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Body&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
-      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Card&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Footer className&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;text-muted&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
-        Posted on &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;frontmatter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;date&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Card&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Footer&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
-    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Card&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
-  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; PostsListCard&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# src&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;templates&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;category&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+&lt;span class=&quot;token literal-property property&quot;&gt;plugins&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token literal-property property&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;gatsby-plugin-categories&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token literal-property property&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token literal-property property&quot;&gt;templatePath&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;__dirname&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;/src/templates/category.js&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;gatsby-plugin-categories&lt;/code&gt; 는 &lt;code class=&quot;language-text&quot;&gt;graphql query&lt;/code&gt; 로 전체 카테고리 목록을 가져온다. 그 뒤 &lt;code class=&quot;language-text&quot;&gt;set&lt;/code&gt; 객체에 담아 중복을 제거하고 &lt;code class=&quot;language-text&quot;&gt;templatePath&lt;/code&gt; 옵션의 템플릿을 사용하여 각 카테고리별 목록 페이지를 생성하게 된다.&lt;/p&gt;
+&lt;h3&gt;2.3 파일 추가&lt;/h3&gt;
+&lt;p&gt;다음으로는 예제 파일을 참고하여 플러그인 사용을 위한 파일을 추가한다.&lt;/p&gt;
+&lt;h4&gt;2.3.1 category&lt;/h4&gt;
+&lt;p&gt;가장 먼저 &lt;code class=&quot;language-text&quot;&gt;category&lt;/code&gt; 템플릿 파일을 추가했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// src/templates/category.js&lt;/span&gt;
 
 &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; React &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react&quot;&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; graphql &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;gatsby&quot;&lt;/span&gt;
@@ -132,25 +106,138 @@ category: react&lt;/span&gt;
 &lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;
 
 &lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; CategoryTemplate&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;3.4 파일 수정&lt;/h2&gt;
-&lt;p&gt;다음으로는 플러그인을 불러오고 내가 원하는 기능을 사용하기 위해 기존 파일을 수정한다.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# gatsby&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+&lt;h4&gt;2.3.2 PostsList&lt;/h4&gt;
+&lt;p&gt;그 다음으로는 &lt;code class=&quot;language-text&quot;&gt;category&lt;/code&gt; 템플릿에서 사용하는 &lt;code class=&quot;language-text&quot;&gt;PostsList&lt;/code&gt; 컴포넌트를 추가한다.&lt;br&gt;
+여기에서는 &lt;code class=&quot;language-text&quot;&gt;category&lt;/code&gt; 로부터 해당 카테고리의 게시물 목록을 전달받아 출력한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// src/components/PostsList.js&lt;/span&gt;
 
-&lt;span class=&quot;token literal-property property&quot;&gt;plugins&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; React &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react&quot;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; PostsListCard &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;./PostsListCard&quot;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;PostsList&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; postEdges &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; postEdges&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; node &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;PostsListCard key&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;node&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;fields&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;slug&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;node&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; PostsList&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;2.3.3 PostsListCard&lt;/h4&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;PostsList&lt;/code&gt; 가 게시물 목록을 출력할 때에 개별 게시물 정보를 &lt;code class=&quot;language-text&quot;&gt;PostsListCard&lt;/code&gt; 컴포넌트에 전달한다.&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;PostsListCard&lt;/code&gt; 는 하나의 게시물 정보를 받아 목록의 요소로 사용될 수 있도록 가공 후 리턴한다.&lt;br&gt;
+나는 &lt;code class=&quot;language-text&quot;&gt;PostsListCard&lt;/code&gt; 에서 리턴하는 데이터가 &lt;code class=&quot;language-text&quot;&gt;index&lt;/code&gt; 페이지에서 출력되는 목록의 요소와 동일하게 보이도록 수정했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// src/components/PostsListCard.js&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; React &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react&quot;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; Link &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;gatsby&quot;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;PostsListCard&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; frontmatter&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; fields&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; excerpt &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; title &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; frontmatter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;title &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; fields&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;slug
+
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;ol style&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token literal-property property&quot;&gt;listStyle&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;li key&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;fields&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;slug&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;article
+          className&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;post-list-item&quot;&lt;/span&gt;
+          itemScope
+          itemType&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;http://schema.org/Article&quot;&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+          &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;header&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+            &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;h2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+              &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Link to&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;fields&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;slug&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; itemProp&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+                &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;span itemProp&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;headline&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;title&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;span&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+              &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Link&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+            &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;h2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+            &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;small&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;frontmatter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;date&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;small&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+          &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;header&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+          &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;section&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+            &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;p
+              dangerouslySetInnerHTML&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;token literal-property property&quot;&gt;__html&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; frontmatter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;description &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; excerpt&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+              &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+              itemProp&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;description&quot;&lt;/span&gt;
+            &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+          &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;section&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;article&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;li&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;ol&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; PostsListCard&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;만약 설치되지 않은 npm 패키지가 있다면 따로 설치해준다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;3. 각 카테고리 별 목록 페이지로 이동 가능한 네비게이션 메뉴 생성&lt;/h2&gt;
+&lt;p&gt;다음으로는 생성된 카테고리 별 목록 페이지로 이동 가능한 링크가 있는 네비게이션 메뉴를 생성해야 한다.&lt;br&gt;
+일단 &lt;code class=&quot;language-text&quot;&gt;components&lt;/code&gt; 디렉토리에 &lt;code class=&quot;language-text&quot;&gt;NavBar&lt;/code&gt; 라는 컴포넌트를 생성했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// src/components/NavBar.js&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; React &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react&quot;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; Link&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; graphql&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; useStaticQuery&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;gatsby&quot;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;NavBar&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; allMarkdownRemark &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;useStaticQuery&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    graphql&lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;
+      query {
+        allMarkdownRemark {
+          nodes {
+            fields {
+              category
+            }
+          }
+        }
+      }
+    &lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; categorySet &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  allMarkdownRemark&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;nodes&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;forEach&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+   fields
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;fields &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; fields&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;category&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      categorySet&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;fields&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;category&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; categoryArr &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Array&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;categorySet&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token literal-property property&quot;&gt;카테고리&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;nbsp&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;nbsp&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;nbsp&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;nbsp&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;categoryArr&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;category&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;span&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Link to&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;/category/&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;category&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;category&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Link&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;nbsp&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;nbsp&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;nbsp&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;nbsp&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;span&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;br&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;br&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;br&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;div&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; NavBar&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;gatsby-plugin-categories&lt;/code&gt; 가 각 카테고리 별 목록 페이지를 생성하는 부분을 참고하여 카테고리 별 목록 페이지로 이동 가능한 링크를 만들었다.
+이후 필요한 페이지에서 컴포넌트를 호출해 사용한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// src/pages/index.js&lt;/span&gt;
+
 &lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;
-  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;token literal-property property&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;gatsby-plugin-categories&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;token literal-property property&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;token literal-property property&quot;&gt;templatePath&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;__dirname&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;/src/templates/category.js&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# src&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;templates&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;blog&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;post&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Layout location&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;location&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; title&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;siteTitle&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Seo title&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;All posts&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;/* 추가한 부분 */&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;NavBar &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;/*------------*/&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Bio &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;ol style&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token literal-property property&quot;&gt;listStyle&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;4. 각 게시물 페이지에서 해당 카테고리 목록 페이지로 이동&lt;/h2&gt;
+&lt;p&gt;마지막으로 각 게시물 페이지에서 해당 게시물의 카테고리 목록 페이지로 이동 가능한 버튼을 추가한다.&lt;br&gt;
+이 기능은 예제의 소스코드 그대로 사용했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// src/templates/blog-post.js&lt;/span&gt;
 &lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; Container&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Row&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Col&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Card &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react-bootstrap&quot;&lt;/span&gt;
 &lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;
 
-# 적당한 위치에 추가
+&lt;span class=&quot;token comment&quot;&gt;// 적당한 위치에 추가&lt;/span&gt;
 &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Col md&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
   &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;post&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;fields&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;category &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
     &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Card className&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;my-4&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
@@ -191,7 +278,7 @@ category: react&lt;/span&gt;
         category
         slug
       }
-      /*-----------*/
+      /*------------*/
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {
       fields {
@@ -211,14 +298,16 @@ category: react&lt;/span&gt;
     }
   }
 &lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;blockquote&gt;
-&lt;p&gt;만약 설치되지 않은 npm 패키지가 있다면 따로 설치해준다.&lt;/p&gt;
-&lt;/blockquote&gt;
 &lt;h2&gt;99. 끝나고 나서&lt;/h2&gt;
 &lt;p&gt;개인적으로 &lt;code class=&quot;language-text&quot;&gt;gatsby-plugin-categories&lt;/code&gt; 의 &lt;code class=&quot;language-text&quot;&gt;README.md&lt;/code&gt; 파일의 설명이 굉장히 부족하다고 느꼈다.&lt;br&gt;
 다른 참조할만한 문서도 없어서 소스코드만을 보고 구현에 성공했는데, 어떤 파일이 필요하고 각 파일이 어떤 역할을 하는지에 대해서는 기본적으로 제공해야 한다고 생각한다.&lt;/p&gt;
 &lt;p&gt;내가 앞으로 어떤식으로든 소프트웨어를 만들게 되면 최대한 자세한 설명을 포함하는 문서를 제공해야겠다는 생각을 했다.&lt;/p&gt;
-&lt;h2&gt;References&lt;/h2&gt;</content:encoded></item><item><title><![CDATA[drf 의 인증]]></title><description><![CDATA[0. 서론 drf 로 구현한 API 서버에서 사용자 인증을 고민하던중 여러 방법이 있다는것을 알게되었다. 그 방법들중 일부를 간단히 정리하고 내가 사용할 것을 정했다. 1. drf Authentication…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/drf-authentication/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/drf-authentication/</guid><pubDate>Fri, 29 Jul 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[2022-08-16] 개츠비의 구조에 대해 조금 알게된 지금 생각해보니 소스코드 만으로도 어느정도 이해 가능하다는 생각이 든다. 하지만 자신이 만든 프로그램에 대한 설명은 자세할수록 좋다는 생각은 변함이 없다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;References&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/rmcfadzean/gatsby-pantry/tree/master/packages/gatsby-plugin-categories&quot;&gt;gatsby-plugin-categories&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://github.com/rmcfadzean/gatsby-pantry/tree/master/examples/starter-blog#readme&quot;&gt;예제&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[drf 의 인증]]></title><description><![CDATA[0. 서론 drf 로 구현한 API 서버에서 사용자 인증을 고민하던중 여러 방법이 있다는것을 알게되었다. 그 방법들중 일부를 간단히 정리하고 내가 사용할 것을 정했다. 1. drf Authentication…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/drf-authentication/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/drf-authentication/</guid><pubDate>Fri, 29 Jul 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;drf 로 구현한 API 서버에서 사용자 인증을 고민하던중 여러 방법이 있다는것을 알게되었다.&lt;br&gt;
 그 방법들중 일부를 간단히 정리하고 내가 사용할 것을 정했다.&lt;/p&gt;
 &lt;h2&gt;1. drf Authentication&lt;/h2&gt;
@@ -1154,7 +1243,7 @@ services:
   &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h2&gt;References&lt;/h2&gt;
-&lt;p&gt;SSH URL 사용 : &lt;a href=&quot;https://mingzz1.github.io/development/basic/2021/04/19/jenkins_with_private_repo.html/&quot;&gt;https://mingzz1.github.io/development/basic/2021/04/19/jenkins_with_private_repo.html/&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[개츠비 이미지 플러그인 적용]]></title><description><![CDATA[0. 서론  을 사용중임에도 불구하고 이미지 리사이즈, 블러 등의 기능이 작동하지 않아 플러그인 사용법에 대해 알아보게 되었다.…]]></description><link>https://ohyunkyo.github.io/TIL/react/gatsby-plugin-image/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/react/gatsby-plugin-image/</guid><pubDate>Fri, 06 May 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;SSH URL 사용 : &lt;a href=&quot;https://mingzz1.github.io/development/basic/2021/04/19/jenkins_with_private_repo.html/&quot;&gt;https://mingzz1.github.io/development/basic/2021/04/19/jenkins_with_private_repo.html/&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[개츠비 이미지 플러그인 적용]]></title><description><![CDATA[0. 서론  을 사용중임에도 불구하고 이미지 리사이즈, 블러 등의 기능이 작동하지 않아 플러그인 사용법에 대해 알아보게 되었다.…]]></description><link>https://ohyunkyo.github.io/TIL/gatsby/gatsby-plugin-image/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/gatsby/gatsby-plugin-image/</guid><pubDate>Fri, 06 May 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;gatsby-plugin-image&lt;/code&gt; 을 사용중임에도 불구하고 이미지 리사이즈, 블러 등의 기능이 작동하지 않아 플러그인 사용법에 대해 알아보게 되었다.&lt;/p&gt;
 &lt;h2&gt;1. 해결 방법&lt;/h2&gt;
 &lt;p&gt;이미지 확장자를 대문자에서 소문자로 변경하면 된다. &lt;code class=&quot;language-text&quot;&gt;PNG&lt;/code&gt; 를 사용해도 이미지는 출력 되니 확장자의 문제라고는 전혀 생각도 못했지만 어쨌든 &lt;code class=&quot;language-text&quot;&gt;png&lt;/code&gt; 로 변경하니 잘된다.&lt;/p&gt;
