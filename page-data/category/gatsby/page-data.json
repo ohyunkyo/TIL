@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-category-js",
+    "path": "/category/gatsby/",
+    "result": {"data":{"site":{"siteMetadata":{"title":"Today I Learned"}},"allMarkdownRemark":{"totalCount":2,"edges":[{"node":{"fields":{"slug":"/gatsby/gatsby-plugin-image/","category":"gatsby"},"excerpt":"0. 서론  을 사용중임에도 불구하고 이미지 리사이즈, 블러 등의 기능이 작동하지 않아 플러그인 사용법에 대해 알아보게 되었다.…","timeToRead":1,"frontmatter":{"title":"개츠비 이미지 플러그인 적용","date":"May 06, 2022"}}},{"node":{"fields":{"slug":"/gatsby/gatsby-plugin-categories/","category":"gatsby"},"excerpt":"0. 서론 내가  를 사용해 만든 블로그 와 TIL…","timeToRead":6,"frontmatter":{"title":"개츠비 카테고리 플러그인 사용하기","date":"August 02, 2022"}}}]}},"pageContext":{"category":"gatsby"}},
+    "staticQueryHashes": ["2841359383","3496359572"]}

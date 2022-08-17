@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-category-js",
+    "path": "/category/ide/",
+    "result": {"data":{"site":{"siteMetadata":{"title":"Today I Learned"}},"allMarkdownRemark":{"totalCount":1,"edges":[{"node":{"fields":{"slug":"/ide/the-pycharm-i-know/","category":"ide"},"excerpt":"Run Django Server pycharm 에서 run configurations 을 통해 테스트 서버를 실행하는 방법 정리 프로젝트 파이썬 인터프리터 설정 PyCharm - Preferences - Project: {project_name…","timeToRead":1,"frontmatter":{"title":"내가 사용하는 pycharm","date":"March 18, 2022"}}}]}},"pageContext":{"category":"ide"}},
+    "staticQueryHashes": ["2841359383","3496359572"]}

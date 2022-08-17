@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-category-js",
+    "path": "/category/git/",
+    "result": {"data":{"site":{"siteMetadata":{"title":"Today I Learned"}},"allMarkdownRemark":{"totalCount":1,"edges":[{"node":{"fields":{"slug":"/git/git-commit-reset/","category":"git"},"excerpt":"0. 서론 커밋할때 실수로 포함하지 말아야 할 파일을 포함했다. 해당 커밋에서 이 파일을 제거할 방법을 찾아보다가 커밋 전으로되돌리는 방법을 알게되어 정리한다. 1. git reset 위의 명령어는 최근의 커밋…","timeToRead":1,"frontmatter":{"title":"깃 커밋 리셋하기","date":"July 29, 2022"}}}]}},"pageContext":{"category":"git"}},
+    "staticQueryHashes": ["2841359383","3496359572"]}

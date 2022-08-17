@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-category-js",
+    "path": "/category/oop/",
+    "result": {"data":{"site":{"siteMetadata":{"title":"Today I Learned"}},"allMarkdownRemark":{"totalCount":1,"edges":[{"node":{"fields":{"slug":"/oop/oop-essential/","category":"oop"},"excerpt":"0. 서론 장고를 공부하면서도 파이썬에 대해 너무 모르는게 많았다. 객체지향의 개념중 대충 감으로만 알고 넘기던 것들의 정의에 대해서 정리해봤다. 클래스(Class…","timeToRead":2,"frontmatter":{"title":"객체지향 개념 기초","date":"March 14, 2022"}}}]}},"pageContext":{"category":"oop"}},
+    "staticQueryHashes": ["2841359383","3496359572"]}

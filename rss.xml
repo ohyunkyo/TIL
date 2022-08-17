@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Gatsby Starter Blog RSS Feed]]></title><description><![CDATA[Gatsby Starter Blog RSS Feed]]></description><link>https://ohyunkyo.github.io/TIL</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 16 Aug 2022 09:05:19 GMT</lastBuildDate><item><title><![CDATA[개츠비 카테고리 플러그인 사용하기]]></title><description><![CDATA[0. 서론 내가  를 사용해 만든 블로그 와 TIL…]]></description><link>https://ohyunkyo.github.io/TIL/gatsby/gatsby-plugin-categories/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/gatsby/gatsby-plugin-categories/</guid><pubDate>Tue, 02 Aug 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Gatsby Starter Blog RSS Feed]]></title><description><![CDATA[Gatsby Starter Blog RSS Feed]]></description><link>https://ohyunkyo.github.io/TIL</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 17 Aug 2022 06:50:07 GMT</lastBuildDate><item><title><![CDATA[개츠비 카테고리 플러그인 사용하기]]></title><description><![CDATA[0. 서론 내가  를 사용해 만든 블로그 와 TIL…]]></description><link>https://ohyunkyo.github.io/TIL/gatsby/gatsby-plugin-categories/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/gatsby/gatsby-plugin-categories/</guid><pubDate>Tue, 02 Aug 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;내가 &lt;code class=&quot;language-text&quot;&gt;gatsby&lt;/code&gt; 를 사용해 만든 &lt;a href=&quot;https://ohyunkyo.github.io&quot;&gt;블로그&lt;/a&gt; 와 &lt;a href=&quot;https://ohyunkyo.github.io/TIL&quot;&gt;TIL&lt;/a&gt; 는 일반적인 블로그 양식과 달리, 게시물들이 분류되어 있지 않고 전체 게시물 목록만을 출력한다.
 그래서 원하는 게시글을 찾거나 어떤 주제에 관한 글이 있는지 직관적으로 판단하기 어렵다.&lt;/p&gt;
 &lt;p&gt;이 문제를 해결하기 위해 여러 방법을 찾아봤다. 많은 사람들이 다양한 방법으로 구현한 예제가 있었지만 리액트를 전혀 모르는 나에겐 적용하기 어려웠다.&lt;br&gt;
@@ -307,41 +307,7 @@ category: react&lt;/span&gt;
 &lt;/blockquote&gt;
 &lt;h2&gt;References&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/rmcfadzean/gatsby-pantry/tree/master/packages/gatsby-plugin-categories&quot;&gt;gatsby-plugin-categories&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;https://github.com/rmcfadzean/gatsby-pantry/tree/master/examples/starter-blog#readme&quot;&gt;예제&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[drf 의 인증]]></title><description><![CDATA[0. 서론 drf 로 구현한 API 서버에서 사용자 인증을 고민하던중 여러 방법이 있다는것을 알게되었다. 그 방법들중 일부를 간단히 정리하고 내가 사용할 것을 정했다. 1. drf Authentication…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/drf-authentication/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/drf-authentication/</guid><pubDate>Fri, 29 Jul 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
-&lt;p&gt;drf 로 구현한 API 서버에서 사용자 인증을 고민하던중 여러 방법이 있다는것을 알게되었다.&lt;br&gt;
-그 방법들중 일부를 간단히 정리하고 내가 사용할 것을 정했다.&lt;/p&gt;
-&lt;h2&gt;1. drf Authentication&lt;/h2&gt;
-&lt;p&gt;인증이란 &lt;code class=&quot;language-text&quot;&gt;요청&lt;/code&gt;과 &lt;code class=&quot;language-text&quot;&gt;자격 증명&lt;/code&gt;을 연결하는 방법이다.&lt;br&gt;
-인증은 항상, 모든 경우에서 가장 먼저 실행된다. 이후 권한 및 제한 정책으로 해당 &lt;code class=&quot;language-text&quot;&gt;자격 증명의 요청&lt;/code&gt; 을 허용해야 하는지 여부를 결정하게 되며, 인증 자체가 들어오는 요청을 허용하거나 허용하지 않는 작업을 하지는 않는다.&lt;/p&gt;
-&lt;p&gt;drf 는 이런 인증 체계를 바로 사용할 수 있도록 제공한다.&lt;/p&gt;
-&lt;h2&gt;2. drf 에서 사용 가능한 토큰 인증&lt;/h2&gt;
-&lt;p&gt;여러 인증 방법중 토큰을 사용한 인증 방법에 대해 정리한다.&lt;/p&gt;
-&lt;h2&gt;2.1 drf TokenAuthentication&lt;/h2&gt;
-&lt;p&gt;drf 의 기본 토큰 인증이다. 다음과 같은 특징을 가진다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;하나의 토큰으로 모든 세션을 처리한다.&lt;/li&gt;
-&lt;li&gt;만료 기한이 없다.&lt;/li&gt;
-&lt;li&gt;클라이언트-서버 형태에 적합하다.&lt;/li&gt;
-&lt;li&gt;헤더에 토큰이 담겨 올 경우 해당 토큰을 DB에서 검색한다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;2.2 JWT&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;토큰 자체에 사용자의 정보가 포함되어있다.&lt;/li&gt;
-&lt;li&gt;일정 기간이 지나면 만료된다.&lt;/li&gt;
-&lt;li&gt;RESTful 한 환경에서 사용자 데이터를 주고받을 수 있다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;3. 선택&lt;/h2&gt;
-&lt;p&gt;실 사용경험이 없어서 인지 이런 장단점이 와닿진 않았고, 오히려 요즘 많이 쓴다는 JWT 를 써야겠다는 생각이 들었다.&lt;br&gt;
-그러나 써드파티 패키지가 아닌 것을 먼저 사용해보는게 좋겠다는 생각으로 &lt;code class=&quot;language-text&quot;&gt;drf TokenAuthentication&lt;/code&gt; 를 사용하기로 정했다.&lt;/p&gt;
-&lt;h2&gt;References&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.django-rest-framework.org/api-guide/authentication/#authentication&quot;&gt;1. Authentication&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;https://stackoverflow.com/questions/31600497/django-drf-token-based-authentication-vs-json-web-token&quot;&gt;2. stackoverflow&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;https://medium.com/chanjongs-programming-diary/django-rest-framework-drf-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-jwt-%EA%B8%B0%EB%B0%98-authentication-%EC%84%B8%ED%8C%85%ED%95%98%EA%B8%B0-with-simplejwt-%EC%B4%88%EA%B8%B0-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85-1-e54c3ed2420c&quot;&gt;2. 블로그&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication&quot;&gt;2.1 drf TokenAuthentication 1&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;http://recordingbetter.com/drf/2017/08/02/Session-%EC%9D%B8%EC%A6%9D%EA%B3%BC-Token-%EC%9D%B8%EC%A6%9D&quot;&gt;2.1 drf TokenAuthentication 2&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;https://pronist.dev/143&quot;&gt;2.2 JWT&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;https://yceffort.kr/2021/05/drawback-of-jwt&quot;&gt;3. 선택 1&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;https://velog.io/@wildmental/Django-%EC%A0%91%EC%86%8D-%EC%9D%B8%EC%A6%9D-Built-in-Token-VS-JWTJSON-Web-Token-%EB%B9%84%EA%B5%90-%EB%81%9D&quot;&gt;3. 선택 2&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[깃 커밋 리셋하기]]></title><description><![CDATA[0. 서론 커밋할때 실수로 포함하지 말아야 할 파일을 포함했다. 해당 커밋에서 이 파일을 제거할 방법을 찾아보다가 커밋 전으로되돌리는 방법을 알게되어 정리한다. 1. git reset 위의 명령어는 최근의 커밋…]]></description><link>https://ohyunkyo.github.io/TIL/git/git-commit-reset/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/git/git-commit-reset/</guid><pubDate>Fri, 29 Jul 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;a href=&quot;https://github.com/rmcfadzean/gatsby-pantry/tree/master/examples/starter-blog#readme&quot;&gt;예제&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[깃 커밋 리셋하기]]></title><description><![CDATA[0. 서론 커밋할때 실수로 포함하지 말아야 할 파일을 포함했다. 해당 커밋에서 이 파일을 제거할 방법을 찾아보다가 커밋 전으로되돌리는 방법을 알게되어 정리한다. 1. git reset 위의 명령어는 최근의 커밋…]]></description><link>https://ohyunkyo.github.io/TIL/git/git-commit-reset/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/git/git-commit-reset/</guid><pubDate>Fri, 29 Jul 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;커밋할때 실수로 포함하지 말아야 할 파일을 포함했다. 해당 커밋에서 이 파일을 제거할 방법을 찾아보다가 커밋 전으로되돌리는 방법을 알게되어 정리한다.&lt;/p&gt;
 &lt;h2&gt;1. git reset&lt;/h2&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; reset --soft HEAD~1&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -378,7 +344,41 @@ category: react&lt;/span&gt;
   &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h2&gt;References&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://codechacha.com/ko/git-undo-last-commit/&quot;&gt;마지막 커밋 되돌리기&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[drf 사용하여 API 만들기]]></title><description><![CDATA[0. 서론 장고 프로젝트를 생성하는것부터 간단한 API 를 만드는 과정을 정리한다.…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/django-start-with-drf/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/django-start-with-drf/</guid><pubDate>Fri, 22 Jul 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://codechacha.com/ko/git-undo-last-commit/&quot;&gt;마지막 커밋 되돌리기&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[drf 의 인증]]></title><description><![CDATA[0. 서론 drf 로 구현한 API 서버에서 사용자 인증을 고민하던중 여러 방법이 있다는것을 알게되었다. 그 방법들중 일부를 간단히 정리하고 내가 사용할 것을 정했다. 1. drf Authentication…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/drf-authentication/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/drf-authentication/</guid><pubDate>Fri, 29 Jul 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;drf 로 구현한 API 서버에서 사용자 인증을 고민하던중 여러 방법이 있다는것을 알게되었다.&lt;br&gt;
+그 방법들중 일부를 간단히 정리하고 내가 사용할 것을 정했다.&lt;/p&gt;
+&lt;h2&gt;1. drf Authentication&lt;/h2&gt;
+&lt;p&gt;인증이란 &lt;code class=&quot;language-text&quot;&gt;요청&lt;/code&gt;과 &lt;code class=&quot;language-text&quot;&gt;자격 증명&lt;/code&gt;을 연결하는 방법이다.&lt;br&gt;
+인증은 항상, 모든 경우에서 가장 먼저 실행된다. 이후 권한 및 제한 정책으로 해당 &lt;code class=&quot;language-text&quot;&gt;자격 증명의 요청&lt;/code&gt; 을 허용해야 하는지 여부를 결정하게 되며, 인증 자체가 들어오는 요청을 허용하거나 허용하지 않는 작업을 하지는 않는다.&lt;/p&gt;
+&lt;p&gt;drf 는 이런 인증 체계를 바로 사용할 수 있도록 제공한다.&lt;/p&gt;
+&lt;h2&gt;2. drf 에서 사용 가능한 토큰 인증&lt;/h2&gt;
+&lt;p&gt;여러 인증 방법중 토큰을 사용한 인증 방법에 대해 정리한다.&lt;/p&gt;
+&lt;h2&gt;2.1 drf TokenAuthentication&lt;/h2&gt;
+&lt;p&gt;drf 의 기본 토큰 인증이다. 다음과 같은 특징을 가진다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;하나의 토큰으로 모든 세션을 처리한다.&lt;/li&gt;
+&lt;li&gt;만료 기한이 없다.&lt;/li&gt;
+&lt;li&gt;클라이언트-서버 형태에 적합하다.&lt;/li&gt;
+&lt;li&gt;헤더에 토큰이 담겨 올 경우 해당 토큰을 DB에서 검색한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;2.2 JWT&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;토큰 자체에 사용자의 정보가 포함되어있다.&lt;/li&gt;
+&lt;li&gt;일정 기간이 지나면 만료된다.&lt;/li&gt;
+&lt;li&gt;RESTful 한 환경에서 사용자 데이터를 주고받을 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;3. 선택&lt;/h2&gt;
+&lt;p&gt;실 사용경험이 없어서 인지 이런 장단점이 와닿진 않았고, 오히려 요즘 많이 쓴다는 JWT 를 써야겠다는 생각이 들었다.&lt;br&gt;
+그러나 써드파티 패키지가 아닌 것을 먼저 사용해보는게 좋겠다는 생각으로 &lt;code class=&quot;language-text&quot;&gt;drf TokenAuthentication&lt;/code&gt; 를 사용하기로 정했다.&lt;/p&gt;
+&lt;h2&gt;References&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.django-rest-framework.org/api-guide/authentication/#authentication&quot;&gt;1. Authentication&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/31600497/django-drf-token-based-authentication-vs-json-web-token&quot;&gt;2. stackoverflow&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://medium.com/chanjongs-programming-diary/django-rest-framework-drf-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-jwt-%EA%B8%B0%EB%B0%98-authentication-%EC%84%B8%ED%8C%85%ED%95%98%EA%B8%B0-with-simplejwt-%EC%B4%88%EA%B8%B0-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85-1-e54c3ed2420c&quot;&gt;2. 블로그&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication&quot;&gt;2.1 drf TokenAuthentication 1&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;http://recordingbetter.com/drf/2017/08/02/Session-%EC%9D%B8%EC%A6%9D%EA%B3%BC-Token-%EC%9D%B8%EC%A6%9D&quot;&gt;2.1 drf TokenAuthentication 2&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://pronist.dev/143&quot;&gt;2.2 JWT&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://yceffort.kr/2021/05/drawback-of-jwt&quot;&gt;3. 선택 1&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://velog.io/@wildmental/Django-%EC%A0%91%EC%86%8D-%EC%9D%B8%EC%A6%9D-Built-in-Token-VS-JWTJSON-Web-Token-%EB%B9%84%EA%B5%90-%EB%81%9D&quot;&gt;3. 선택 2&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[drf 사용하여 API 만들기]]></title><description><![CDATA[0. 서론 장고 프로젝트를 생성하는것부터 간단한 API 를 만드는 과정을 정리한다.…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/django-start-with-drf/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/django-start-with-drf/</guid><pubDate>Fri, 22 Jul 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;장고 프로젝트를 생성하는것부터 간단한 API 를 만드는 과정을 정리한다.&lt;/p&gt;
 &lt;h2&gt;1. 장고 프로젝트 생성&lt;/h2&gt;
 &lt;p&gt;프로젝트의 &lt;code class=&quot;language-text&quot;&gt;root&lt;/code&gt; 로 사용될 디렉토리를 먼저 생성하고 그 안에서 프로젝트를 생성 하는 명령어를 실행한다.&lt;br&gt;
@@ -1321,46 +1321,7 @@ services:
 &lt;h3&gt;3.2 blob 객체의 엑셀 데이터를 다운로드 하기&lt;/h3&gt;
 &lt;p&gt;axios 가 받아온 &lt;code class=&quot;language-text&quot;&gt;blob&lt;/code&gt; 형태의 response 에는 http header, footer 등 필요하지 않는 데이터가 있기 때문에 바이너리 데이터만을 사용한다.&lt;/p&gt;
 &lt;p&gt;이 바이너리 데이터로 URL 을 만들고 브라우저의 클릭 이벤트를 발생시켜 해당 URL 을 클릭하게 되면 파일이 다운로드 된다.&lt;br&gt;
-이렇게 하지 않으면 보안상 이슈로 브라우저가 다운로드를 막는다고 한다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[env 파일 사용하기]]></title><description><![CDATA[0. 서론 기존에 API 엔드포인트의 주소를 각 컴포넌트(vue파일)에 명시했었는데, axios 를 모듈화 하기위해선 해당 URL 을 개별적으로 관리할 필요가 있다고 느꼈다. 1. .env 파일이란? vue…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/env-file/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/env-file/</guid><pubDate>Fri, 22 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
-&lt;p&gt;기존에 API 엔드포인트의 주소를 각 컴포넌트(vue파일)에 명시했었는데, axios 를 모듈화 하기위해선 해당 URL 을 개별적으로 관리할 필요가 있다고 느꼈다.&lt;/p&gt;
-&lt;h2&gt;1. .env 파일이란?&lt;/h2&gt;
-&lt;p&gt;vue 의 환경변수 파일은 여러개로 나뉠 수 있다.&lt;/p&gt;
-&lt;p&gt;개발환경(&lt;code class=&quot;language-text&quot;&gt;npm run serve&lt;/code&gt;)에서는 &lt;code class=&quot;language-text&quot;&gt;.env.development&lt;/code&gt; 파일을 자동으로 인식한다.&lt;br&gt;
-그렇기 때문에 개발환경에서 필요한 변수를 선언해주면 된다.&lt;br&gt;
-또한 &lt;code class=&quot;language-text&quot;&gt;.gitignore&lt;/code&gt; 파일에 등록하여 깃에 같이 업로드 되지 않도록 해야한다.&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;.env.production&lt;/code&gt; 파일은 배포버전에서 자동으로 인식한다.(어떻게 인식하는지 잘 모르겠음)&lt;br&gt;
-실제 운영시 필요한 변수를 선언 하면 될것같다.&lt;/p&gt;
-&lt;p&gt;그리고 그냥 &lt;code class=&quot;language-text&quot;&gt;.env&lt;/code&gt; 파일은 &lt;code class=&quot;language-text&quot;&gt;.env.development&lt;/code&gt; 과 &lt;code class=&quot;language-text&quot;&gt;.env.production&lt;/code&gt; 모두에서 인식하기 때문에 공통적으로 필요한 변수를 선언하면 된다.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://hjcode.tistory.com/96&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;2. .env 파일 생성하기&lt;/h2&gt;
-&lt;p&gt;위의 환경변수 파일들은 모두 루트 디렉토리에 생성해야 한다.&lt;br&gt;
-&lt;code class=&quot;language-text&quot;&gt;.gitignore&lt;/code&gt; 파일이나 &lt;code class=&quot;language-text&quot;&gt;package.json&lt;/code&gt; 파일이 있는 그 위치에.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://crispypotato.tistory.com/52&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;3. 변수 선언하기&lt;/h2&gt;
-&lt;p&gt;다음과 같이 &lt;code class=&quot;language-text&quot;&gt;VUE_APP_&lt;/code&gt; 라는 접두어가 붙은 변수들은 자동으로 로딩된다.&lt;br&gt;
-vue2 에선 따로 로딩해줬어야 한다고 한다.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;VUE_APP_NUM=10
-VUE_APP_STR=hi&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;나는 다음과 같이 개발서버 URL 을 설정했다.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;# .env.development
-
-VUE_APP_API_URL = http://localhost:8000/&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://kang-ji.tistory.com/241&quot;&gt;출처1&lt;/a&gt;
-&lt;a href=&quot;https://joshua1988.github.io/vue-camp/deploy/env-setup.html#env-%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;4. 환경변수 사용하기&lt;/h2&gt;
-&lt;p&gt;다음과 같은 방법으로 사용할 수 있다.&lt;br&gt;
-위에서도 다뤘듯 별도의 로딩 과정 없이 바로 사용할 수 있다.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# src&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;api&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;index&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
-
-&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; axios &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;axios&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;createInstance&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; axios&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;token literal-property property&quot;&gt;baseURL&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;VUE_APP_API_URL&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; instance &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;createInstance&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[axios 모듈화 하기]]></title><description><![CDATA[0. 서론 코드의 재사용성을 높이기 위해 현재 뷰 컴포넌트에서 각자 axios 객체를 생성하고 요청하던것을 모듈화 하기로 했다., 1. 모듈화의 장점 쉽고 효율적이다. 간단하면서도 강력한 장점이다. 사용할 API…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/axios-modularization/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/axios-modularization/</guid><pubDate>Fri, 22 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+이렇게 하지 않으면 보안상 이슈로 브라우저가 다운로드를 막는다고 한다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[axios 모듈화 하기]]></title><description><![CDATA[0. 서론 코드의 재사용성을 높이기 위해 현재 뷰 컴포넌트에서 각자 axios 객체를 생성하고 요청하던것을 모듈화 하기로 했다., 1. 모듈화의 장점 쉽고 효율적이다. 간단하면서도 강력한 장점이다. 사용할 API…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/axios-modularization/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/axios-modularization/</guid><pubDate>Fri, 22 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;코드의 재사용성을 높이기 위해 현재 뷰 컴포넌트에서 각자 axios 객체를 생성하고 요청하던것을 모듈화 하기로 했다.,&lt;/p&gt;
 &lt;h2&gt;1. 모듈화의 장점&lt;/h2&gt;
 &lt;p&gt;쉽고 효율적이다.&lt;/p&gt;
@@ -1441,7 +1402,46 @@ export default {
 &lt;a href=&quot;https://yamoo9.github.io/axios/guide/&quot;&gt;출처2&lt;/a&gt;
 &lt;a href=&quot;https://greedysiru.tistory.com/804&quot;&gt;출처3&lt;/a&gt;
 &lt;a href=&quot;https://dev-jsk.tistory.com/109&quot;&gt;출처4&lt;/a&gt;
-&lt;a href=&quot;https://veneas.tistory.com/entry/axiosjs-GET-POST-%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C-%EC%84%9C%EB%B2%84%EC%99%80-%ED%86%B5%EC%8B%A0%ED%95%98%EA%B8%B0&quot;&gt;출처5&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[django orm 에서 column name 변경하여 리턴하기]]></title><description><![CDATA[…]]></description><link>https://ohyunkyo.github.io/TIL/django/rename-column-name/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django/rename-column-name/</guid><pubDate>Thu, 21 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;a href=&quot;https://veneas.tistory.com/entry/axiosjs-GET-POST-%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C-%EC%84%9C%EB%B2%84%EC%99%80-%ED%86%B5%EC%8B%A0%ED%95%98%EA%B8%B0&quot;&gt;출처5&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[env 파일 사용하기]]></title><description><![CDATA[0. 서론 기존에 API 엔드포인트의 주소를 각 컴포넌트(vue파일)에 명시했었는데, axios 를 모듈화 하기위해선 해당 URL 을 개별적으로 관리할 필요가 있다고 느꼈다. 1. .env 파일이란? vue…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/env-file/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/env-file/</guid><pubDate>Fri, 22 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;기존에 API 엔드포인트의 주소를 각 컴포넌트(vue파일)에 명시했었는데, axios 를 모듈화 하기위해선 해당 URL 을 개별적으로 관리할 필요가 있다고 느꼈다.&lt;/p&gt;
+&lt;h2&gt;1. .env 파일이란?&lt;/h2&gt;
+&lt;p&gt;vue 의 환경변수 파일은 여러개로 나뉠 수 있다.&lt;/p&gt;
+&lt;p&gt;개발환경(&lt;code class=&quot;language-text&quot;&gt;npm run serve&lt;/code&gt;)에서는 &lt;code class=&quot;language-text&quot;&gt;.env.development&lt;/code&gt; 파일을 자동으로 인식한다.&lt;br&gt;
+그렇기 때문에 개발환경에서 필요한 변수를 선언해주면 된다.&lt;br&gt;
+또한 &lt;code class=&quot;language-text&quot;&gt;.gitignore&lt;/code&gt; 파일에 등록하여 깃에 같이 업로드 되지 않도록 해야한다.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;.env.production&lt;/code&gt; 파일은 배포버전에서 자동으로 인식한다.(어떻게 인식하는지 잘 모르겠음)&lt;br&gt;
+실제 운영시 필요한 변수를 선언 하면 될것같다.&lt;/p&gt;
+&lt;p&gt;그리고 그냥 &lt;code class=&quot;language-text&quot;&gt;.env&lt;/code&gt; 파일은 &lt;code class=&quot;language-text&quot;&gt;.env.development&lt;/code&gt; 과 &lt;code class=&quot;language-text&quot;&gt;.env.production&lt;/code&gt; 모두에서 인식하기 때문에 공통적으로 필요한 변수를 선언하면 된다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://hjcode.tistory.com/96&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;2. .env 파일 생성하기&lt;/h2&gt;
+&lt;p&gt;위의 환경변수 파일들은 모두 루트 디렉토리에 생성해야 한다.&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;.gitignore&lt;/code&gt; 파일이나 &lt;code class=&quot;language-text&quot;&gt;package.json&lt;/code&gt; 파일이 있는 그 위치에.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://crispypotato.tistory.com/52&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;3. 변수 선언하기&lt;/h2&gt;
+&lt;p&gt;다음과 같이 &lt;code class=&quot;language-text&quot;&gt;VUE_APP_&lt;/code&gt; 라는 접두어가 붙은 변수들은 자동으로 로딩된다.&lt;br&gt;
+vue2 에선 따로 로딩해줬어야 한다고 한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;VUE_APP_NUM=10
+VUE_APP_STR=hi&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;나는 다음과 같이 개발서버 URL 을 설정했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;# .env.development
+
+VUE_APP_API_URL = http://localhost:8000/&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://kang-ji.tistory.com/241&quot;&gt;출처1&lt;/a&gt;
+&lt;a href=&quot;https://joshua1988.github.io/vue-camp/deploy/env-setup.html#env-%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;4. 환경변수 사용하기&lt;/h2&gt;
+&lt;p&gt;다음과 같은 방법으로 사용할 수 있다.&lt;br&gt;
+위에서도 다뤘듯 별도의 로딩 과정 없이 바로 사용할 수 있다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;# src&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;api&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;index&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; axios &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;axios&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;createInstance&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; axios&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token literal-property property&quot;&gt;baseURL&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;VUE_APP_API_URL&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; instance &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;createInstance&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[django orm 에서 column name 변경하여 리턴하기]]></title><description><![CDATA[…]]></description><link>https://ohyunkyo.github.io/TIL/django/rename-column-name/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django/rename-column-name/</guid><pubDate>Thu, 21 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# model.py&lt;/span&gt;
 
 &lt;span class=&quot;token comment&quot;&gt;# 상품 정의&lt;/span&gt;
@@ -1702,22 +1702,7 @@ created_at &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; current_t
 &lt;a href=&quot;https://blog.doosikbae.com/146&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;5. 예외 발생시 처리하기&lt;/h2&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;try&lt;/code&gt; 블록이 &lt;code class=&quot;language-text&quot;&gt;transaction.atomic()&lt;/code&gt; 블록을 감싸도록 한 후 예외를 처리하면 된다.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://lee-seul.github.io/django/2019/02/02/django-transactionmanagementerror.html&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[엑셀 파일 HttpResponse 에 담아 전달하기]]></title><description><![CDATA[0. 서론 엑셀 파일 생성에 필요한 dataframe 을 완성했다. 그리고  메서드를 사용해 프로젝트 내부에 엑셀도 생성해 봤다. 이제 프로젝트 내부가 아닌 Http response 에 엑셀 파일을 담아 리턴해주기만 하면 된다.…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/create-xls-file-and-return-it/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/create-xls-file-and-return-it/</guid><pubDate>Wed, 13 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
-&lt;p&gt;엑셀 파일 생성에 필요한 dataframe 을 완성했다. 그리고 &lt;code class=&quot;language-text&quot;&gt;to_excel()&lt;/code&gt; 메서드를 사용해 프로젝트 내부에 엑셀도 생성해 봤다.&lt;br&gt;
-이제 프로젝트 내부가 아닌 Http response 에 엑셀 파일을 담아 리턴해주기만 하면 된다.&lt;/p&gt;
-&lt;h2&gt;1. 엑셀 파일이 포함된 response 생성하기&lt;/h2&gt;
-&lt;p&gt;어떤 원리인지는 잘 모르겠다. 일단 &lt;code class=&quot;language-text&quot;&gt;to_excel()&lt;/code&gt; 메서드의 &lt;code class=&quot;language-text&quot;&gt;excel_writer&lt;/code&gt; 인자는 엑셀이 생성될 위치를 포함한 여러 정보를 전달받게 되는것 같은데,
-여기에 HttpResponse 객체를 넣어주게 되면 해당 응답객체에 엑셀 파일이 삽입되는것 같다.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;response &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; HttpResponse&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;headers&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;token string&quot;&gt;&apos;Content-Type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;application/vnd.ms-excel&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;token string&quot;&gt;&apos;Content-Disposition&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;attachment; filename*=UTF-8\&apos;\&apos;purchase_order_&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; date_string &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;.xls&apos;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-
-df&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;to_excel&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;response&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; index&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; engine&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;xlwt&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; response&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/35267585/django-pandas-to-http-response-download-file&quot;&gt;출처1&lt;/a&gt;
-&lt;a href=&quot;https://gist.github.com/jonperron/733c3ead188f72f0a8a6f39e3d89295d&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[내가 사용해본 django-pandas]]></title><description><![CDATA[pandas 란? pandas 는 데이터 조작 및 분석을 위해 python 으로 작성된 소프트웨어 라이브러리이다. 또한 R, SQL, spreadsheet 등 에서 가능하던 작업을 pandas…]]></description><link>https://ohyunkyo.github.io/TIL/django/tht-django-pandas-i-know/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django/tht-django-pandas-i-know/</guid><pubDate>Wed, 13 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;pandas 란?&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://lee-seul.github.io/django/2019/02/02/django-transactionmanagementerror.html&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[내가 사용해본 django-pandas]]></title><description><![CDATA[pandas 란? pandas 는 데이터 조작 및 분석을 위해 python 으로 작성된 소프트웨어 라이브러리이다. 또한 R, SQL, spreadsheet 등 에서 가능하던 작업을 pandas…]]></description><link>https://ohyunkyo.github.io/TIL/django/tht-django-pandas-i-know/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django/tht-django-pandas-i-know/</guid><pubDate>Wed, 13 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;pandas 란?&lt;/h2&gt;
 &lt;p&gt;pandas 는 데이터 조작 및 분석을 위해 python 으로 작성된 소프트웨어 라이브러리이다.&lt;br&gt;
 또한 R, SQL, spreadsheet 등 에서 가능하던 작업을 pandas 에서 수행 가능하도록 하는 메서드를 가지고 있다.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://pandas.pydata.org/docs/getting_started/comparison/index.html&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
@@ -1816,7 +1801,22 @@ df&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;rename&lt;span c
 입고  True   &lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;a href=&quot;https://seong6496.tistory.com/133&quot;&gt;출처1&lt;/a&gt;
 &lt;a href=&quot;https://hogni.tistory.com/51&quot;&gt;출처2&lt;/a&gt;
-&lt;a href=&quot;https://github.com/chrisdev/django-pandas&quot;&gt;django-pandas github&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[json 데이터를 dataframe 으로 변환하기]]></title><description><![CDATA[0. 서론 모델의 데이터를 가공하여 엑셀 파일을 리턴하는 기능을 만들어 사용중이였다. 원하는대로 작동하긴 했지만 가독성도 떨어지고 복잡한 소스코드를 계속 사용할 생각은 없었다. 그래서 drf…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/json-to-dataframe/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/json-to-dataframe/</guid><pubDate>Tue, 12 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;a href=&quot;https://github.com/chrisdev/django-pandas&quot;&gt;django-pandas github&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[엑셀 파일 HttpResponse 에 담아 전달하기]]></title><description><![CDATA[0. 서론 엑셀 파일 생성에 필요한 dataframe 을 완성했다. 그리고  메서드를 사용해 프로젝트 내부에 엑셀도 생성해 봤다. 이제 프로젝트 내부가 아닌 Http response 에 엑셀 파일을 담아 리턴해주기만 하면 된다.…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/create-xls-file-and-return-it/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/create-xls-file-and-return-it/</guid><pubDate>Wed, 13 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;엑셀 파일 생성에 필요한 dataframe 을 완성했다. 그리고 &lt;code class=&quot;language-text&quot;&gt;to_excel()&lt;/code&gt; 메서드를 사용해 프로젝트 내부에 엑셀도 생성해 봤다.&lt;br&gt;
+이제 프로젝트 내부가 아닌 Http response 에 엑셀 파일을 담아 리턴해주기만 하면 된다.&lt;/p&gt;
+&lt;h2&gt;1. 엑셀 파일이 포함된 response 생성하기&lt;/h2&gt;
+&lt;p&gt;어떤 원리인지는 잘 모르겠다. 일단 &lt;code class=&quot;language-text&quot;&gt;to_excel()&lt;/code&gt; 메서드의 &lt;code class=&quot;language-text&quot;&gt;excel_writer&lt;/code&gt; 인자는 엑셀이 생성될 위치를 포함한 여러 정보를 전달받게 되는것 같은데,
+여기에 HttpResponse 객체를 넣어주게 되면 해당 응답객체에 엑셀 파일이 삽입되는것 같다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;response &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; HttpResponse&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;headers&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;Content-Type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;application/vnd.ms-excel&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;Content-Disposition&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;attachment; filename*=UTF-8\&apos;\&apos;purchase_order_&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; date_string &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;.xls&apos;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+df&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;to_excel&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;response&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; index&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; engine&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;xlwt&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; response&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/35267585/django-pandas-to-http-response-download-file&quot;&gt;출처1&lt;/a&gt;
+&lt;a href=&quot;https://gist.github.com/jonperron/733c3ead188f72f0a8a6f39e3d89295d&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[json 데이터를 dataframe 으로 변환하기]]></title><description><![CDATA[0. 서론 모델의 데이터를 가공하여 엑셀 파일을 리턴하는 기능을 만들어 사용중이였다. 원하는대로 작동하긴 했지만 가독성도 떨어지고 복잡한 소스코드를 계속 사용할 생각은 없었다. 그래서 drf…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/json-to-dataframe/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/json-to-dataframe/</guid><pubDate>Tue, 12 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;모델의 데이터를 가공하여 엑셀 파일을 리턴하는 기능을 만들어 사용중이였다.&lt;br&gt;
 원하는대로 작동하긴 했지만 가독성도 떨어지고 복잡한 소스코드를 계속 사용할 생각은 없었다.&lt;br&gt;
 그래서 drf 로 리팩토링 하는 과정에서 다른 방법을 사용하여 더 좋은 소스코드를 작성하고자 했다.&lt;/p&gt;
@@ -1945,7 +1945,66 @@ methods: {
 &lt;p&gt;많은 커스텀 작업이 필요한 경우.&lt;/p&gt;
 &lt;h3&gt;장점&lt;/h3&gt;
 &lt;p&gt;익숙하지 않은 사람들이 코드를 이해하기 쉽다.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.reddit.com/r/django/comments/sm07s2/drf_when_to_use_viewsets_vs_generic_views_vs/&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[foreign key 가 동일한 다른 모델의 데이터 가져오기]]></title><description><![CDATA[0. 서론 다음과 같은 구조에서  가 해당 Product 인스턴스와 같은 Business 모델을 Foreign Key 로 가지는 Package 를 가져오고 싶었다. 1. SerializerMethodField…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/get-another-models-data-which-has-same-foreign-key/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/get-another-models-data-which-has-same-foreign-key/</guid><pubDate>Thu, 31 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.reddit.com/r/django/comments/sm07s2/drf_when_to_use_viewsets_vs_generic_views_vs/&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[다대다 관계 모델 직렬화(serialize) 하기]]></title><description><![CDATA[0. 서론 기본적으로  를 가진 모델(Package)을 직렬화할 경우 연관된 모델(Product)의 pk 만을 가지고 오게 된다. 기본 serializer 가 반환하는 데이터 before-customize 나는 Package…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/serialize-many-to-many-relationships/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/serialize-many-to-many-relationships/</guid><pubDate>Thu, 31 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;기본적으로 &lt;code class=&quot;language-text&quot;&gt;manytomanyfield&lt;/code&gt; 를 가진 모델(Package)을 직렬화할 경우 연관된 모델(Product)의 pk 만을 가지고 오게 된다.&lt;/p&gt;
+&lt;p&gt;기본 serializer 가 반환하는 데이터&lt;br&gt;
+&lt;img src=&quot;/TIL/images/serialize-many-to-many-relationships/before-customize.png&quot; alt=&quot;before-customize&quot;&gt;&lt;/p&gt;
+&lt;p&gt;나는 Package 를 직렬화 할때 Product 의 pk 이외에 다른 컬럼을 가져와야 했다.&lt;br&gt;
+그리고 package_product 테이블에 생성한 custom field 인 quantity 도 가져와야 했기 때문에 &lt;code class=&quot;language-text&quot;&gt;serializer&lt;/code&gt; 를 커스터마이징 할 필요가 있었다.&lt;/p&gt;
+&lt;p&gt;내가 원하는 데이터
+&lt;img src=&quot;/TIL/images/serialize-many-to-many-relationships/after-customize.png&quot; alt=&quot;after-customize&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;1. 새로운 serializer 생성하기&lt;/h2&gt;
+&lt;p&gt;기존에 사용하던 serializer 는 &lt;code class=&quot;language-text&quot;&gt;create()&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;list()&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;update()&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;delete()&lt;/code&gt; 에서 계속 사용하고 &lt;code class=&quot;language-text&quot;&gt;package detail&lt;/code&gt; 을 위해 하나 더 만들기로 했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;# serializer.py
+
+class PackageDetailSerializer(serializers.ModelSerializer):
+    is_split = serializers.SerializerMethodField()
+    business_id = serializers.ReadOnlyField(source=&apos;business.id&apos;)
+    business_name = serializers.ReadOnlyField(source=&apos;business.name&apos;)
+    package_product_list = PackageProductSerializer(source=&apos;packageproduct_set&apos;, many=True)
+    package_supplement_list = PackageSupplementSerializer(source=&apos;packagesupplement_set&apos;, many=True)
+    
+    class Meta:
+        model = Package
+        fields = [&apos;id&apos;, &apos;name&apos;, &apos;description&apos;, &apos;serial_code&apos;, &apos;product_code&apos;, &apos;memo&apos;, &apos;is_split&apos;, &apos;business_id&apos;, &apos;business_name&apos;, &apos;package_product_list&apos;, &apos;package_supplement_list&apos;]
+    
+    def get_is_split(self, obj):
+        if obj.is_split:
+            return &apos;분할함&apos;
+        else:
+            return &apos;분할하지 않음&apos;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;serializer 의 field 를 생성할 때 다른 serializer 를 사용했다.&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;PackageProductSerializer&lt;/code&gt; 를 내가 원하는 데이터를 리턴하도록 만들었기 때문에 &lt;code class=&quot;language-text&quot;&gt;PackageDetailSerializer&lt;/code&gt; 에서도 동일하게 원하는 데이터를 확인할 수 있게 되었다.&lt;br&gt;
+&lt;a href=&quot;https://hyun-am-coding.tistory.com/entry/9-1-Serializers&quot;&gt;출처1&lt;/a&gt;
+&lt;a href=&quot;https://www.django-rest-framework.org/api-guide/serializers/#dealing-with-nested-objects&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;source&lt;/code&gt; 인수는 필드를 채우는데 사용할 속성의 이름이라고 한다. 이 인수를 사용하지 않으면 필드이름과 동일한 데이터를 찾게된다.&lt;br&gt;
+예를들어 business_name 필드를 만들때 &lt;code class=&quot;language-text&quot;&gt;source=&apos;business.name&apos;&lt;/code&gt; 이라고 지정해주지 않았다면 Package 모델에서 business_name 이라는 필드를 찾게 된다는 말이다.
+&lt;a href=&quot;https://www.django-rest-framework.org/api-guide/fields/#source&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;_set&lt;/code&gt; 은 Package 모델에서 자신을 foreign key 로 가지고 있는 모델인 PackageProduct 에 접근하기 위한 방법이다.
+&lt;a href=&quot;https://freeprog.tistory.com/55&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;many=True&lt;/code&gt; 플래그는 단순한 데이터가 아닌 리스트를 반환해야 할 경우 사용한다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/41976819/django-serialize-a-model-with-a-many-to-many-relationship-with-a-through-argume/41996831#41996831&quot;&gt;처음본 곳&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;2. ViewSet 에서 serializer 분리하기&lt;/h2&gt;
+&lt;p&gt;위에서 생성한 serializer 를 &lt;code class=&quot;language-text&quot;&gt;detail()&lt;/code&gt; 메서드에서만 사용해야 했기때문에 메서드 별로 다른 serializer 를 사용하는 방법을 찾아봤다.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;ModelViewSet&lt;/code&gt; 을 상속받는 ViewSet 의 경우 &lt;code class=&quot;language-text&quot;&gt;serializer_class&lt;/code&gt; 속성으로 직렬화에 사용할 클래스를 지정할 수 있다.&lt;br&gt;
+만약 하나의 ViewSet 에서 메서드마다 사용할 직렬화 클래스를 다르게 설정하고 싶다면 다음과 같이 하면 된다&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# views.py&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;PackageModelViewSet&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ModelViewSet&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    queryset &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Package&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    filter_backends &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;DjangoFilterBackend&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    filterset_class &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; PackageFilter
+    
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;get_serializer_class&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;action &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;retrieve&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; PackageDetailSerializer
+    
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; PackageSerializer&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;serializer_class&lt;/code&gt; 속성을 그대로 사용하고 싶었지만 &lt;code class=&quot;language-text&quot;&gt;get_serializer_class&lt;/code&gt; 메서드를 오버라이딩 하면 적용되지 않는듯 했다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/22616973/django-rest-framework-use-different-serializers-in-the-same-modelviewset&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;99. 끝나고 나서&lt;/h2&gt;
+&lt;p&gt;package_product_list 와 package_supplement_list 의 데이터중 &lt;code class=&quot;language-text&quot;&gt;package detail&lt;/code&gt; 컴포넌트에서 사용하지 않는 데이터가 많다.&lt;br&gt;
+성능 이슈가 발생할 가능성이 있기때문에 이중에서 필요한 데이터만 가져오는 방법을 찾아야할것같다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[foreign key 가 동일한 다른 모델의 데이터 가져오기]]></title><description><![CDATA[0. 서론 다음과 같은 구조에서  가 해당 Product 인스턴스와 같은 Business 모델을 Foreign Key 로 가지는 Package 를 가져오고 싶었다. 1. SerializerMethodField…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/get-another-models-data-which-has-same-foreign-key/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/get-another-models-data-which-has-same-foreign-key/</guid><pubDate>Thu, 31 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;다음과 같은 구조에서 &lt;code class=&quot;language-text&quot;&gt;ProductDetailSerializer&lt;/code&gt; 가 해당 Product 인스턴스와 같은 Business 모델을 Foreign Key 로 가지는 Package 를 가져오고 싶었다.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 품목 정의&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Business&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;models&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Model&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
@@ -2016,66 +2075,7 @@ methods: {
 &lt;p&gt;이렇게 하면 기존 방법과 같은 기능을 하지만 더욱 간결하고 가독성도 좋아진 소스라고 생각한다.&lt;/p&gt;
 &lt;h2&gt;99. 끝나고 나서&lt;/h2&gt;
 &lt;p&gt;내가 원했던것이 무엇인지 직관적으로 볼 수 있도록 각 마크다운 파일들을 수정해야 할것같다.&lt;br&gt;
-‘대충 이런 형태의 데이터를 원한다’ 라는 생각으로는 질문을 하기도 힘들고 성공적으로 구현했다고 하더라도 정리하는데 힘들고 오래걸리기 때문.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[다대다 관계 모델 직렬화(serialize) 하기]]></title><description><![CDATA[0. 서론 기본적으로  를 가진 모델(Package)을 직렬화할 경우 연관된 모델(Product)의 pk 만을 가지고 오게 된다. 기본 serializer 가 반환하는 데이터 before-customize 나는 Package…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/serialize-many-to-many-relationships/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/serialize-many-to-many-relationships/</guid><pubDate>Thu, 31 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
-&lt;p&gt;기본적으로 &lt;code class=&quot;language-text&quot;&gt;manytomanyfield&lt;/code&gt; 를 가진 모델(Package)을 직렬화할 경우 연관된 모델(Product)의 pk 만을 가지고 오게 된다.&lt;/p&gt;
-&lt;p&gt;기본 serializer 가 반환하는 데이터&lt;br&gt;
-&lt;img src=&quot;/TIL/images/serialize-many-to-many-relationships/before-customize.png&quot; alt=&quot;before-customize&quot;&gt;&lt;/p&gt;
-&lt;p&gt;나는 Package 를 직렬화 할때 Product 의 pk 이외에 다른 컬럼을 가져와야 했다.&lt;br&gt;
-그리고 package_product 테이블에 생성한 custom field 인 quantity 도 가져와야 했기 때문에 &lt;code class=&quot;language-text&quot;&gt;serializer&lt;/code&gt; 를 커스터마이징 할 필요가 있었다.&lt;/p&gt;
-&lt;p&gt;내가 원하는 데이터
-&lt;img src=&quot;/TIL/images/serialize-many-to-many-relationships/after-customize.png&quot; alt=&quot;after-customize&quot;&gt;&lt;/p&gt;
-&lt;h2&gt;1. 새로운 serializer 생성하기&lt;/h2&gt;
-&lt;p&gt;기존에 사용하던 serializer 는 &lt;code class=&quot;language-text&quot;&gt;create()&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;list()&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;update()&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;delete()&lt;/code&gt; 에서 계속 사용하고 &lt;code class=&quot;language-text&quot;&gt;package detail&lt;/code&gt; 을 위해 하나 더 만들기로 했다.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;# serializer.py
-
-class PackageDetailSerializer(serializers.ModelSerializer):
-    is_split = serializers.SerializerMethodField()
-    business_id = serializers.ReadOnlyField(source=&apos;business.id&apos;)
-    business_name = serializers.ReadOnlyField(source=&apos;business.name&apos;)
-    package_product_list = PackageProductSerializer(source=&apos;packageproduct_set&apos;, many=True)
-    package_supplement_list = PackageSupplementSerializer(source=&apos;packagesupplement_set&apos;, many=True)
-    
-    class Meta:
-        model = Package
-        fields = [&apos;id&apos;, &apos;name&apos;, &apos;description&apos;, &apos;serial_code&apos;, &apos;product_code&apos;, &apos;memo&apos;, &apos;is_split&apos;, &apos;business_id&apos;, &apos;business_name&apos;, &apos;package_product_list&apos;, &apos;package_supplement_list&apos;]
-    
-    def get_is_split(self, obj):
-        if obj.is_split:
-            return &apos;분할함&apos;
-        else:
-            return &apos;분할하지 않음&apos;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;serializer 의 field 를 생성할 때 다른 serializer 를 사용했다.&lt;br&gt;
-&lt;code class=&quot;language-text&quot;&gt;PackageProductSerializer&lt;/code&gt; 를 내가 원하는 데이터를 리턴하도록 만들었기 때문에 &lt;code class=&quot;language-text&quot;&gt;PackageDetailSerializer&lt;/code&gt; 에서도 동일하게 원하는 데이터를 확인할 수 있게 되었다.&lt;br&gt;
-&lt;a href=&quot;https://hyun-am-coding.tistory.com/entry/9-1-Serializers&quot;&gt;출처1&lt;/a&gt;
-&lt;a href=&quot;https://www.django-rest-framework.org/api-guide/serializers/#dealing-with-nested-objects&quot;&gt;출처2&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;source&lt;/code&gt; 인수는 필드를 채우는데 사용할 속성의 이름이라고 한다. 이 인수를 사용하지 않으면 필드이름과 동일한 데이터를 찾게된다.&lt;br&gt;
-예를들어 business_name 필드를 만들때 &lt;code class=&quot;language-text&quot;&gt;source=&apos;business.name&apos;&lt;/code&gt; 이라고 지정해주지 않았다면 Package 모델에서 business_name 이라는 필드를 찾게 된다는 말이다.
-&lt;a href=&quot;https://www.django-rest-framework.org/api-guide/fields/#source&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;_set&lt;/code&gt; 은 Package 모델에서 자신을 foreign key 로 가지고 있는 모델인 PackageProduct 에 접근하기 위한 방법이다.
-&lt;a href=&quot;https://freeprog.tistory.com/55&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;many=True&lt;/code&gt; 플래그는 단순한 데이터가 아닌 리스트를 반환해야 할 경우 사용한다.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/41976819/django-serialize-a-model-with-a-many-to-many-relationship-with-a-through-argume/41996831#41996831&quot;&gt;처음본 곳&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;2. ViewSet 에서 serializer 분리하기&lt;/h2&gt;
-&lt;p&gt;위에서 생성한 serializer 를 &lt;code class=&quot;language-text&quot;&gt;detail()&lt;/code&gt; 메서드에서만 사용해야 했기때문에 메서드 별로 다른 serializer 를 사용하는 방법을 찾아봤다.&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;ModelViewSet&lt;/code&gt; 을 상속받는 ViewSet 의 경우 &lt;code class=&quot;language-text&quot;&gt;serializer_class&lt;/code&gt; 속성으로 직렬화에 사용할 클래스를 지정할 수 있다.&lt;br&gt;
-만약 하나의 ViewSet 에서 메서드마다 사용할 직렬화 클래스를 다르게 설정하고 싶다면 다음과 같이 하면 된다&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# views.py&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;PackageModelViewSet&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ModelViewSet&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
-    queryset &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Package&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;objects&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-    filter_backends &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;DjangoFilterBackend&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
-    filterset_class &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; PackageFilter
-    
-    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;get_serializer_class&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;action &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;retrieve&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; PackageDetailSerializer
-    
-        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; PackageSerializer&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;serializer_class&lt;/code&gt; 속성을 그대로 사용하고 싶었지만 &lt;code class=&quot;language-text&quot;&gt;get_serializer_class&lt;/code&gt; 메서드를 오버라이딩 하면 적용되지 않는듯 했다.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/22616973/django-rest-framework-use-different-serializers-in-the-same-modelviewset&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;99. 끝나고 나서&lt;/h2&gt;
-&lt;p&gt;package_product_list 와 package_supplement_list 의 데이터중 &lt;code class=&quot;language-text&quot;&gt;package detail&lt;/code&gt; 컴포넌트에서 사용하지 않는 데이터가 많다.&lt;br&gt;
-성능 이슈가 발생할 가능성이 있기때문에 이중에서 필요한 데이터만 가져오는 방법을 찾아야할것같다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[모달에 데이터 전달하기]]></title><description><![CDATA[0. 서론 frontend 와 backend 를 분리하기 이전, django…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/pass-data-to-modal/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/pass-data-to-modal/</guid><pubDate>Thu, 31 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+‘대충 이런 형태의 데이터를 원한다’ 라는 생각으로는 질문을 하기도 힘들고 성공적으로 구현했다고 하더라도 정리하는데 힘들고 오래걸리기 때문.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[모달에 데이터 전달하기]]></title><description><![CDATA[0. 서론 frontend 와 backend 를 분리하기 이전, django…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/pass-data-to-modal/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/pass-data-to-modal/</guid><pubDate>Thu, 31 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;frontend 와 backend 를 분리하기 이전, django 템플릿으로 리스트 페이지를 만들고 각각의 객체에 수정과 삭제 버튼을 추가한 모델이 있었다.&lt;br&gt;
 수정 버튼은 수정페이지로 이동하고 삭제 버튼은 안내메시지를 포함한 모달을 띄운다.&lt;br&gt;
 이때 각 안내메시지가 해당 객체에 대한 내용을 포함하도록 하고 싶었기 때문에 객체마다 개별적인 모달을 가지고 있었고
@@ -2414,7 +2414,8 @@ this.$router.go(this.$router.currentRoute);&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;push()&lt;/code&gt; 와 &lt;code class=&quot;language-text&quot;&gt;go()&lt;/code&gt; 메소드에는 어떤 차이가 있길래 같은 라우트를 인자로 전달했음에도 다른 결과를 보여주는걸까?&lt;/p&gt;
 &lt;p&gt;처음 아래의 블로그를 봤을땐 &lt;code class=&quot;language-text&quot;&gt;this.$router.currentRoute&lt;/code&gt; 가 정수를 리턴할것이라고 생각했지만 실제로 콘솔창에 출력해본 결과, 현재 라우트에 대한 객체가 출력되었다.&lt;/p&gt;
 &lt;p&gt;내 생각과 좀 다른걸로 봐선 Vue Router 의 메소드가 작동하는 원리는 Vue Router 에 대해서 따로 공부하면서 알아봐야 할것같다.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://sunny921.github.io/posts/vuejs-router-03/&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[django-filter 라이브러리 사용법]]></title><description><![CDATA[0. 서론 API 엔드포인트에 쿼리스트링을 추가하여 필터링 된 데이터를 가져오고 싶어서 찾아보게 되었다. django-rest-framework 공식 사이트 를 참고했다…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/django-filter/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/django-filter/</guid><pubDate>Wed, 23 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://sunny921.github.io/posts/vuejs-router-03/&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[맥북 단축키]]></title><description><![CDATA[⌘ + H = 어플리케이션 가리기. 화면에서 안보이는 상태가 된다. ⌘ + ⌃ + V = 서식 없이 데이터만 복사하기.]]></description><link>https://ohyunkyo.github.io/TIL/mac-os/shortcuts/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/mac-os/shortcuts/</guid><pubDate>Wed, 23 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;⌘ + H = 어플리케이션 가리기. 화면에서 안보이는 상태가 된다.&lt;/p&gt;
+&lt;p&gt;⌘ + ⌃ + V = 서식 없이 데이터만 복사하기.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[django-filter 라이브러리 사용법]]></title><description><![CDATA[0. 서론 API 엔드포인트에 쿼리스트링을 추가하여 필터링 된 데이터를 가져오고 싶어서 찾아보게 되었다. django-rest-framework 공식 사이트 를 참고했다…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/django-filter/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/django-filter/</guid><pubDate>Wed, 23 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;API 엔드포인트에 쿼리스트링을 추가하여 필터링 된 데이터를 가져오고 싶어서 찾아보게 되었다.&lt;br&gt;
 &lt;a href=&quot;https://www.django-rest-framework.org/api-guide/filtering/#api-guide&quot;&gt;django-rest-framework 공식 사이트&lt;/a&gt; 를 참고했다&lt;/p&gt;
 &lt;h2&gt;1. 설치 후 설정하기&lt;/h2&gt;
@@ -2484,8 +2485,7 @@ django ORM 의 &lt;code class=&quot;language-text&quot;&gt;model.objects.filter=
 &lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/65158059/django-filters-icontains-type-of-lookup-expression-doesnt-work-properly&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;99. 끝나고 나서&lt;/h2&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;serializer&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;filter_backends&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;filterset_class&lt;/code&gt; 등 &lt;code class=&quot;language-text&quot;&gt;ModelViewSet&lt;/code&gt; 의 파라미터들이 어떻게 작동하는지 정확히 알지 못하고 사용중이다.&lt;br&gt;
-일단 front/back 분리가 완료되면 부족했던점에 대해 알아봐야 할것같다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[맥북 단축키]]></title><description><![CDATA[⌘ + H = 어플리케이션 가리기. 화면에서 안보이는 상태가 된다. ⌘ + ⌃ + V = 서식 없이 데이터만 복사하기.]]></description><link>https://ohyunkyo.github.io/TIL/mac-os/shortcuts/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/mac-os/shortcuts/</guid><pubDate>Wed, 23 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;⌘ + H = 어플리케이션 가리기. 화면에서 안보이는 상태가 된다.&lt;/p&gt;
-&lt;p&gt;⌘ + ⌃ + V = 서식 없이 데이터만 복사하기.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[레드햇 오픈시프트]]></title><description><![CDATA[0. 서론 레드햇 개발자포럼 웨비나에서 알게된 레드햇 오픈시프트에 대해 간단하게 정리해봤다. 웨비나에서는 오픈시프트의 각 기능을 사용하는 방법에 대해 강의했는데, 나는 CI/CD…]]></description><link>https://ohyunkyo.github.io/TIL/devops/redhat-openshift/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/devops/redhat-openshift/</guid><pubDate>Tue, 22 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+일단 front/back 분리가 완료되면 부족했던점에 대해 알아봐야 할것같다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[레드햇 오픈시프트]]></title><description><![CDATA[0. 서론 레드햇 개발자포럼 웨비나에서 알게된 레드햇 오픈시프트에 대해 간단하게 정리해봤다. 웨비나에서는 오픈시프트의 각 기능을 사용하는 방법에 대해 강의했는데, 나는 CI/CD…]]></description><link>https://ohyunkyo.github.io/TIL/devops/redhat-openshift/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/devops/redhat-openshift/</guid><pubDate>Tue, 22 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;레드햇 개발자포럼 웨비나에서 알게된 레드햇 오픈시프트에 대해 간단하게 정리해봤다.&lt;br&gt;
 웨비나에서는 오픈시프트의 각 기능을 사용하는 방법에 대해 강의했는데,&lt;br&gt;
 나는 CI/CD 에 대해 잘 알지 못해서 사용 방법 보다는 어떤 역할을 하는지에 대해서만 웨비나 내용을 기반으로 따로 알아보고 정리했다.&lt;/p&gt;
@@ -2625,27 +2625,7 @@ vue.js 는 &lt;a href=&quot;https://velog.io/@leehaeun0/React-vs-Vue-%EC%9E%A5%E
 &lt;p&gt;하나의 페이지만 봐도 수많은 HTML 태그가 있고 그만큼 DOM 요소들도 많다.&lt;br&gt;
 그런데 만약 사용자 요청에 따라 HTML 을 변경해야 할 일이 많다면 관리 해야 할 DOM 요소들이 많아지고,
 그만큼 개발자가 신경써야 할 사항도 점점 많아지게 된다.&lt;/p&gt;
-&lt;p&gt;이때 기존 방식보다 더 단순하고 편리하게 관리 가능한 V-DOM 을 사용 한다는것이다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[requirements 파일 생성하기]]></title><description><![CDATA[역할 현재 프로젝트에서 필요로 하는 파이썬 패키지들 목록과 버전을 정의한 파일. 새로운 환경에서 해당 파일을 사용하여 한번에 패키지들을 설치할 수 있다. 파일 생성 방법  파일 사용 방법  유의사항 보통 프로젝트 디렉토리 내부에 생성하는듯 하다.]]></description><link>https://ohyunkyo.github.io/TIL/django/generate-requirement-file/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django/generate-requirement-file/</guid><pubDate>Thu, 17 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;역할&lt;/h2&gt;
-&lt;p&gt;현재 프로젝트에서 필요로 하는 파이썬 패키지들 목록과 버전을 정의한 파일.&lt;br&gt;
-새로운 환경에서 해당 파일을 사용하여 한번에 패키지들을 설치할 수 있다.&lt;/p&gt;
-&lt;h2&gt;파일 생성 방법&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;$ pip freeze &gt; requirements.txt&lt;/code&gt;&lt;/p&gt;
-&lt;h2&gt;파일 사용 방법&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;$ pip install -r requirements.txt&lt;/code&gt;&lt;/p&gt;
-&lt;h2&gt;유의사항&lt;/h2&gt;
-&lt;p&gt;보통 프로젝트 디렉토리 내부에 생성하는듯 하다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[vue.js 설치해보기]]></title><description><![CDATA[0. 서론 앞으로 개발할 예정인 재고관리 API 서버와 연동하기 위해 프론트엔드 프레임워크를 사용하여 간단히 화면을 구성해보기로 했다. 1. 설치 일단 vue.js 를 먼저 설치 한 뒤 프로젝트를 생성해줬다.…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/install-vue/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/install-vue/</guid><pubDate>Thu, 17 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
-&lt;p&gt;앞으로 개발할 예정인 재고관리 API 서버와 연동하기 위해 프론트엔드 프레임워크를 사용하여 간단히 화면을 구성해보기로 했다.&lt;/p&gt;
-&lt;h2&gt;1. 설치&lt;/h2&gt;
-&lt;p&gt;일단 vue.js 를 먼저 설치 한 뒤 프로젝트를 생성해줬다.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -g @vue/cli
-vue create project_name&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;2. 실행&lt;/h2&gt;
-&lt;p&gt;서버를 실행시킨다. 실행 전 의존성 모듈들을 설치한다.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt;
-&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; run serve&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;blockquote&gt;
-&lt;p&gt;내부망 IP 로도 접근 가능하도록 설정된다. django 에서 &lt;code class=&quot;language-text&quot;&gt;runserver&lt;/code&gt; 를 실행했을땐 안되던것이다.&lt;/p&gt;
-&lt;/blockquote&gt;</content:encoded></item><item><title><![CDATA[npm 과 yarn. 정의하고 선택해보기.]]></title><description><![CDATA[npm 이란? npm(node package manager)은 node.js 의 기본 패키지 관리 툴이다. node.js 로 만들어진 모듈을 다운로드 하고 설치해준다. npm…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/npm-and-yarn/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/npm-and-yarn/</guid><pubDate>Thu, 17 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;npm 이란?&lt;/h2&gt;
+&lt;p&gt;이때 기존 방식보다 더 단순하고 편리하게 관리 가능한 V-DOM 을 사용 한다는것이다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[npm 과 yarn. 정의하고 선택해보기.]]></title><description><![CDATA[npm 이란? npm(node package manager)은 node.js 의 기본 패키지 관리 툴이다. node.js 로 만들어진 모듈을 다운로드 하고 설치해준다. npm…]]></description><link>https://ohyunkyo.github.io/TIL/front-end/npm-and-yarn/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/front-end/npm-and-yarn/</guid><pubDate>Thu, 17 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;npm 이란?&lt;/h2&gt;
 &lt;p&gt;npm(node package manager)은 node.js 의 기본 패키지 관리 툴이다.&lt;br&gt;
 node.js 로 만들어진 모듈을 다운로드 하고 설치해준다.&lt;br&gt;
 npm 을 사용하지 않으면 필요한 모듈을 개별적으로 다운로드 하고 프로젝트 파일로 옮겨야 한다.&lt;/p&gt;
@@ -2667,7 +2647,27 @@ npm 을 사용하지 않으면 필요한 모듈을 개별적으로 다운로드 
 &lt;/blockquote&gt;
 &lt;h2&gt;어떤것을 선택해야 할까&lt;/h2&gt;
 &lt;p&gt;일단 npm 을 사용해보고 yarn 의 필요성을 느끼게 되었을때 넘어가는게 자연스러운 흐름이라는 생각이 든다.&lt;br&gt;
-써보지도 않은것의 단점을 느낄순 없으니 앞으로 프로젝트 진행하면서 알아가봐야겠다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[장고에서 drf 로 마이그레이션 시도]]></title><description><![CDATA[0. 서론 재고관리 프로젝트 코드 리팩토링 과정중 가장 먼저 drf 로 마이그레이션 하는것을 선택했다. 효율성을 위해 프론트와 백엔드를 구분하고 코드 재사용을 위한 선택이였다. 1. 시작하기 전 API 에서는 Json…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/django-to-drf/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/django-to-drf/</guid><pubDate>Wed, 16 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+써보지도 않은것의 단점을 느낄순 없으니 앞으로 프로젝트 진행하면서 알아가봐야겠다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[requirements 파일 생성하기]]></title><description><![CDATA[역할 현재 프로젝트에서 필요로 하는 파이썬 패키지들 목록과 버전을 정의한 파일. 새로운 환경에서 해당 파일을 사용하여 한번에 패키지들을 설치할 수 있다. 파일 생성 방법  파일 사용 방법  유의사항 보통 프로젝트 디렉토리 내부에 생성하는듯 하다.]]></description><link>https://ohyunkyo.github.io/TIL/django/generate-requirement-file/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django/generate-requirement-file/</guid><pubDate>Thu, 17 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;역할&lt;/h2&gt;
+&lt;p&gt;현재 프로젝트에서 필요로 하는 파이썬 패키지들 목록과 버전을 정의한 파일.&lt;br&gt;
+새로운 환경에서 해당 파일을 사용하여 한번에 패키지들을 설치할 수 있다.&lt;/p&gt;
+&lt;h2&gt;파일 생성 방법&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;$ pip freeze &gt; requirements.txt&lt;/code&gt;&lt;/p&gt;
+&lt;h2&gt;파일 사용 방법&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;$ pip install -r requirements.txt&lt;/code&gt;&lt;/p&gt;
+&lt;h2&gt;유의사항&lt;/h2&gt;
+&lt;p&gt;보통 프로젝트 디렉토리 내부에 생성하는듯 하다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[vue.js 설치해보기]]></title><description><![CDATA[0. 서론 앞으로 개발할 예정인 재고관리 API 서버와 연동하기 위해 프론트엔드 프레임워크를 사용하여 간단히 화면을 구성해보기로 했다. 1. 설치 일단 vue.js 를 먼저 설치 한 뒤 프로젝트를 생성해줬다.…]]></description><link>https://ohyunkyo.github.io/TIL/vue-js/install-vue/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/vue-js/install-vue/</guid><pubDate>Thu, 17 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
+&lt;p&gt;앞으로 개발할 예정인 재고관리 API 서버와 연동하기 위해 프론트엔드 프레임워크를 사용하여 간단히 화면을 구성해보기로 했다.&lt;/p&gt;
+&lt;h2&gt;1. 설치&lt;/h2&gt;
+&lt;p&gt;일단 vue.js 를 먼저 설치 한 뒤 프로젝트를 생성해줬다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -g @vue/cli
+vue create project_name&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;2. 실행&lt;/h2&gt;
+&lt;p&gt;서버를 실행시킨다. 실행 전 의존성 모듈들을 설치한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; run serve&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;내부망 IP 로도 접근 가능하도록 설정된다. django 에서 &lt;code class=&quot;language-text&quot;&gt;runserver&lt;/code&gt; 를 실행했을땐 안되던것이다.&lt;/p&gt;
+&lt;/blockquote&gt;</content:encoded></item><item><title><![CDATA[장고에서 drf 로 마이그레이션 시도]]></title><description><![CDATA[0. 서론 재고관리 프로젝트 코드 리팩토링 과정중 가장 먼저 drf 로 마이그레이션 하는것을 선택했다. 효율성을 위해 프론트와 백엔드를 구분하고 코드 재사용을 위한 선택이였다. 1. 시작하기 전 API 에서는 Json…]]></description><link>https://ohyunkyo.github.io/TIL/django-rest-framework/django-to-drf/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/django-rest-framework/django-to-drf/</guid><pubDate>Wed, 16 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;0. 서론&lt;/h2&gt;
 &lt;p&gt;재고관리 프로젝트 코드 리팩토링 과정중 가장 먼저 drf 로 마이그레이션 하는것을 선택했다.&lt;br&gt;
 효율성을 위해 프론트와 백엔드를 구분하고 코드 재사용을 위한 선택이였다.&lt;/p&gt;
 &lt;h2&gt;1. 시작하기 전&lt;/h2&gt;
@@ -2750,4 +2750,4 @@ npm 을 사용하지 않으면 필요한 모듈을 개별적으로 다운로드 
 &lt;a href=&quot;https://docs.python.org/3/tutorial/classes.html&quot;&gt;클래스&lt;/a&gt;
 &lt;a href=&quot;https://www.i-programmer.info/programming/python/11683-programmers-python-variables-objects-and-attributes.html&quot;&gt;변수/객체/속성&lt;/a&gt;
 &lt;a href=&quot;https://youtu.be/BJ-VvGyQxho&quot;&gt;클래스변수/인스턴스변수&lt;/a&gt;
-&lt;a href=&quot;https://youtu.be/rq8cL2XMM5M&quot;&gt;클래스메서드/스태틱메서드&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[secret 파일 포함하여 컨테이너 생성하기]]></title><description><![CDATA[https://yongho1037.tistory.com/808]]></description><link>https://ohyunkyo.github.io/TIL/tmp/create-container-with-secret/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/create-container-with-secret/</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://yongho1037.tistory.com/808&quot;&gt;https://yongho1037.tistory.com/808&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[data 속성과 methods]]></title><description><![CDATA[https://v3.ko.vuejs.org/guide/data-methods.html]]></description><link>https://ohyunkyo.github.io/TIL/tmp/base-of-data-and-methods/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/base-of-data-and-methods/</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://v3.ko.vuejs.org/guide/data-methods.html&quot;&gt;https://v3.ko.vuejs.org/guide/data-methods.html&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[annotation 과 aggregation]]></title><description><![CDATA[http://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/]]></description><link>https://ohyunkyo.github.io/TIL/tmp/django-annotation-aggregation/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/django-annotation-aggregation/</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;http://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/&quot;&gt;http://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[뷰 리팩토링]]></title><description><![CDATA[https://jess2.xyz/vue/vue-tip/]]></description><link>https://ohyunkyo.github.io/TIL/tmp/vue-refactoring/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/vue-refactoring/</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://jess2.xyz/vue/vue-tip/&quot;&gt;https://jess2.xyz/vue/vue-tip/&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[이미지 상대경로 사용하기]]></title><description><![CDATA[https://www.gatsbyjs.com/docs/working-with-images-in-markdown/]]></description><link>https://ohyunkyo.github.io/TIL/tmp/relative-path-markdown-image/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/relative-path-markdown-image/</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://www.gatsbyjs.com/docs/working-with-images-in-markdown/&quot;&gt;https://www.gatsbyjs.com/docs/working-with-images-in-markdown/&lt;/a&gt;&lt;/p&gt;</content:encoded></item></channel></rss>
+&lt;a href=&quot;https://youtu.be/rq8cL2XMM5M&quot;&gt;클래스메서드/스태틱메서드&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[secret 파일 포함하여 컨테이너 생성하기]]></title><description><![CDATA[https://yongho1037.tistory.com/808]]></description><link>https://ohyunkyo.github.io/TIL/tmp/create-container-with-secret/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/create-container-with-secret/</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://yongho1037.tistory.com/808&quot;&gt;https://yongho1037.tistory.com/808&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[data 속성과 methods]]></title><description><![CDATA[https://v3.ko.vuejs.org/guide/data-methods.html]]></description><link>https://ohyunkyo.github.io/TIL/tmp/base-of-data-and-methods/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/base-of-data-and-methods/</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://v3.ko.vuejs.org/guide/data-methods.html&quot;&gt;https://v3.ko.vuejs.org/guide/data-methods.html&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[뷰 리팩토링]]></title><description><![CDATA[https://jess2.xyz/vue/vue-tip/]]></description><link>https://ohyunkyo.github.io/TIL/tmp/vue-refactoring/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/vue-refactoring/</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://jess2.xyz/vue/vue-tip/&quot;&gt;https://jess2.xyz/vue/vue-tip/&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[annotation 과 aggregation]]></title><description><![CDATA[http://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/]]></description><link>https://ohyunkyo.github.io/TIL/tmp/django-annotation-aggregation/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/django-annotation-aggregation/</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;http://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/&quot;&gt;http://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[이미지 상대경로 사용하기]]></title><description><![CDATA[https://www.gatsbyjs.com/docs/working-with-images-in-markdown/]]></description><link>https://ohyunkyo.github.io/TIL/tmp/relative-path-markdown-image/</link><guid isPermaLink="false">https://ohyunkyo.github.io/TIL/tmp/relative-path-markdown-image/</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://www.gatsbyjs.com/docs/working-with-images-in-markdown/&quot;&gt;https://www.gatsbyjs.com/docs/working-with-images-in-markdown/&lt;/a&gt;&lt;/p&gt;</content:encoded></item></channel></rss>
