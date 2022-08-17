@@ -9,7 +9,7 @@ module.exports = {
     description: ``,
     siteUrl: `https://ohyunkyo.github.io/TIL/`,
     social: {
-      twitter: ``,
+      github: `ohyunkyo`,
     },
   },
   plugins: [
@@ -129,5 +129,11 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
+    {
+      resolve: "gatsby-plugin-categories",
+      options: {
+        templatePath: `${__dirname}/src/templates/category.js`,
+      },
+    },
   ],
 }

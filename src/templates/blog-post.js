@@ -1,6 +1,8 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
 
+import CurrentCategory from "../components/CurrentCategory"
+import NavBar from "../components/NavBar"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -16,11 +18,13 @@ const BlogPostTemplate = ({ data, location }) => {
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
       />
+      <NavBar />
       <article
         className="blog-post"
         itemScope
         itemType="http://schema.org/Article"
       >
+        <CurrentCategory post={post}/>
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date}</p>
@@ -85,6 +89,10 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+      }
+      fields {
+        category
+        slug
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {
